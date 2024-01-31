@@ -10,6 +10,9 @@ call printString
 text:
   db 13, 10, "HighlightOS", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
 
+mov al, 0
+call nl
+
 shell:
   ;  > success  ! error  ? warning
 
@@ -20,16 +23,13 @@ shell:
     mov ah, 0
     int 0x16
 
-    cmp al, 0
-    je input
-
-  mov ah, 0x0e
-  int 0x10
-
+    cmp al, 0x0D
+    jne ps
+  
   jmp shell
 
 
-; jmp $
+jmp $
 
 
 cls:
@@ -51,6 +51,7 @@ printString:
   popa
   ret
 end:
+  inc al
   popa
   ret
 
@@ -75,6 +76,12 @@ nl:
   int 0x10
 
   ret
+
+ps:
+    mov ah, 0x0e
+    int 0x10
+    jmp input
+    ret
 
 times 510-($-$$) db 0
 dw 0xaa55
