@@ -1,3 +1,5 @@
+; Copyright (C) 2024  Adam Perkowski
+
 call cls
 
 [org 0x7c00]
