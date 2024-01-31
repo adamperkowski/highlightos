@@ -16,7 +16,7 @@ printString:
 end:
 
 text:
-    db "HighlightOS", 0
+    db "HighlightOS", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
 
 jmp $
 
