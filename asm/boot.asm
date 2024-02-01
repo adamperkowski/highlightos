@@ -22,6 +22,8 @@ shell:
   mov si, nl
   call print
 
+  mov cl, 0
+
   input:
     mov ah, 0
     int 0x16
