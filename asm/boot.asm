@@ -22,6 +22,7 @@ shell:
   mov si, nl
   call print
 
+  mov bx, 2
   mov cl, 0
 
   input:
@@ -34,13 +35,24 @@ shell:
     cmp al, 0x0D
     jne ps
 
-  jmp shell
+  mov [buffer], byte 0x0a
+  mov [buffer + 1], byte 0x0d
 
+  mov ah, 0x0e
+  mov bx, buffer
+
+  jmp loopPrint
+
+  jmp shell ; jmp create new string with cl and bx
 
 ps:
   mov ah, 0x0e
   int 0x10
   inc cl
+
+  mov [buffer + bx], al
+  inc bx
+
   jmp input
   ret
 ps1:
@@ -75,6 +87,19 @@ print:
 end:
   ret
 
+loopPrint:
+  mov al, [bx]
+  cmp al, 0
+  je endPrint
+
+  int 10h
+  inc bx
+
+  jmp loopPrint
+endPrint:
+  jmp shell
+  ret
+
 cls:
   pusha
   mov ah, 0x00
@@ -82,6 +107,8 @@ cls:
   int 0x10
   popa
   ret
+
+buffer times 258 db 0
 
 times 510-($-$$) db 0
 dw 0xaa55
