@@ -43,7 +43,7 @@ shell:
 
   jmp loopPrint
 
-  jmp shell ; jmp create new string with cl and bx
+  jmp shell
 
 ps:
   mov ah, 0x0e
@@ -96,11 +96,7 @@ loopPrint:
   cmp al, 0
   je endPrint
 
-  int 10h
-
-  mov al, ' '
-  mov [buffer + bx], al
-
+  int 0x10
   inc bx
 
   jmp loopPrint
