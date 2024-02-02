@@ -64,6 +64,10 @@ ps1:
   mov al, 0x08
   int 0x10
   dec cl
+
+  mov [buffer + bx], al
+  inc bx
+
   jmp input
   ret
 
@@ -93,6 +97,10 @@ loopPrint:
   je endPrint
 
   int 10h
+
+  mov al, ' '
+  mov [buffer + bx], al
+
   inc bx
 
   jmp loopPrint
