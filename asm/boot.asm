@@ -94,12 +94,24 @@ end:
 loopPrint:
   mov al, [bx]
   cmp al, 0
-  je endPrint
+  je clearbuffer
 
   int 0x10
   inc bx
 
   jmp loopPrint
+clearbuffer:
+  mov al, 0
+  mov [buffer + bx], al
+  mov bx, 0
+  nullchar:
+    inc bx
+    cmp bx, 258
+    je endPrint
+    mov al, 0
+    mov [buffer + bx], al
+
+    jmp nullchar
 endPrint:
   jmp shell
   ret
