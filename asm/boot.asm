@@ -59,15 +59,14 @@ ps1:
   mov ah, 0x0e
   mov al, 0x08
   int 0x10
-  mov al, ' '
-  int 0x10
+  mov al, 0x00
   mov [buffer + bx], al
+  int 0x10
   mov al, 0x08
   int 0x10
-  dec cl
 
-  mov [buffer + bx], al
   dec bx
+  dec cl
 
   jmp input
   ret
