@@ -61,12 +61,13 @@ ps1:
   int 0x10
   mov al, ' '
   int 0x10
+  mov [buffer + bx], al
   mov al, 0x08
   int 0x10
   dec cl
 
   mov [buffer + bx], al
-  inc bx
+  dec bx
 
   jmp input
   ret
