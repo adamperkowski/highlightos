@@ -6,7 +6,7 @@ use std::io::Write;
 fn main() {
     clrs();
 
-    let cmds = vec!["clrs\n", "help\n", "test\n"];
+    let cmds = vec!["clrs\n", "help\n", "test\n", "cc\n"];
 
     println!("HighlightOS Shell\n");
 
@@ -24,6 +24,7 @@ fn main() {
             if inpt == cmds[0] { rtr = 99; }
             else if inpt == cmds[1] { rtr = help(); }
             else if inpt == cmds[2] { rtr = test(); }
+            else if inpt == cmds[3] { rtr = cc(); }
         }
         else { rtr = 1; }
         
@@ -52,7 +53,13 @@ fn clrs() {
 }
 
 fn help() -> i32 {
-    println!("HighlightOS Shell");
+    println!("HighlightOS Shell
+
+  List of commands:
+    . clrs  >>  clear screen
+    . help  >>  show list of commands
+    . test  >>  test :)
+    . cc    >>  show copyright info");
     
     return 0;
 }
@@ -60,4 +67,24 @@ fn help() -> i32 {
 fn test() -> i32 {
     println!("hello. this is a test command. its life goal is to always return 2.");
     return 2;
+}
+
+fn cc() -> i32 {
+    println!("Copyright (C) 2024  Adam Perkowski
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.");
+
+    return 0;
 }
