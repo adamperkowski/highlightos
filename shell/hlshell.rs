@@ -17,7 +17,7 @@ fn main() {
         print!("hls < ");
 
         io::stdout().flush().unwrap();
-        let inpo = io::stdin().read_line(&mut inpt).unwrap();
+        io::stdin().read_line(&mut inpt).unwrap();
         
         if inpt.len() == 1 { rtr = 100; }
         else if cmds.iter().any(|&s| s == inpt) { 
