@@ -2,11 +2,12 @@
 
 use std::io;
 use std::io::Write;
+use std::process;
 
 fn main() {
     clrs();
 
-    let cmds = vec!["clrs\n", "help\n", "test\n", "cc\n"];
+    let cmds = vec!["clrs\n", "help\n", "test\n", "cc\n", "clear\n", "exit\n"];
 
     println!("HighlightOS Shell\n");
 
@@ -24,7 +25,9 @@ fn main() {
             if inpt == cmds[0] { rtr = 99; }
             else if inpt == cmds[1] { rtr = help(); }
             else if inpt == cmds[2] { rtr = test(); }
-            else if inpt == cmds[3] { rtr = cc(); }
+            else if inpt == cmds[3] { rtr = cc(); } 
+            else if inpt == cmds[4] { rtr = 99; }
+            else if inpt == cmds[5] { rtr = exit_hls(); }
         }
         else { rtr = 1; }
         
@@ -39,6 +42,10 @@ fn main() {
         else if rtr == 2 {
             inpt.pop();
             println!("\n > {}\nreturned general error\n", inpt);
+        }
+        else if rtr == 3 {
+            inpt.pop();
+            println!("\n > {}\naborted\n", inpt);
         }
         else if rtr == 99 { clrs(); }
         else {
@@ -87,4 +94,16 @@ fn cc() -> i32 {
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.");
 
     return 0;
+}
+
+fn exit_hls() -> i32 {
+    print!("u sure? [ y/N ] < ");
+
+    let mut inpt2 = String::new();
+
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut inpt2).unwrap();
+    
+    if inpt2.to_lowercase() == "y\n" { println!(); process::exit(1); } // return 0
+    else { return 3 }
 }
