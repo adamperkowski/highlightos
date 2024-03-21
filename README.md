@@ -6,4 +6,4 @@ x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 
 [Official Wikipedia page](https://en.wikipedia.org/wiki/HighlightOS)
 
-Copyright (C) 2024  Adam Perkowski
+Copyleft 🄯 2024  Adam Perkowski

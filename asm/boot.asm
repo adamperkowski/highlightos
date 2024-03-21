@@ -1,4 +1,4 @@
-; Copyright (C) 2024  Adam Perkowski
+; Copyleft 🄯 2024  Adam Perkowski
 
 call cls
 
