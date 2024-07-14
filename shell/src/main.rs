@@ -66,7 +66,8 @@ fn help() -> i32 {
     . clrs  >>  clear screen
     . help  >>  show list of commands
     . test  >>  test :)
-    . cc    >>  show copyright info");
+    . cc    >>  show copyright info
+    . exit  >>  exits the shell :((");
     
     return 0;
 }
