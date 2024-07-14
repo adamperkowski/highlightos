@@ -2,7 +2,7 @@
 
 x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 
-![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Version)
+![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version)
 
 ![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size)
 
