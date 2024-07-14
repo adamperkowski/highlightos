@@ -1,18 +1,21 @@
 // Copyleft 🄯 2024  Adam Perkowski
 
-struct Command {
-    name: &'static str,
-    doc: &'static str,
-    fun: fn(&mut sh_i) -> i32,
+use std::io;
+use std::io::Write;
+use std::process;
+
+pub struct Command {
+    pub name: &'static str,
+    pub doc: &'static str,
+    pub fun: fn() -> i32,
 }
 
-fn clrs() {
+fn clrs() -> i32 {
     print!("\x1B[2J\x1B[1;1H");
-
     return 0;
 }
 
-fn help() {
+fn help() -> i32 {
     println!(
         "HighlightOS Shell
 
@@ -26,12 +29,12 @@ fn help() {
     return 0;
 }
 
-fn test() {
+fn test() -> i32 {
     println!("hello. this is a test command. it's life goal is to always return 2.");
     return 2;
 }
 
-fn cc() {
+fn cc() -> i32 {
     println!(
         "Copyright (C) 2024  Adam Perkowski
 
@@ -52,7 +55,7 @@ fn cc() {
     return 0;
 }
 
-fn exit_hls() {
+fn exit_hls() -> i32 {
     print!("are you sure you want to exit? [ y/N ] < ");
 
     let mut inpt = String::new();
@@ -70,7 +73,7 @@ fn exit_hls() {
     }
 }
 
-const COMMAND_LIST: &[Command] = &[
+pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "clrs",
         doc: "clear screen",
@@ -83,7 +86,7 @@ const COMMAND_LIST: &[Command] = &[
     },
     Command {
         name: "test",
-        doc:  "test :)",
+        doc: "test :)",
         fun: test,
     },
     Command {
