@@ -2,12 +2,12 @@ name: Rust
 
 on:
   push:
-    paths:
-      - shell/**
+#    paths:
+#      - shell/**
     branches: [ "main" ]
   pull_request:
-    paths:
-      - shell/**
+#    paths:
+#      - shell/**
     branches: [ "main" ]
   merge_group:
 
