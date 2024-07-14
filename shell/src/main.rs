@@ -40,24 +40,6 @@ fn main() {
         } else {
             println!("\n > {}\ncommand not found\n", inpt);
         }
-
-        /*if rtr == 0 {
-            println!("\n > {}\nexecuted successfully\n", inpt);
-        } else if rtr == 1 {
-            inpt.pop();
-            println!("\n > {}\ncommand not found\n", inpt);
-        } else if rtr == 2 {
-            inpt.pop();
-            println!("\n > {}\nreturned general error\n", inpt);
-        } else if rtr == 3 {
-            inpt.pop();
-            println!("\n > {}\naborted\n", inpt);
-        } else if rtr == 99 {
-            (COMMAND_LIST[0].fun);
-        } else {
-            inpt.pop();
-            println!("\n > {}\nreturned : {}\n", inpt, rtr);
-        }*/
     }
 }
 
