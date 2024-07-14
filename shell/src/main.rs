@@ -19,36 +19,42 @@ fn main() {
 
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut inpt).unwrap();
-        
-        if inpt.len() == 1 { rtr = 100; }
-        else if cmds.iter().any(|&s| s == inpt) { 
-            if inpt == cmds[0] { rtr = 99; }
-            else if inpt == cmds[1] { rtr = help(); }
-            else if inpt == cmds[2] { rtr = test(); }
-            else if inpt == cmds[3] { rtr = cc(); } 
-            else if inpt == cmds[4] { rtr = 99; }
-            else if inpt == cmds[5] { rtr = exit_hls(); }
+
+        if inpt.len() == 1 {
+            rtr = 100;
+        } else if cmds.iter().any(|&s| s == inpt) {
+            if inpt == cmds[0] {
+                rtr = 99;
+            } else if inpt == cmds[1] {
+                rtr = help();
+            } else if inpt == cmds[2] {
+                rtr = test();
+            } else if inpt == cmds[3] {
+                rtr = cc();
+            } else if inpt == cmds[4] {
+                rtr = 99;
+            } else if inpt == cmds[5] {
+                rtr = exit_hls();
+            }
+        } else {
+            rtr = 1;
         }
-        else { rtr = 1; }
-        
+
         if rtr == 0 {
             inpt.pop();
             println!("\n > {}\nexecuted successfully\n", inpt);
-        }
-        else if rtr == 1 {
+        } else if rtr == 1 {
             inpt.pop();
             println!("\n > {}\ncommand not found\n", inpt);
-        }
-        else if rtr == 2 {
+        } else if rtr == 2 {
             inpt.pop();
             println!("\n > {}\nreturned general error\n", inpt);
-        }
-        else if rtr == 3 {
+        } else if rtr == 3 {
             inpt.pop();
             println!("\n > {}\naborted\n", inpt);
-        }
-        else if rtr == 99 { clrs(); }
-        else {
+        } else if rtr == 99 {
+            clrs();
+        } else {
             inpt.pop();
             println!("\n > {}\nreturned : {}\n", inpt, rtr);
         }
@@ -60,15 +66,17 @@ fn clrs() {
 }
 
 fn help() -> i32 {
-    println!("HighlightOS Shell
+    println!(
+        "HighlightOS Shell
 
   List of commands:
     . clrs  >>  clear screen
     . help  >>  show list of commands
     . test  >>  test :)
     . cc    >>  show copyright info
-    . exit  >>  exits the shell :((");
-    
+    . exit  >>  exits the shell :(("
+    );
+
     return 0;
 }
 
@@ -78,7 +86,8 @@ fn test() -> i32 {
 }
 
 fn cc() -> i32 {
-    println!("Copyright (C) 2024  Adam Perkowski
+    println!(
+        "Copyright (C) 2024  Adam Perkowski
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -91,7 +100,8 @@ fn cc() -> i32 {
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see https://www.gnu.org/licenses .");
+    along with this program.  If not, see https://www.gnu.org/licenses ."
+    );
 
     return 0;
 }
@@ -103,7 +113,13 @@ fn exit_hls() -> i32 {
 
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut inpt2).unwrap();
-    
-    if inpt2.to_lowercase() == "y\n" { println!(); process::exit(1); } // return 0
-    else { return 3 }
+
+    if inpt2.to_lowercase() == "y\n" {
+        println!();
+        process::exit(1);
+    }
+    // return 0
+    else {
+        return 3;
+    }
 }
