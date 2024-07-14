@@ -7,6 +7,11 @@ mod commands;
 
 use commands::COMMAND_LIST;
 
+struct RtrType {
+    code: &'static i32,
+    info: &'static str,
+}
+
 fn main() {
     (COMMAND_LIST[0].fun)();
 
@@ -23,19 +28,20 @@ fn main() {
         inpt.pop();
 
         if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == inpt) {
-            (command.fun)();
+            let rtr = (command.fun)();
+
+            if rtr != 1 {
+                if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
+                    println!("\n > {}\n{}\n", inpt, return_code.info);
+                } else {
+                    println!("\n > {}\nreturned : {}\n", inpt, rtr)
+                }
+            }
+        } else {
+            println!("\n > {}\ncommand not found\n", inpt);
         }
 
-        /*if inpt.len() == 1 {
-            rtr = 100;
-        } else if COMMAND_LIST.iter().any(|cmd| cmd.name == inpt) {
-            (COMMAND_LIST[0].fun);
-        } else {
-            rtr = 1;
-        }*/
-
         /*if rtr == 0 {
-            inpt.pop();
             println!("\n > {}\nexecuted successfully\n", inpt);
         } else if rtr == 1 {
             inpt.pop();
@@ -54,3 +60,14 @@ fn main() {
         }*/
     }
 }
+
+const RTR_LIST: &[RtrType] = &[
+    RtrType {
+        code: &0,
+        info: "executed successfully",
+    },
+    RtrType {
+        code: &2,
+        info: "returned general error",
+    },
+];

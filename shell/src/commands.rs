@@ -12,7 +12,7 @@ pub struct Command {
 
 fn clrs() -> i32 {
     print!("\x1B[2J\x1B[1;1H");
-    return 0;
+    return 1;
 }
 
 fn help() -> i32 {
@@ -65,7 +65,7 @@ fn exit_hls() -> i32 {
 
     if inpt.to_lowercase() == "y\n" {
         println!();
-        process::exit(1);
+        process::exit(0);
     }
     // return 0
     else {
