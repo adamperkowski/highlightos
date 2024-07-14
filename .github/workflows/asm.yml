@@ -1,0 +1,19 @@
+name: Assembly
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  compile:
+    name: Compile ASM
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ilammy/setup-nasm@v1
+      - uses: actions/checkout@v4
+      - name: Compile boot.asm
+        working-directory: asm
+        run: nasm -f bin boot.asm -o boot.bin
