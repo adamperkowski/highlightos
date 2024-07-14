@@ -78,7 +78,7 @@ bs:
   jne ps1
 
 msg:
-  db 13, 10, "HighlightOS", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
+  db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
 nl:
   db 13, 10, 10, "hls <", 0
 
