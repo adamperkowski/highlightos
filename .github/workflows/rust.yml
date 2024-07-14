@@ -9,6 +9,7 @@ on:
     paths:
       - shell/**
     branches: [ "main" ]
+  merge_group:
 
 env:
   CARGO_TERM_COLOR: always

@@ -9,6 +9,7 @@ on:
     paths:
       - asm/**
     branches: [ "main" ]
+  merge_group:
 
 jobs:
   compile:
