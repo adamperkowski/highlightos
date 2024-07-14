@@ -13,7 +13,7 @@ struct RtrType {
 }
 
 fn main() {
-    (COMMAND_LIST[0].fun)();
+    // (COMMAND_LIST[0].fun)();
 
     println!("HighlightOS Shell\nversion {}\n", env!("CARGO_PKG_VERSION"));
 
@@ -27,8 +27,12 @@ fn main() {
 
         inpt.pop();
 
-        if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == inpt) {
-            let rtr = (command.fun)();
+        let mut args: Vec<&str> = inpt.split(" ").collect();
+
+        if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == args[0]) {
+            args.remove(0);
+
+            let rtr = (command.fun)(args);
 
             if rtr != 1 {
                 if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
@@ -51,5 +55,13 @@ const RTR_LIST: &[RtrType] = &[
     RtrType {
         code: &2,
         info: "returned general error",
+    },
+    RtrType {
+        code: &3,
+        info: "returned critical error",
+    },
+    RtrType {
+        code: &4,
+        info: "returned user error",
     },
 ];

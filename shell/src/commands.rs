@@ -6,16 +6,17 @@ use std::process;
 
 pub struct Command {
     pub name: &'static str,
+    pub args: &'static str,
     pub doc: &'static str,
-    pub fun: fn() -> i32,
+    pub fun: fn(Vec<&str>) -> i32,
 }
 
-fn clrs() -> i32 {
+fn clrs(_args: Vec<&str>) -> i32 {
     print!("\x1B[2J\x1B[1;1H");
     return 1;
 }
 
-fn help() -> i32 {
+fn help(_args: Vec<&str>) -> i32 {
     println!(
         "HighlightOS Shell
 
@@ -23,18 +24,18 @@ fn help() -> i32 {
     );
 
     for cmd in COMMAND_LIST {
-        println!(". {}  >>  {}", cmd.name, cmd.doc);
+        println!(". {} {}  >>  {}", cmd.name, cmd.args, cmd.doc);
     }
 
     return 0;
 }
 
-fn test() -> i32 {
+fn test(_args: Vec<&str>) -> i32 {
     println!("hello. this is a test command. it's life goal is to always return 2.");
     return 2;
 }
 
-fn cc() -> i32 {
+fn cc(_args: Vec<&str>) -> i32 {
     println!(
         "Copyright (C) 2024  Adam Perkowski
 
@@ -55,7 +56,7 @@ fn cc() -> i32 {
     return 0;
 }
 
-fn exit_hls() -> i32 {
+fn exit_hls(_args: Vec<&str>) -> i32 {
     print!("are you sure you want to exit? [ y/N ] < ");
 
     let mut inpt = String::new();
@@ -73,30 +74,56 @@ fn exit_hls() -> i32 {
     }
 }
 
+fn document(_args: Vec<&str>) -> i32 {
+    if _args.len() != 0 {
+        if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == _args[0]) {
+            println!("{}  >>  {}", command.name, command.doc);
+            return 0;
+        } else {
+            println!("Command not found.");
+            return 3;
+        }
+    } else {
+        println!("No command specified.");
+        return 4;
+    }
+}
+
 pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "clrs",
+        args: "",
         doc: "clear screen",
         fun: clrs,
     },
     Command {
         name: "help",
+        args: "",
         doc: "show list of commands",
         fun: help,
     },
     Command {
         name: "test",
+        args: "",
         doc: "test :)",
         fun: test,
     },
     Command {
         name: "cc",
+        args: "",
         doc: "display copyright info",
         fun: cc,
     },
     Command {
         name: "exit",
+        args: "",
         doc: "exit the shell :((",
         fun: exit_hls,
+    },
+    Command {
+        name: "getdoc",
+        args: "[cmd]",
+        doc: "display doc of selected command",
+        fun: document,
     },
 ];
