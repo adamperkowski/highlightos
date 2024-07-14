@@ -2,8 +2,12 @@ name: Rust
 
 on:
   push:
+    paths:
+      - shell/**
     branches: [ "main" ]
   pull_request:
+    paths:
+      - shell/**
     branches: [ "main" ]
 
 env:

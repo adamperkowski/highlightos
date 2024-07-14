@@ -2,8 +2,12 @@ name: Assembly
 
 on:
   push:
+    paths:
+      - asm/**
     branches: [ "main" ]
   pull_request:
+    paths:
+      - asm/**
     branches: [ "main" ]
 
 jobs:
