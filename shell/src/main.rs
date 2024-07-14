@@ -9,7 +9,7 @@ fn main() {
 
     let cmds = vec!["clrs\n", "help\n", "test\n", "cc\n", "clear\n", "exit\n"];
 
-    println!("HighlightOS Shell\n");
+    println!("HighlightOS Shell\nversion {}\n", env!("CARGO_PKG_VERSION"));
 
     loop {
         let mut inpt = String::new();
