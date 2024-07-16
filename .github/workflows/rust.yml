@@ -36,11 +36,15 @@ jobs:
       - name: Install stable toolchain
         uses: dtolnay/rust-toolchain@1.70
         with:
-          components: rustfmt
+          components: rustfmt, clippy
       
       - name: Run cargo fmt on hlshell
         working-directory: shell
         run: cargo fmt --all --check
+
+      - name: Run cargo clippy on hlshell
+        working-directory: shell
+        run: cargo clippy
 
   tests:
     name: hlshell Tests
