@@ -27,7 +27,7 @@ fn main() {
 
         inpt.pop();
 
-        let mut args: Vec<&str> = inpt.split(" ").collect();
+        let mut args: Vec<&str> = inpt.split(' ').collect();
 
         if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == args[0]) {
             args.remove(0);
