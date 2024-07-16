@@ -1,5 +1,7 @@
 # HighlightOS
 
+<!-- logo instead of name -->
+
 x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version)](https://github.com/adamperkowski/highlightos/releases)
@@ -9,5 +11,11 @@ x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build)](https://github.com/adamperkowski/highlightos/actions)
 
 ## Attention! It's not recommended to use any prebuilt files from this repository. Build instructions will be available soon.
+
+<!-- quick install & build instructions -->
+<!-- showcase -->
+<!-- features -->
+<!-- installation & docs -->
+<!-- contributing -->
 
 Copyleft 🄯 2024  Adam Perkowski
