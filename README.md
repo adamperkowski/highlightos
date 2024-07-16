@@ -16,6 +16,8 @@ Build instructions are available [here](#building-from-source-on-linux).
 
 <!-- showcase -->
 <!-- features -->
+List of commands and features will be available soon.
+
 <!-- installation & docs -->
 # Building from source on Linux
 Clone the HightlightOS GitHub repository into a directory of your choice. The examples below assume you have a machine capable of running HighlightOS or an emulator / VM like [QEMU](https://www.qemu.org).
