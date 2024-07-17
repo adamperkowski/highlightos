@@ -60,7 +60,7 @@ jobs:
   tests:
     name: hlshell Tests
     runs-on: ubuntu-latest
-    needs: build, build-re
+    needs: [ build, build-re ]
 
     steps:
       - uses: actions/checkout@v4
