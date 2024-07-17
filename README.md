@@ -10,15 +10,15 @@ x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build)](https://github.com/adamperkowski/highlightos/actions)
 
-Build instructions are available [here](#building-from-source-on-linux).
-List of commands and features will be available soon.
+Build instructions are available [here](#building-from-source-on-linux).<br>
+List of commands and features will be available soon.<br>
 Contributing instructions will be available soon as well.
 
 ### It's not recommended to use any prebuilt binary files from the code section of this repository.
 
 <!-- showcase -->
 <!-- features -->
-List of commands and features will be available soon.
+<!-- List of commands and features will be available soon. -->
 
 <!-- installation & docs -->
 # Building from source on Linux
