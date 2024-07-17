@@ -16,25 +16,35 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-    name: Build hlshell [dev]
+  build-bin:
+    name: Build hlshell [bin] [dev]
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - name: Build hlshell  [dev]
+      
+      - name: Install cargo-binutils
         working-directory: shell
-        run: cargo build --verbose
+        run: sh -c "$(curl -sS https://raw.githubusercontent.com/adamperkowski/highlightos/main/shell/setup.sh)"
 
-  build-re:
-    name: Build hlshell [release]
+      - name: Build hlshell [bin] [dev]
+        working-directory: shell
+        run: cargo objcopy -- -O binary target/boot.bin
+
+  build-bin-re:
+    name: Build hlshell [bin] [release]
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - name: Build hlshell [release]
+
+      - name: Install cargo-binutils
         working-directory: shell
-        run: cargo build --release --verbose
+        run: sh -c "$(curl -sS https://raw.githubusercontent.com/adamperkowski/highlightos/main/shell/setup.sh)"
+
+      - name: Build hlshell [bin] [release]
+        working-directory: shell
+        run: cargo objcopy --release -- -O binary target/boot.bin
 
   lints:
     name: hlshell Lints
