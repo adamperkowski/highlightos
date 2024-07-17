@@ -13,7 +13,7 @@ pub struct Command {
 
 fn clrs(_args: Vec<&str>) -> i32 {
     print!("\x1B[2J\x1B[1;1H");
-    return 1;
+    1
 }
 
 fn help(_args: Vec<&str>) -> i32 {
@@ -27,12 +27,12 @@ fn help(_args: Vec<&str>) -> i32 {
         println!(". {} {}  >>  {}", cmd.name, cmd.args, cmd.doc);
     }
 
-    return 0;
+    0
 }
 
 fn test(_args: Vec<&str>) -> i32 {
     println!("hello. this is a test command. it's life goal is to always return 2.");
-    return 2;
+    2
 }
 
 fn cc(_args: Vec<&str>) -> i32 {
@@ -53,7 +53,7 @@ fn cc(_args: Vec<&str>) -> i32 {
     along with this program.  If not, see https://www.gnu.org/licenses ."
     );
 
-    return 0;
+    0
 }
 
 fn exit_hls(_args: Vec<&str>) -> i32 {
@@ -70,22 +70,22 @@ fn exit_hls(_args: Vec<&str>) -> i32 {
     }
     // return 0
     else {
-        return 3;
+        3
     }
 }
 
 fn document(_args: Vec<&str>) -> i32 {
-    if _args.len() != 0 {
+    if !_args.is_empty() {
         if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == _args[0]) {
             println!("{}  >>  {}", command.name, command.doc);
-            return 0;
+            0
         } else {
             println!("Command not found.");
-            return 3;
+            3
         }
     } else {
         println!("No command specified.");
-        return 4;
+        4
     }
 }
 

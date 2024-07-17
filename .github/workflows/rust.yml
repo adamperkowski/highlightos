@@ -10,20 +10,31 @@ on:
       - shell/**
     branches: [ "main" ]
   merge_group:
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
-    name: Build hlshell
+    name: Build hlshell [dev]
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - name: Build hlshell
+      - name: Build hlshell  [dev]
         working-directory: shell
         run: cargo build --verbose
+
+  build-re:
+    name: Build hlshell [release]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build hlshell [release]
+        working-directory: shell
+        run: cargo build --release --verbose
 
   lints:
     name: hlshell Lints
@@ -36,16 +47,20 @@ jobs:
       - name: Install stable toolchain
         uses: dtolnay/rust-toolchain@1.70
         with:
-          components: rustfmt
+          components: rustfmt, clippy
       
       - name: Run cargo fmt on hlshell
         working-directory: shell
         run: cargo fmt --all --check
 
+      - name: Run cargo clippy on hlshell
+        working-directory: shell
+        run: cargo clippy
+
   tests:
     name: hlshell Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: [ build, build-re ]
 
     steps:
       - uses: actions/checkout@v4
