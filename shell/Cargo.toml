@@ -6,7 +6,14 @@ edition = "2021"
 [build]
 target = "target.json"
 
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
 [unstable]
 build-std = ["core", "compiler_builtins"]
 
 [dependencies]
+bootloader = "0.9"
