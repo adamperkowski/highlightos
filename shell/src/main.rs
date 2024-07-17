@@ -2,7 +2,6 @@
 #![no_std]
 #![allow(clippy::empty_loop)]
 
-use core::fmt;
 use core::panic::PanicInfo;
 
 mod vga_buffer;
@@ -15,7 +14,7 @@ fn panic(info: &PanicInfo) -> ! {
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    println!("HighlightOS Shell v0.3.0");
+    println!("HighlightOS Shell v0.3.0\n\nhls < ");
 
     loop {}
 }
