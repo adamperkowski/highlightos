@@ -24,6 +24,18 @@ Contributing instructions will be available soon as well.
 # Building from source on Linux
 Clone the HightlightOS GitHub repository into a directory of your choice. The examples below assume you have a machine capable of running HighlightOS or an emulator / VM like [QEMU](https://www.qemu.org).
 
+## HLShell (the main kernel)
+**Requirements:**
+ - [Git](https://git-scm.com) version control system
+ - [Rust toolchain](https://www.rust-lang.org/tools/install)
+
+**Steps:**
+ 1. Install the nightly toolchain:<br>`rustup toolchain install nightly`
+ 2. Install required components:<br>`rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage`
+ 3. Clone the repository locally:<br>`git clone git@github.com:adamperkowski/highlightos.git && cd highlightos`
+ 4. CD into the HLS directory:<br>`cd shell`
+ 5. Build the bootable binary:<br>`cargo +nightly bootimage --release`<br><br>This command will create a `target/target/release` directory with the `bootimage-hlshell.bin` binary in it.
+
 ## HighlightOS ASM
 **Requirements:**
  - [Git](https://git-scm.com) version control system
@@ -34,15 +46,16 @@ Clone the HightlightOS GitHub repository into a directory of your choice. The ex
  2. CD into the ASM directory:<br>`cd asm`
  3. Compile the bootable binary:<br>`nasm -f bin boot.asm -o boot.bin`<br><br>This command will create a `boot.bin` file in current directory.
 
-## HLShell (executable)
-**Requirements:**
- - [Git](https://git-scm.com) version control system
- - [Rust toolchain](https://www.rust-lang.org/tools/install)
+ # Running in QEMU on Linux
+ 
+ **Requirements:**
+  - [QEMU](https://www.qemu.org/download/#linux) (full package)
+  - A bootable binary of HighlightOS. You can download one through [releases](https://github.com/adamperkowski/highlightos/releases) or [build it yourself](#building-from-source-on-linux).
 
 **Steps:**
- 1. Clone the repository locally:<br>`git clone git@github.com:adamperkowski/highlightos.git && cd highlightos`
- 2. CD into the HLS directory:<br>`cd shell`
- 3. Build the executable:<br>`cargo build --release`<br><br>This command will create a `target/release` directory with the `hlshell` executable in it.
+ 1. CD into directory containing the binary.
+ 2. Run:<br>`qemu-system-x86_64 -drive format=raw,file=<your_binary_filename>.bin`<br>Insert the name of downloaded / compiled binary into `<your_binary_filename>`.<br>
+ 3. Done!
 
 <!-- contributing -->
 
