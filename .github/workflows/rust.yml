@@ -37,7 +37,7 @@ jobs:
         working-directory: shell
         run: cargo +nightly bootimage -Z build-std=core --target target.json
 
-  build-bin:
+  build-bin-re:
     name: Build hlshell [bin] [release]
     runs-on: ubuntu-latest
 
