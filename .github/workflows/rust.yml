@@ -37,6 +37,23 @@ jobs:
         working-directory: shell
         run: cargo +nightly bootimage -Z build-std=core --target target.json
 
+  build-bin:
+    name: Build hlshell [bin] [release]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
+          components: rust-src, llvm-tools-preview
+
+      - name: Install bootimage
+        working-directory: shell
+        run: cargo install bootimage
+
       - name: Build hlshell [bin] [release]
         working-directory: shell
         run: cargo +nightly bootimage -Z build-std=core --target target.json --release
