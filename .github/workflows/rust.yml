@@ -21,30 +21,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Install cargo-binutils
+      - uses: actions/checkout@v2
+      - name: Install latest nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
+          components: rust-src, llvm-tools-preview
+
+      - name: Install bootimage
         working-directory: shell
-        run: sh -c "$(curl -sS https://raw.githubusercontent.com/adamperkowski/highlightos/main/shell/setup.sh)"
+        run: cargo install bootimage
 
       - name: Build hlshell [bin] [dev]
         working-directory: shell
-        run: cargo objcopy -- -O binary target/boot.bin
-
-  build-bin-re:
-    name: Build hlshell [bin] [release]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install cargo-binutils
-        working-directory: shell
-        run: sh -c "$(curl -sS https://raw.githubusercontent.com/adamperkowski/highlightos/main/shell/setup.sh)"
+        run: cargo +nightly bootimage -Z build-std=core --target target.json
 
       - name: Build hlshell [bin] [release]
         working-directory: shell
-        run: cargo objcopy --release -- -O binary target/boot.bin
+        run: cargo +nightly bootimage -Z build-std=core --target target.json --release
 
   lints:
     name: hlshell Lints
@@ -54,10 +49,12 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Install stable toolchain
-        uses: dtolnay/rust-toolchain@1.70
+      - name: Install latest nightly
+        uses: dtolnay/rust-toolchain@v1
         with:
-          components: rustfmt, clippy
+          toolchain: nightly
+          override: true
+          components: rust-src, rustfmt, clippy
       
       - name: Run cargo fmt on hlshell
         working-directory: shell
