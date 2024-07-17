@@ -10,6 +10,7 @@ on:
       - shell/**
     branches: [ "main" ]
   merge_group:
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
