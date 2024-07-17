@@ -35,7 +35,7 @@ jobs:
 
       - name: Build hlshell [bin] [dev]
         working-directory: shell
-        run: cargo +nightly bootimage -Z build-std=core --target target.json
+        run: cargo bootimage
 
   build-bin-re:
     name: Build hlshell [bin] [release]
@@ -56,7 +56,7 @@ jobs:
 
       - name: Build hlshell [bin] [release]
         working-directory: shell
-        run: cargo +nightly bootimage -Z build-std=core --target target.json --release
+        run: cargo +nightly bootimage --release
 
   lints:
     name: hlshell Lints
