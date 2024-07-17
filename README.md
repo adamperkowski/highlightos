@@ -44,6 +44,17 @@ Clone the HightlightOS GitHub repository into a directory of your choice. The ex
  2. CD into the ASM directory:<br>`cd asm`
  3. Compile the bootable binary:<br>`nasm -f bin boot.asm -o boot.bin`<br><br>This command will create a `boot.bin` file in current directory.
 
+ # Running in QEMU on Linux
+ 
+ **Requirements:**
+  - [QEMU](https://www.qemu.org/download/#linux) (full package)
+  - A bootable binary of HighlightOS. You can download one through [releases](https://github.com/adamperkowski/highlightos/releases) or [build it yourself](#building-from-source-on-linux).
+
+**Steps:**
+ 1. CD into directory containing the binary.
+ 2. Run:<br>`qemu-system-x86_64 -drive format=raw,file=<your_binary_filename>.bin`<br>Insert the name of downloaded / compiled binary into `<your_binary_filename>`.<br>
+ 3. Done!
+
 <!-- contributing -->
 
 <br><br>
