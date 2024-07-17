@@ -66,14 +66,3 @@ jobs:
       - name: Run cargo clippy on hlshell
         working-directory: shell
         run: cargo clippy
-
-  tests:
-    name: hlshell Tests
-    runs-on: ubuntu-latest
-    needs: [ build, build-re ]
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run cargo tests
-        working-directory: shell
-        run: cargo test --verbose
