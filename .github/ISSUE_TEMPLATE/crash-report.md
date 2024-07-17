@@ -24,3 +24,5 @@ If applicable, add screenshots or photos to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**PLEASE UPLOAD LOGS SEPARATELY THROUGH ATTACHEMENTS**
