@@ -70,4 +70,6 @@ After writing the image to a USB stick, you can run it on real hardware by just 
 <!-- contributing -->
 
 <br><br>
+*Some parts of the code are inspired by [blog_os](https://github.com/phil-opp/blog_os). Great project!*
+
 *Copyleft 🄯 2024  Adam Perkowski*
