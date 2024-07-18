@@ -1,4 +1,5 @@
 # HighlightOS
+### THIS main BRANCH CONTAINS CODE IN EARLY DEV STAGE. IF YOU WISH TO TRY OUT THE "WORKING" ONE, I CREATED A TEMPORARY BRANCH [exec](https://github.com/adamperkowski/highlightos/tree/exec).
 
 <!-- logo instead of name -->
 
