@@ -60,9 +60,9 @@ Clone the HightlightOS GitHub repository into a directory of your choice. The ex
 
 # Running on real hardware
 It's also possible to write the binary to a USB stick and boot on a real machine. You can write it by running:<br>
-`dd if=target/x86_64-blog_os/debug/bootimage-blog_os.bin of=/dev/sdX && sync`
+`dd if=<your_binary_filename>.bin of=/dev/sdX && sync`
 
-**Make sure to change `/dev/sdX` to correct device name of your USB because `dd` is a dangerous command and will overwrite any data it mets!**
+Make sure to change `<your_binary_filename>.bin` to your downloaded / compiled binary name and **make sure to change `/dev/sdX` to correct device name of your USB because `dd` is a dangerous command and will overwrite any data it mets!**
 
 After writing the image to a USB stick, you can run it on real hardware by just simply booting it.<br>Your BIOS menu should let you chose a device from which you want to boot.<br>**Note that HighlightOS won't work for UEFI-only machines, since it doesn't support UEFI yet.**
 
