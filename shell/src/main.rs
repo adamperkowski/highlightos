@@ -4,7 +4,7 @@
 
 use core::panic::PanicInfo;
 
-use hlshell::println;
+use hlshell::{print, println};
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
@@ -14,21 +14,20 @@ fn panic(info: &PanicInfo) -> ! {
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    println!("HighlightOS Shell v0.3.0\n\nhls < ");
-
     hlshell::init();
 
-    fn stack_overflow() {
+    print!("HighlightOS Shell v0.3.0\n\nhls < ");
+
+    /* fn stack_overflow() {
         stack_overflow();
     }
 
-    stack_overflow();
+    stack_overflow(); */
 
     /* unsafe {
         *(0xdeadbeef as *mut u8) = 42; // trigger a page fault
     }; */
 
-    println!("WORKS.");
-
-    loop {}
+    // loop {}
+    hlshell::hlt_loop();
 }
