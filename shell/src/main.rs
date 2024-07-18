@@ -24,9 +24,9 @@ pub extern "C" fn _start() -> ! {
 
     stack_overflow();
 
-    unsafe {
+    /* unsafe {
         *(0xdeadbeef as *mut u8) = 42; // trigger a page fault
-    };
+    }; */
 
     println!("WORKS.");
 

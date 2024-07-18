@@ -1,6 +1,8 @@
 use crate::gdt;
 use crate::println;
 use lazy_static::lazy_static;
+use pic8259::ChainedPics;
+use spin;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 
 lazy_static! {
@@ -15,6 +17,13 @@ lazy_static! {
         idt
     };
 }
+
+pub const PIC_0_OFFSET: u8 = 32;
+pub const PIC_1_OFFSET: u8 = PIC_0_OFFSET + 8;
+
+pub static PICS: spin::Mutex<ChainedPics> =
+    spin::Mutex::new(unsafe { ChainedPics::new(PIC_0_OFFSET, PIC_1_OFFSET) });
+
 pub fn init_idt() {
     IDT.load();
 }

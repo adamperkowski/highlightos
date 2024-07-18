@@ -7,6 +7,8 @@ pub mod interrupts;
 pub mod vga_buffer;
 
 pub fn init() {
-    interrupts::init_idt();
     gdt::init();
+    interrupts::init_idt();
+    unsafe { interrupts::PICS.lock().initialize() };
+    x86_64::instructions::interrupts::enable();
 }
