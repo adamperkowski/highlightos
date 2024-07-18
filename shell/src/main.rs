@@ -18,7 +18,15 @@ pub extern "C" fn _start() -> ! {
 
     hlshell::init();
 
-    x86_64::instructions::interrupts::int3(); //invoke a new interruption
+    fn stack_overflow() {
+        stack_overflow();
+    }
+
+    stack_overflow();
+
+    unsafe {
+        *(0xdeadbeef as *mut u8) = 42; // trigger a page fault
+    };
 
     println!("WORKS.");
 
