@@ -16,9 +16,11 @@ fn panic(info: &PanicInfo) -> ! {
 pub extern "C" fn _start() -> ! {
     println!("HighlightOS Shell v0.3.0\n\nhls < ");
 
+    hlshell::init();
+
     x86_64::instructions::interrupts::int3(); //invoke a new interruption
 
-    println!("crash??");
+    println!("WORKS.");
 
     loop {}
 }
