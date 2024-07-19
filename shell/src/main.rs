@@ -29,7 +29,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
     unsafe { page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e) };
 
-    print!("\nHighlightOS Shell v0.3.0\n\nhls < ");
+    print!("\nHighlightOS Shell v{}\n\nhls < ", env!("CARGO_PKG_VERSION"));
 
     hlshell::hlt_loop();
 }
