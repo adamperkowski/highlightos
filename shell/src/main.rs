@@ -1,13 +1,11 @@
 #![no_std]
 #![no_main]
 #![allow(clippy::empty_loop)]
+#![warn(clippy::new_without_default)]
+#![warn(clippy::missing_safety_doc)]
 
-extern crate alloc;
-
-use alloc::boxed::Box;
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
-use x86_64::structures::paging::PageTable;
 
 use hlshell::{print, println};
 
@@ -16,7 +14,7 @@ entry_point!(kernel_main);
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     use hlshell::allocator;
     use hlshell::mem::{self, BootInfoFrameAlloc};
-    use x86_64::{structures::paging::Page, VirtAddr};
+    use x86_64::VirtAddr;
 
     #[cfg(debug_assertions)]
     println!("Initializing...\n");
@@ -28,8 +26,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     let mut frame_allocator = unsafe { BootInfoFrameAlloc::init(&boot_info.memory_map) };
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
-
-    let x = Box::new(41);
 
     print!(
         "\nHighlightOS Shell v{}\n\nhls < ",
