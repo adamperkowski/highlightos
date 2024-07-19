@@ -2,6 +2,9 @@
 #![no_main]
 #![allow(clippy::empty_loop)]
 
+extern crate alloc;
+
+use alloc::boxed::Box;
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use x86_64::structures::paging::PageTable;
@@ -11,7 +14,8 @@ use hlshell::{print, println};
 entry_point!(kernel_main);
 
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
-    use hlshell::mem;
+    use hlshell::allocator;
+    use hlshell::mem::{self, BootInfoFrameAlloc};
     use x86_64::{structures::paging::Page, VirtAddr};
 
     #[cfg(debug_assertions)]
@@ -21,15 +25,16 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset);
     let mut mapper = unsafe { mem::init(phys_mem_offset) };
-    let mut frame_allocator = mem::EmptyFrameAllocator;
+    let mut frame_allocator = unsafe { BootInfoFrameAlloc::init(&boot_info.memory_map) };
 
-    let page = Page::containing_address(VirtAddr::new(0));
-    mem::create_example_mapping(page, &mut mapper, &mut frame_allocator);
+    allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
 
-    let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
-    unsafe { page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e) };
+    let x = Box::new(41);
 
-    print!("\nHighlightOS Shell v{}\n\nhls < ", env!("CARGO_PKG_VERSION"));
+    print!(
+        "\nHighlightOS Shell v{}\n\nhls < ",
+        env!("CARGO_PKG_VERSION")
+    );
 
     hlshell::hlt_loop();
 }
