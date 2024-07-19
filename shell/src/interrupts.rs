@@ -1,5 +1,6 @@
 use crate::gdt;
 use crate::hlt_loop;
+use crate::keyboard_buffer::{clear_buffer, read_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
 use crate::println;
 use lazy_static::lazy_static;
@@ -88,18 +89,33 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
             ));
     }
 
-    let mut keyboard = KEYBOARD.lock();
-    let mut port = Port::new(0x60);
+    if unsafe { BUFFER_INDEX } < BUFFER_SIZE {
+        let mut keyboard = KEYBOARD.lock();
+        let mut port = Port::new(0x60);
 
-    let scancode: u8 = unsafe { port.read() };
-    if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
-        if let Some(key) = keyboard.process_keyevent(key_event) {
-            match key {
-                DecodedKey::Unicode(character) => print!("{}", character),
-                #[cfg(debug_assertions)]
-                DecodedKey::RawKey(key) => print!("{:?}", key),
-                #[cfg(not(debug_assertions))]
-                DecodedKey::RawKey(key) => (),
+        let scancode: u8 = unsafe { port.read() };
+        if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
+            if let Some(key) = keyboard.process_keyevent(key_event) {
+                match key {
+                    DecodedKey::Unicode(character) => {
+                        unsafe {
+                            if character != '\n' {
+                                BUFFER[BUFFER_INDEX] = character;
+                                BUFFER_INDEX += 1;
+                            } else {
+                                clear_buffer();
+                            }
+                        }
+                        print!("{}", character);
+                    }
+
+                    #[cfg(debug_assertions)]
+                    DecodedKey::RawKey(key) => print!("{:?}", key),
+
+                    #[cfg(not(debug_assertions))]
+                    DecodedKey::RawKey(_) => (),
+                }
+                // print!("{}", read_buffer());
             }
         }
     }

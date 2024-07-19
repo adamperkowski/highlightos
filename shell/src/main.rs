@@ -43,33 +43,33 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     print!("\nHighlightOS Shell v{}\n\n", env!("CARGO_PKG_VERSION"));
 
-    loop {
-        let mut input = String::new();
-        print!("hls < ");
+    // loop {
+    //     let mut input = String::new();
+    //     print!("hls < ");
 
-        // io::stdout().flush().unwrap();
-        // io::stdin().read_line(&mut inpt).unwrap();
+    //     // io::stdout().flush().unwrap();
+    //     // io::stdin().read_line(&mut inpt).unwrap();
 
-        // input.pop();
+    //     // input.pop();
 
-        let mut args: vec::Vec<&str> = input.split(' ').collect();
+    //     let mut args: vec::Vec<&str> = input.split(' ').collect();
 
-        if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == args[0]) {
-            // args.remove(0);
+    //     if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == args[0]) {
+    //         // args.remove(0);
 
-            let rtr = (command.fun)(args);
+    //         let rtr = (command.fun)(args);
 
-            if rtr != 1 {
-                if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
-                    println!("\n > {}\n{}\n", input, return_code.info);
-                } else {
-                    println!("\n > {}\nreturned : {}\n", input, rtr);
-                }
-            }
-        } else {
-            println!("\n > {}\ncommand not found\n", input);
-        }
-    }
+    //         if rtr != 1 {
+    //             if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
+    //                 println!("\n > {}\n{}\n", input, return_code.info);
+    //             } else {
+    //                 println!("\n > {}\nreturned : {}\n", input, rtr);
+    //             }
+    //         }
+    //     } else {
+    //         println!("\n > {}\ncommand not found\n", input);
+    //     }
+    // }
 
     hlshell::hlt_loop();
 }

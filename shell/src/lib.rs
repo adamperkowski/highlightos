@@ -8,6 +8,7 @@ extern crate alloc;
 pub mod allocator;
 pub mod gdt;
 pub mod interrupts;
+pub mod keyboard_buffer;
 pub mod mem;
 pub mod vga_buffer;
 
