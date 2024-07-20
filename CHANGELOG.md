@@ -4,6 +4,7 @@
 - Added a DEBUG notice to tell if kernel is running in dev profile mode (https://github.com/adamperkowski/highlightos/commit/35c95aaa59bc6eac4e500118429209e2a8e0fff6)
 ![image](https://github.com/user-attachments/assets/f37c31d0-13d8-4f0c-8ac3-bf4c0e2162e3)
 - Fixed clrs (https://github.com/adamperkowski/highlightos/commit/32fe7810da67ccad36b4b0ea730c035a76305926)
+
 https://github.com/user-attachments/assets/c335986a-9228-4726-b7fb-b099e3e0d2f6
 
 # v0.3.0 (20-07-2024)
