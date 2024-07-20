@@ -115,6 +115,13 @@ impl Writer {
             self.buffer.chars[row][col].write(blank);
         }
     }
+
+    pub fn clear_screen(&mut self) {
+        for row in 0..BUFFER_HEIGHT {
+            self.clear_row(row);
+        }
+        self.column_position = 0;
+    }
 }
 
 impl fmt::Write for Writer {
