@@ -41,9 +41,16 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
     // let args: vec::Vec<&str> = vec![""];
     // (COMMAND_LIST[1].fun)(args);
 
+    #[cfg(debug_assertions)]
     print!(
-        "\nHighlightOS Shell v{}\n\nhls < ",
+        "\nHighlightOS Shell v{} DEBUG\n\nhls < ",
         env!("CARGO_PKG_VERSION")
+    );
+
+    #[cfg(not(debug_assertions))]
+    print!(                                                                                               
+        "\nHighlightOS Shell v{}\n\nhls < ",                                                              
+        env!("CARGO_PKG_VERSION")                                                                         
     );
 
     ()
