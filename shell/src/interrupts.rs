@@ -1,6 +1,6 @@
 use crate::gdt;
 use crate::hlt_loop;
-use crate::keyboard_buffer::{clear_buffer, read_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
+use crate::keyboard_buffer::{BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
 use crate::println;
 use lazy_static::lazy_static;
@@ -99,12 +99,8 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                 match key {
                     DecodedKey::Unicode(character) => {
                         unsafe {
-                            if character != '\n' {
-                                BUFFER[BUFFER_INDEX] = character;
-                                BUFFER_INDEX += 1;
-                            } else {
-                                clear_buffer();
-                            }
+                            BUFFER[BUFFER_INDEX] = character;
+                            BUFFER_INDEX += 1;
                         }
                         print!("{}", character);
                     }

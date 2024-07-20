@@ -5,12 +5,12 @@
 #![warn(clippy::missing_safety_doc)]
 
 extern crate alloc;
-use alloc::{string::String, vec};
+use alloc::vec;
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
-use hlshell::{print, println};
+use hlshell::{keyboard_buffer, print, println};
 
 mod cmd;
 use cmd::COMMAND_LIST;
@@ -41,37 +41,45 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     // let args: vec::Vec<&str> = vec![""];
     // (COMMAND_LIST[1].fun)(args);
 
-    print!("\nHighlightOS Shell v{}\n\n", env!("CARGO_PKG_VERSION"));
+    print!(
+        "\nHighlightOS Shell v{}\n\nhls < ",
+        env!("CARGO_PKG_VERSION")
+    );
 
-    // loop {
-    //     let mut input = String::new();
-    //     print!("hls < ");
+    loop {
+        let input = keyboard_buffer::read_buffer();
 
-    //     // io::stdout().flush().unwrap();
-    //     // io::stdin().read_line(&mut inpt).unwrap();
+        if input.ends_with("\n") {
+            keyboard_buffer::clear_buffer();
 
-    //     // input.pop();
+            let mut args: vec::Vec<&str> = input.split(' ').collect();
 
-    //     let mut args: vec::Vec<&str> = input.split(' ').collect();
+            if args[0] != "\n" {
+                let req_com = &args[0].replace("\n", "");
 
-    //     if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == args[0]) {
-    //         // args.remove(0);
+                if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == req_com) {
+                    args.remove(0);
 
-    //         let rtr = (command.fun)(args);
+                    let rtr = (command.fun)(args);
 
-    //         if rtr != 1 {
-    //             if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
-    //                 println!("\n > {}\n{}\n", input, return_code.info);
-    //             } else {
-    //                 println!("\n > {}\nreturned : {}\n", input, rtr);
-    //             }
-    //         }
-    //     } else {
-    //         println!("\n > {}\ncommand not found\n", input);
-    //     }
-    // }
+                    if rtr != 1 {
+                        if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr)
+                        {
+                            println!("\n > {}\n{}\n", req_com, return_code.info);
+                        } else {
+                            println!("\n > {}\nreturned : {}\n", req_com, rtr);
+                        }
+                    }
+                } else {
+                    println!("\n > {}\ncommand not found\n", input);
+                }
+            }
 
-    hlshell::hlt_loop();
+            print!("hls < ");
+        }
+    }
+
+    // hlshell::hlt_loop();
 }
 
 const RTR_LIST: &[RtrType] = &[

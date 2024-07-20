@@ -81,7 +81,8 @@ fn cc(_args: Vec<&str>) -> i32 {
 
 fn document(_args: Vec<&str>) -> i32 {
     if !_args.is_empty() {
-        if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == _args[0]) {
+        let req_com = &_args[0].replace("\n", "");
+        if let Some(command) = COMMAND_LIST.iter().find(|&cmd| cmd.name == req_com) {
             println!("{}  >>  {}", command.name, command.doc);
             0
         } else {
