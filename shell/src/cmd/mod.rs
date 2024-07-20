@@ -8,7 +8,6 @@ extern crate alloc;
 use alloc::vec::Vec;
 
 use hlshell::println;
-
 use hlshell::vga_buffer::WRITER;
 
 pub struct Command {
@@ -98,6 +97,17 @@ fn document(_args: Vec<&str>) -> i32 {
     }
 }
 
+fn chcolor(_args: Vec<&str>) -> i32 {
+    if _args.len() == 2 {
+        let mut writer = WRITER.lock();
+        writer.change_color("ok", "ok");
+        0
+    } else {
+        println!("Specify both fg and bg color.\nExample usage: chcolor red white");
+        4
+    }
+}
+
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
@@ -147,6 +157,12 @@ pub const COMMAND_LIST: &[Command] = &[
     //     doc: "re-init the system",
     //     fun: crate::init_kernel,
     // },
+    Command {
+        name: "chcolor",
+        args: "[fg] [bg]",
+        doc: "change text color",
+        fun: chcolor,
+    },
     #[cfg(debug_assertions)]
     Command {
         name: "crash_kernel",

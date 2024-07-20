@@ -1,3 +1,4 @@
+use alloc::boxed::Box;
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
@@ -54,6 +55,7 @@ const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
 #[repr(transparent)]
+#[derive(Clone)]
 struct Buffer {
     chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
@@ -121,6 +123,16 @@ impl Writer {
             self.clear_row(row);
         }
         self.column_position = 0;
+    }
+
+    pub fn change_color(&mut self, fgc: &str, bgc: &str) {
+        let mut new_writer = WRITER.lock();
+        let new_buffer = Box::new(self.buffer.clone());
+        *new_writer = Writer {
+            column_position: self.column_position,
+            color_code: ColorCode::new(Color::Red, Color::Black),
+            buffer: unsafe { &mut *Box::into_raw(new_buffer) },
+        };
     }
 }
 
