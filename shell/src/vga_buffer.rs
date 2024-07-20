@@ -1,4 +1,3 @@
-use alloc::boxed::Box;
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
@@ -33,6 +32,70 @@ pub enum Color {
     Yellow = 14,
     White = 15,
 }
+
+pub struct ColorStr {
+    pub name: &'static str,
+    pub color: Color,
+}
+
+pub const STR_COLORS: &[ColorStr] = &[
+    ColorStr {
+        name: "black",
+        color: Color::Black,
+    },
+    ColorStr {
+        name: "blue",
+        color: Color::Blue,
+    },
+    ColorStr {
+        name: "green",
+        color: Color::Green,
+    },
+    ColorStr {
+        name: "cyan",
+        color: Color::Cyan,
+    },
+    ColorStr {
+        name: "red",
+        color: Color::Red,
+    },
+    ColorStr {
+        name: "magenta",
+        color: Color::Magenta,
+    },
+    ColorStr {
+        name: "brown",
+        color: Color::Brown,
+    },
+    ColorStr {
+        name: "lightgray",
+        color: Color::LightGray,
+    },
+    ColorStr {
+        name: "lightgreen",
+        color: Color::LightGreen,
+    },
+    ColorStr {
+        name: "lightcyan",
+        color: Color::LightCyan,
+    },
+    ColorStr {
+        name: "lightred",
+        color: Color::LightRed,
+    },
+    ColorStr {
+        name: "pink",
+        color: Color::Pink,
+    },
+    ColorStr {
+        name: "yellow",
+        color: Color::Yellow,
+    },
+    ColorStr {
+        name: "white",
+        color: Color::White,
+    },
+];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(transparent)]
@@ -125,14 +188,8 @@ impl Writer {
         self.column_position = 0;
     }
 
-    pub fn change_color(&mut self, fgc: &str, bgc: &str) {
-        let mut new_writer = WRITER.lock();
-        let new_buffer = Box::new(self.buffer.clone());
-        *new_writer = Writer {
-            column_position: self.column_position,
-            color_code: ColorCode::new(Color::Red, Color::Black),
-            buffer: unsafe { &mut *Box::into_raw(new_buffer) },
-        };
+    pub fn change_color(&mut self, fgc: Color, bgc: Color) {
+        self.color_code = ColorCode::new(fgc, bgc);
     }
 }
 

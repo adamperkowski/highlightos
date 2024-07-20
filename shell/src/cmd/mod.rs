@@ -5,10 +5,11 @@
 // use std::process;
 
 extern crate alloc;
+use alloc::vec;
 use alloc::vec::Vec;
 
 use hlshell::println;
-use hlshell::vga_buffer::WRITER;
+use hlshell::vga_buffer::{Color, STR_COLORS, WRITER};
 
 pub struct Command {
     pub name: &'static str,
@@ -100,7 +101,17 @@ fn document(_args: Vec<&str>) -> i32 {
 fn chcolor(_args: Vec<&str>) -> i32 {
     if _args.len() == 2 {
         let mut writer = WRITER.lock();
-        writer.change_color("ok", "ok");
+        let mut new_colors: vec::Vec<Color> = vec![];
+
+        for arg in _args {
+            if let Some(color) = STR_COLORS
+                .iter()
+                .find(|&col| col.name == arg.replace("\n", ""))
+            {
+                new_colors.push(color.color);
+            }
+        }
+        writer.change_color(new_colors[0], new_colors[1]);
         0
     } else {
         println!("Specify both fg and bg color.\nExample usage: chcolor red white");
