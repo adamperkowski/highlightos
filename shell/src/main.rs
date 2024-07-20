@@ -48,9 +48,9 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
     );
 
     #[cfg(not(debug_assertions))]
-    print!(                                                                                               
-        "\nHighlightOS Shell v{}\n\nhls < ",                                                              
-        env!("CARGO_PKG_VERSION")                                                                         
+    print!(
+        "\nHighlightOS Shell v{}\n\nhls < ",
+        env!("CARGO_PKG_VERSION")
     );
 
     ()
