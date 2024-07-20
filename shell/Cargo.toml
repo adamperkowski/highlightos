@@ -1,6 +1,6 @@
 [package]
 name = "hlshell"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Adam Perkowski <adas1per@protonmail.com>"]
 edition = "2021"
 

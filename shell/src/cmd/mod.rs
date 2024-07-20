@@ -7,7 +7,9 @@
 extern crate alloc;
 use alloc::vec::Vec;
 
-use hlshell::{print, println};
+use hlshell::println;
+
+use hlshell::vga_buffer::WRITER;
 
 pub struct Command {
     pub name: &'static str,
@@ -17,7 +19,8 @@ pub struct Command {
 }
 
 fn clrs(_args: Vec<&str>) -> i32 {
-    print!("\x1B[2J\x1B[1;1H");
+    // print!("\x1B[2J\x1B[1;1H");
+    WRITER.lock().clear_screen();
     1
 }
 
