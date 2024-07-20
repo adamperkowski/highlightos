@@ -1,5 +1,4 @@
 # HighlightOS
-### THIS main BRANCH CONTAINS CODE IN EARLY DEV STAGE. IF YOU WISH TO TRY OUT THE "WORKING" ONE, I CREATED A TEMPORARY BRANCH [exec](https://github.com/adamperkowski/highlightos/tree/exec).
 
 <!-- logo instead of name -->
 
@@ -10,6 +9,10 @@ x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
 
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
+
+**Current dev state:**
+
+https://github.com/user-attachments/assets/ed42a707-2a38-4a52-9113-06180f348fad
 
 Build instructions are available [here](#building-from-source-on-linux).<br>
 Here are booting instructions for [QEMU](#running-in-qemu-on-linux) and [Real Hardware](#running-on-real-hardware).<br>
