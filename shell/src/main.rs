@@ -22,7 +22,7 @@ struct RtrType {
     info: &'static str,
 }
 
-fn kernel_main(boot_info: &'static BootInfo) -> ! {
+pub fn init_kernel(boot_info: &'static BootInfo) {
     use hlshell::allocator;
     use hlshell::mem::{self, BootInfoFrameAlloc};
     use x86_64::VirtAddr;
@@ -45,6 +45,12 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
         "\nHighlightOS Shell v{}\n\nhls < ",
         env!("CARGO_PKG_VERSION")
     );
+
+    ()
+}
+
+fn kernel_main(boot_info: &'static BootInfo) -> ! {
+    init_kernel(boot_info);
 
     loop {
         let input = keyboard_buffer::read_buffer();

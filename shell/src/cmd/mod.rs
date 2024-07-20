@@ -95,6 +95,12 @@ fn document(_args: Vec<&str>) -> i32 {
     }
 }
 
+#[cfg(debug_assertions)]
+fn crasher(_args: Vec<&str>) -> i32 {
+    println!("CRASHING...\n\n");
+    panic!("Invoked by crasher");
+}
+
 pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "clrs",
@@ -131,5 +137,18 @@ pub const COMMAND_LIST: &[Command] = &[
         args: "[cmd]",
         doc: "display doc of selected command",
         fun: document,
+    },
+    // Command {
+    //     name: "reinit",
+    //     args: "",
+    //     doc: "re-init the system",
+    //     fun: crate::init_kernel,
+    // },
+    #[cfg(debug_assertions)]
+    Command {
+        name: "crash_kernel",
+        args: "",
+        doc: "DEV | panic! the system",
+        fun: crasher,
     },
 ];
