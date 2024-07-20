@@ -16,8 +16,8 @@ https://github.com/user-attachments/assets/ed42a707-2a38-4a52-9113-06180f348fad
 
 Build instructions are available [here](#building-from-source-on-linux).<br>
 Here are booting instructions for [QEMU](#running-in-qemu-on-linux) and [Real Hardware](#running-on-real-hardware).<br>
-List of commands and features will be available soon.<br>
-Contributing instructions will be available soon as well.
+List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands). (not fully finished yet)<br>
+Contributing instructions will be available soon.
 
 ### It's not recommended to use any prebuilt binary files from the code section of this repository.
 
