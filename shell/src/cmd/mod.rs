@@ -19,7 +19,6 @@ pub struct Command {
 }
 
 fn clrs(_args: Vec<&str>) -> i32 {
-    // print!("\x1B[2J\x1B[1;1H");
     WRITER.lock().clear_screen();
     1
 }
@@ -109,6 +108,9 @@ fn chcolor(_args: Vec<&str>) -> i32 {
                 .find(|&col| col.name == arg.replace("\n", ""))
             {
                 new_colors.push(color.color);
+            } else {
+                println!("Color not found: {}", arg);
+                return 4;
             }
         }
         writer.change_color(new_colors[0], new_colors[1]);
