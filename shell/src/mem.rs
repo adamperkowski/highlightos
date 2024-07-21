@@ -6,6 +6,7 @@ use x86_64::{
     PhysAddr, VirtAddr,
 };
 
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn init(physical_memory_offset: VirtAddr) -> OffsetPageTable<'static> {
     let lvl_4_table = active_lvl_4_table(physical_memory_offset);
     OffsetPageTable::new(lvl_4_table, physical_memory_offset)
@@ -54,6 +55,7 @@ pub struct BootInfoFrameAlloc {
     next: usize,
 }
 
+#[allow(clippy::missing_safety_doc)]
 impl BootInfoFrameAlloc {
     pub unsafe fn init(memory_map: &'static MemoryMap) -> Self {
         BootInfoFrameAlloc {

@@ -25,6 +25,8 @@ pub struct LinkedListAllocator {
     head: ListNode,
 }
 
+#[allow(clippy::new_without_default)]
+#[allow(clippy::missing_safety_doc)]
 impl LinkedListAllocator {
     pub const fn new() -> Self {
         Self {
@@ -50,7 +52,7 @@ impl LinkedListAllocator {
     fn find_region(&mut self, size: usize, align: usize) -> Option<(&'static mut ListNode, usize)> {
         let mut current = &mut self.head;
         while let Some(ref mut region) = current.next {
-            if let Ok(alloc_start) = Self::alloc_from_region(&region, size, align) {
+            if let Ok(alloc_start) = Self::alloc_from_region(region, size, align) {
                 let next = region.next.take();
                 let ret = Some((current.next.take().unwrap(), alloc_start));
                 current.next = next;

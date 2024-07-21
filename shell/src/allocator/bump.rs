@@ -9,6 +9,8 @@ pub struct BumpAllocator {
     allocations: usize,
 }
 
+#[allow(clippy::new_without_default)]
+#[allow(clippy::missing_safety_doc)]
 impl BumpAllocator {
     pub const fn new() -> Self {
         BumpAllocator {

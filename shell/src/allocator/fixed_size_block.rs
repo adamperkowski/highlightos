@@ -21,6 +21,8 @@ pub struct FixedSizeBlockAllocator {
     fallback_allocator: linked_list_allocator::Heap,
 }
 
+#[allow(clippy::new_without_default)]
+#[allow(clippy::missing_safety_doc)]
 impl FixedSizeBlockAllocator {
     pub const fn new() -> Self {
         const EMPTY: Option<&'static mut ListNode> = None;

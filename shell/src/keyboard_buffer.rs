@@ -8,8 +8,8 @@ pub fn read_buffer() -> String {
     let mut buffer_content = String::new();
 
     unsafe {
-        for i in 0..BUFFER_INDEX {
-            buffer_content.push(BUFFER[i]);
+        for i in BUFFER.iter().take(BUFFER_INDEX) {
+            buffer_content.push(*i);
         }
     }
 
@@ -18,8 +18,8 @@ pub fn read_buffer() -> String {
 
 pub fn clear_buffer() {
     unsafe {
-        for i in 0..BUFFER_SIZE {
-            BUFFER[i] = '\0';
+        for ref mut i in BUFFER.iter().take(BUFFER_SIZE) {
+            *i = &'\0';
         }
         BUFFER_INDEX = 0;
     }
