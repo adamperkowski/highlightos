@@ -88,11 +88,15 @@ fn document(_args: Vec<&str>) -> i32 {
             println!("{}  >>  {}", command.name, command.doc);
             0
         } else {
+            WRITER.lock().change_color(Color::LightRed, Color::Black);
             println!("Command not found.");
+            WRITER.lock().change_color(Color::White, Color::Black);
             3
         }
     } else {
+        WRITER.lock().change_color(Color::LightRed, Color::Black);
         println!("No command specified.");
+        WRITER.lock().change_color(Color::White, Color::Black);
         4
     }
 }
@@ -108,14 +112,18 @@ fn chcolor(_args: Vec<&str>) -> i32 {
             {
                 new_colors.push(color.color);
             } else {
+                WRITER.lock().change_color(Color::LightRed, Color::Black);
                 println!("Color not found: {}", arg);
+                WRITER.lock().change_color(Color::White, Color::Black);
                 return 4;
             }
         }
         WRITER.lock().change_color(new_colors[0], new_colors[1]);
         0
     } else {
+        WRITER.lock().change_color(Color::LightRed, Color::Black);
         println!("Specify both fg and bg color.\nExample usage: chcolor red white");
+        WRITER.lock().change_color(Color::White, Color::Black);
         4
     }
 }

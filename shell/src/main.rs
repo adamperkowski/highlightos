@@ -10,7 +10,10 @@ use alloc::vec;
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
-use hlshell::{keyboard_buffer, print, println};
+use hlshell::{
+    keyboard_buffer, print, println,
+    vga_buffer::{Color, WRITER},
+};
 
 mod cmd;
 use cmd::COMMAND_LIST;
@@ -114,6 +117,11 @@ const RTR_LIST: &[RtrType] = &[
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
+    WRITER.lock().change_color(Color::Red, Color::Black);
+
     println!("{}", info);
+
+    WRITER.lock().change_color(Color::White, Color::Black);
+
     hlshell::hlt_loop();
 }
