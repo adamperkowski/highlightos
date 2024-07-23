@@ -99,7 +99,6 @@ fn document(_args: Vec<&str>) -> i32 {
 
 fn chcolor(_args: Vec<&str>) -> i32 {
     if _args.len() == 2 {
-        let mut writer = WRITER.lock();
         let mut new_colors: vec::Vec<Color> = vec![];
 
         for arg in _args {
@@ -113,7 +112,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
                 return 4;
             }
         }
-        writer.change_color(new_colors[0], new_colors[1]);
+        WRITER.lock().change_color(new_colors[0], new_colors[1]);
         0
     } else {
         println!("Specify both fg and bg color.\nExample usage: chcolor red white");
