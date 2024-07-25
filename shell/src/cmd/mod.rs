@@ -118,7 +118,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
                 new_colors.push(color.color);
             } else {
                 WRITER.lock().print_colored(
-                    format!("Color not found: {}", arg),
+                    format!("Color not found: {}\n", arg),
                     Color::LightRed,
                     Color::Black,
                 );
@@ -129,7 +129,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         0
     } else {
         WRITER.lock().print_colored(
-            "Specify both fg and bg color.\nExample usage: chcolor red white".to_string(),
+            "Specify both fg and bg color.\nExample usage: chcolor red white\n".to_string(),
             Color::LightRed,
             Color::Black,
         );

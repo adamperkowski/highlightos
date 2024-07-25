@@ -139,7 +139,7 @@ extern "x86-interrupt" fn page_fault_handler(
 
     WRITER.lock().print_colored(
         format!(
-            "\nKERNEL CRASHED\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n",
+            "\nKERNEL CRASHED\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n\n",
             Cr2::read(),
             error_code,
             stack_frame
