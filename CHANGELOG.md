@@ -1,3 +1,14 @@
+# v0.3.2 (25-07-2024)
+**The colorful release**
+
+**Changes:**
+
+- Added a functional text color system ([197c584](https://github.com/adamperkowski/highlightos/commit/197c584175e603516b68e0d5c364c4e636e3c750))
+- Added a `chcolor` command for changing the 'terminal' text color ([9d19657](https://github.com/adamperkowski/highlightos/commit/9d1965771595ab5efe0f969a56ea99a2fa4dbd58))
+- Added colors for certain kernel events ([6b313f4](https://github.com/adamperkowski/highlightos/commit/6b313f4db95c3ce1659399c2fbbda3b69d54e867))
+
+https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
+
 # v0.3.1 (20-07-2024)
 **Changes:**
 
