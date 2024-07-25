@@ -85,7 +85,9 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         }
                     }
                 } else {
+                    WRITER.lock().change_color(Color::LightRed, Color::Black);
                     println!("\n > {}\ncommand not found\n", input);
+                    WRITER.lock().change_color(Color::White, Color::Black);
                 }
             }
 
