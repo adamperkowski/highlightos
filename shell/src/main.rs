@@ -123,6 +123,6 @@ const RTR_LIST: &[RtrType] = &[
 fn panic(info: &PanicInfo) -> ! {
     WRITER
         .lock()
-        .print_colored(format!("{}\n", info), Color::Red, Color::Black);
+        .print_colored(format!("KERNEL CRASHED\n{}\n", info), Color::Red, Color::Black);
     hlshell::hlt_loop();
 }
