@@ -1,3 +1,4 @@
+use alloc::string::String;
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
@@ -190,6 +191,14 @@ impl Writer {
 
     pub fn change_color(&mut self, fgc: Color, bgc: Color) {
         self.color_code = ColorCode::new(fgc, bgc);
+    }
+
+    pub fn print_colored(&mut self, string: String, fgc: Color, bgc: Color) {
+        let prv_colorcode = self.color_code;
+
+        self.color_code = ColorCode::new(fgc, bgc);
+        self.write_string(&string);
+        self.color_code = prv_colorcode;
     }
 }
 

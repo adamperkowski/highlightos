@@ -5,7 +5,7 @@
 #![warn(clippy::missing_safety_doc)]
 
 extern crate alloc;
-use alloc::vec;
+use alloc::{format, vec};
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
@@ -85,9 +85,11 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         }
                     }
                 } else {
-                    WRITER.lock().change_color(Color::LightRed, Color::Black);
-                    println!("\n > {}\ncommand not found\n", input);
-                    WRITER.lock().change_color(Color::White, Color::Black);
+                    WRITER.lock().print_colored(
+                        format!("\n > {}\ncommand not found\n\n", input),
+                        Color::LightRed,
+                        Color::Black,
+                    );
                 }
             }
 
@@ -119,11 +121,8 @@ const RTR_LIST: &[RtrType] = &[
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    WRITER.lock().change_color(Color::Red, Color::Black);
-
-    println!("{}", info);
-
-    WRITER.lock().change_color(Color::White, Color::Black);
-
+    WRITER
+        .lock()
+        .print_colored(format!("{}\n", info), Color::Red, Color::Black);
     hlshell::hlt_loop();
 }

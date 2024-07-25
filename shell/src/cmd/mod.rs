@@ -5,7 +5,7 @@
 // use std::process;
 
 extern crate alloc;
-use alloc::vec;
+use alloc::{vec, format};
 use alloc::vec::Vec;
 
 use hlshell::println;
@@ -88,15 +88,19 @@ fn document(_args: Vec<&str>) -> i32 {
             println!("{}  >>  {}", command.name, command.doc);
             0
         } else {
-            WRITER.lock().change_color(Color::LightRed, Color::Black);
-            println!("Command not found.");
-            WRITER.lock().change_color(Color::White, Color::Black);
+            WRITER.lock().print_colored(
+                format!("Command not found.\n"),
+                Color::LightRed,
+                Color::Black,
+            );
             3
         }
     } else {
-        WRITER.lock().change_color(Color::LightRed, Color::Black);
-        println!("No command specified.");
-        WRITER.lock().change_color(Color::White, Color::Black);
+        WRITER.lock().print_colored(
+            format!("No command specified.\n"),
+            Color::LightRed,
+            Color::Black,
+        );
         4
     }
 }
@@ -112,18 +116,22 @@ fn chcolor(_args: Vec<&str>) -> i32 {
             {
                 new_colors.push(color.color);
             } else {
-                WRITER.lock().change_color(Color::LightRed, Color::Black);
-                println!("Color not found: {}", arg);
-                WRITER.lock().change_color(Color::White, Color::Black);
+                WRITER.lock().print_colored(
+                    format!("Color not found: {}", arg),
+                    Color::LightRed,
+                    Color::Black,
+                );
                 return 4;
             }
         }
         WRITER.lock().change_color(new_colors[0], new_colors[1]);
         0
     } else {
-        WRITER.lock().change_color(Color::LightRed, Color::Black);
-        println!("Specify both fg and bg color.\nExample usage: chcolor red white");
-        WRITER.lock().change_color(Color::White, Color::Black);
+        WRITER.lock().print_colored(
+            format!("Specify both fg and bg color.\nExample usage: chcolor red white"),
+            Color::LightRed,
+            Color::Black,
+        );
         4
     }
 }

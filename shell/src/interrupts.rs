@@ -1,8 +1,12 @@
+extern crate alloc;
+
 use crate::gdt;
 use crate::hlt_loop;
 use crate::keyboard_buffer::{BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
 use crate::println;
+use crate::vga_buffer::{WRITER, Color};
+use alloc::format;
 use lazy_static::lazy_static;
 use pic8259::ChainedPics;
 use spin;
@@ -106,7 +110,11 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     }
 
                     #[cfg(debug_assertions)]
-                    DecodedKey::RawKey(key) => print!("{:?}", key),
+                    DecodedKey::RawKey(key) => WRITER.lock().print_colored(
+                        format!("{:?}", key),
+                        Color::LightCyan,
+                        Color::Black,
+                    ),
 
                     #[cfg(not(debug_assertions))]
                     DecodedKey::RawKey(_) => (),
