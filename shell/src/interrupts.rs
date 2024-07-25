@@ -1,8 +1,11 @@
+extern crate alloc;
+
 use crate::gdt;
 use crate::hlt_loop;
 use crate::keyboard_buffer::{BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
-use crate::println;
+use crate::vga_buffer::{Color, WRITER};
+use alloc::format;
 use lazy_static::lazy_static;
 use pic8259::ChainedPics;
 use spin;
@@ -58,7 +61,11 @@ pub fn init_idt() {
 }
 
 extern "x86-interrupt" fn breakpoint_handler(stack_frame: InterruptStackFrame) {
-    println!("\nKERNEL CRASHED\nEX: BREAKPOINT\n{:#?}\n", stack_frame);
+    WRITER.lock().print_colored(
+        format!("\nKERNEL CRASHED\nEX: BREAKPOINT\n{:#?}\n\n", stack_frame),
+        Color::Red,
+        Color::Black,
+    );
 }
 
 extern "x86-interrupt" fn double_fault_handler(
@@ -106,7 +113,9 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     }
 
                     #[cfg(debug_assertions)]
-                    DecodedKey::RawKey(key) => print!("{:?}", key),
+                    DecodedKey::RawKey(key) => {
+                        print!("{:?}", key);
+                    }
 
                     #[cfg(not(debug_assertions))]
                     DecodedKey::RawKey(_) => (),
@@ -128,11 +137,15 @@ extern "x86-interrupt" fn page_fault_handler(
 ) {
     use x86_64::registers::control::Cr2;
 
-    println!(
-        "\nKERNEL CRASHED\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n",
-        Cr2::read(),
-        error_code,
-        stack_frame
+    WRITER.lock().print_colored(
+        format!(
+            "\nKERNEL CRASHED\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n\n",
+            Cr2::read(),
+            error_code,
+            stack_frame
+        ),
+        Color::Red,
+        Color::Black,
     );
 
     hlt_loop();

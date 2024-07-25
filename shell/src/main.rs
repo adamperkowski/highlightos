@@ -5,12 +5,15 @@
 #![warn(clippy::missing_safety_doc)]
 
 extern crate alloc;
-use alloc::vec;
+use alloc::{format, vec};
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
-use hlshell::{keyboard_buffer, print, println};
+use hlshell::{
+    keyboard_buffer, print, println,
+    vga_buffer::{Color, WRITER},
+};
 
 mod cmd;
 use cmd::COMMAND_LIST;
@@ -82,7 +85,11 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         }
                     }
                 } else {
-                    println!("\n > {}\ncommand not found\n", input);
+                    WRITER.lock().print_colored(
+                        format!("\n > {}\ncommand not found\n\n", input),
+                        Color::LightRed,
+                        Color::Black,
+                    );
                 }
             }
 
@@ -114,6 +121,10 @@ const RTR_LIST: &[RtrType] = &[
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    println!("KERNEL CRASHED\n{}", info);
+    WRITER.lock().print_colored(
+        format!("KERNEL CRASHED\n{}\n", info),
+        Color::Red,
+        Color::Black,
+    );
     hlshell::hlt_loop();
 }

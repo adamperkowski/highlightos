@@ -2,3 +2,5 @@
 - update dependencies
 - add debug commands that exist only in debug build
 - add 'other' section to commands that lets you create commands and install them via 'patching'
+
+- fix this alloc crate mess

@@ -5,8 +5,9 @@
 // use std::process;
 
 extern crate alloc;
-use alloc::vec;
+use alloc::string::ToString;
 use alloc::vec::Vec;
+use alloc::{format, vec};
 
 use hlshell::println;
 use hlshell::vga_buffer::{Color, STR_COLORS, WRITER};
@@ -88,11 +89,19 @@ fn document(_args: Vec<&str>) -> i32 {
             println!("{}  >>  {}", command.name, command.doc);
             0
         } else {
-            println!("Command not found.");
+            WRITER.lock().print_colored(
+                "Command not found.\n".to_string(),
+                Color::LightRed,
+                Color::Black,
+            );
             3
         }
     } else {
-        println!("No command specified.");
+        WRITER.lock().print_colored(
+            "No command specified.\n".to_string(),
+            Color::LightRed,
+            Color::Black,
+        );
         4
     }
 }
@@ -108,14 +117,22 @@ fn chcolor(_args: Vec<&str>) -> i32 {
             {
                 new_colors.push(color.color);
             } else {
-                println!("Color not found: {}", arg);
+                WRITER.lock().print_colored(
+                    format!("Color not found: {}\n", arg),
+                    Color::LightRed,
+                    Color::Black,
+                );
                 return 4;
             }
         }
         WRITER.lock().change_color(new_colors[0], new_colors[1]);
         0
     } else {
-        println!("Specify both fg and bg color.\nExample usage: chcolor red white");
+        WRITER.lock().print_colored(
+            "Specify both fg and bg color.\nExample usage: chcolor red white\n".to_string(),
+            Color::LightRed,
+            Color::Black,
+        );
         4
     }
 }
