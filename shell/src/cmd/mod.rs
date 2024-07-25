@@ -5,6 +5,7 @@
 // use std::process;
 
 extern crate alloc;
+use alloc::string::ToString;
 use alloc::vec::Vec;
 use alloc::{format, vec};
 
@@ -89,7 +90,7 @@ fn document(_args: Vec<&str>) -> i32 {
             0
         } else {
             WRITER.lock().print_colored(
-                "Command not found.\n",
+                "Command not found.\n".to_string(),
                 Color::LightRed,
                 Color::Black,
             );
@@ -97,7 +98,7 @@ fn document(_args: Vec<&str>) -> i32 {
         }
     } else {
         WRITER.lock().print_colored(
-            "No command specified.\n",
+            "No command specified.\n".to_string(),
             Color::LightRed,
             Color::Black,
         );
@@ -128,7 +129,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         0
     } else {
         WRITER.lock().print_colored(
-            "Specify both fg and bg color.\nExample usage: chcolor red white",
+            "Specify both fg and bg color.\nExample usage: chcolor red white".to_string(),
             Color::LightRed,
             Color::Black,
         );
