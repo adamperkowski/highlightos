@@ -100,7 +100,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 > [!NOTE]
 >You can choose the device to boot off of from your BIOS boot menu (accessible by pressing <kbd>F8</kbd> or <kbd>F12</kbd>).
 >
->**Double-check that your motherboard is capable of booting legacy media(s), as HighlightOS is not UEFI-compatible yet.**
+>**<ins>Double-check that your motherboard is capable of booting legacy media(s)</ins>, as HighlightOS is not UEFI-compatible yet.**
 
 <!-- contributing -->
 ## Appendix
