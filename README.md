@@ -12,9 +12,9 @@ x86_64 OS (kernel) made completely from scratch using Assembly & Rust
 
 **Current dev state:**
 
-Build instructions are available [here](#building-from-source-on-linux).<br>
-
 https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
+
+Build instructions are available [here](#building-from-source-on-linux).<br>
 
 Here are booting instructions for [QEMU](#running-in-qemu-on-linux) and [Real Hardware](#running-on-real-hardware).<br>
 List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands). (not fully finished yet)<br>
