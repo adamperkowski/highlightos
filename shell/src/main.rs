@@ -114,6 +114,6 @@ const RTR_LIST: &[RtrType] = &[
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    println!("{}", info);
+    println!("KERNEL CRASHED\n{}", info);
     hlshell::hlt_loop();
 }
