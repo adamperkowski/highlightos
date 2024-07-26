@@ -1,4 +1,6 @@
-; Copyleft 🄯 2024  Adam Perkowski
+; Copyright 2024 Adam Perkowski
+; Smol help from <franzageek>
+
 org 0x7c00
 bits 16
 
@@ -9,7 +11,7 @@ _start:
   xor ax, ax
   mov ds, ax
   mov es, ax
-  mov si, boot_msg
+  mov bx, boot_msg
   call print
 
   jmp shell
@@ -18,104 +20,95 @@ _start:
 
 
 shell:
-  mov ah, 0x0e
+  mov ah, 0xE
   mov al, '>'
   int 0x10
 
-  mov si, nl
+  mov bx, nl
   call print
 
-  mov bx, 2
-  mov cl, 0
-
 .input:
-  mov ah, 0
-  int 0x16
+    mov cl, 0
+    mov bx, buffer
+.get_input_loop:
+    mov ah, 0
+    int 0x16
 
-  cmp al, 0x08
-  je .buffer_bounds
+    cmp al, 0x8
+    je .check_buffer
 
-  cmp al, 0x0D
-  jne .print_input
+    cmp al, 0xD
+    je .print_input
 
-  mov [buffer], byte 0x0a
-  mov [buffer + 1], byte 0x0d
+    cmp al, 0x20
+    jb .get_input_loop
 
-  mov ah, 0x0e
-  mov bx, buffer
+    cmp al, 0x7F
+    jae .get_input_loop
 
-  jmp print_loop
+    cmp cl, 255
+    je .get_input_loop
 
-  jmp shell
+    mov ah, 0xE
+    int 0x10
 
-.print_input:
-  mov ah, 0x0e
-  int 0x10
-  inc cl
+    mov [bx], al
+    inc bx
+    inc cl
 
-  mov [buffer + bx], al
-  inc bx
+    jmp .get_input_loop
 
-  jmp .input
-  ret
+.check_buffer:
+    cmp cl, 0
+    je .get_input_loop
+    jne .backspace
 
 .backspace:
-  mov ah, 0x0e
-  
-  mov al, 0x08
-  int 0x10
-  mov al, 0x00
-  mov [buffer + bx], al
-  int 0x10
-  mov al, 0x08
-  int 0x10
+    dec bx
+    mov ch, 0
+    mov [bx], ch
+    dec cl
+    mov ah, 0xE
+    mov al, 0x8
+    int 0x10
+    mov al, 0
+    int 0x10
+    mov al, 0x8
+    int 0x10
+    jmp .get_input_loop
 
-  dec bx
-  dec cl
+.print_input:
+    mov ah, 0xE
+    mov al, 0xA
+    int 0x10
+    mov al, 0xD
+    int 0x10
+    mov bx, buffer
+    mov ch, 0
+.print_input_loop:
+    mov al, [bx]
+    cmp al, 0
+    je .end_print_input
+    int 0x10
+    mov [bx], ch
+    inc bx
+    jmp .print_input_loop
 
-  ret
-
-.buffer_bounds:
-  cmp cl, 0
-  je .input
-  jne .backspace
+.end_print_input:
+    jmp shell
 
 print:
-  lodsb
-  or al, al
-  jz .back
-  mov ah, 0x0e
-  int 0x10
-  jmp print
+  mov ah, 0xE
+.print_loop:
+    mov al, [bx]
+    cmp al, 0
+    je back
+    int 0x10
+    inc bx
+    jmp .print_loop
 
-.back:
+back:
   ret
-
-print_loop:
-  mov al, [bx]
-  cmp al, 0
-  je .clear_buffer
-
-  int 0x10
-  inc bx
-
-  jmp print_loop
-
-.clear_buffer:
-  mov al, 0
-  mov [buffer + bx], al
-  mov bx, 0
-
-.null_char:
-  inc bx
-  cmp bx, 258
-  je .end_print
-  mov al, 0
-  mov [buffer + bx], al
-  jmp .null_char
-
-.end_print:
-  jmp shell
 
 cls:
   pusha
@@ -125,12 +118,9 @@ cls:
   popa
   ret
 
-boot_msg:
-  db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
-nl:
-  db 13, 10, 10, "hls <", 0
-
-buffer times 258 db 0
+boot_msg: db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
+nl: db 13, 10, 10, "hls <", 0
+buffer: times 255 db 0
 
 times 510-($-$$) db 0
 dw 0xaa55
