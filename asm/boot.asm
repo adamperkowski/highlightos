@@ -56,6 +56,7 @@ shell:
   mov [buffer + bx], al
   inc bx
 
+  jmp .input
   ret
 
 .backspace:
