@@ -3,6 +3,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   generate-con:
     name: Generate CONTRIBUTORS.svg
@@ -16,7 +21,6 @@ jobs:
       - name: Generate Contributors Images
         uses: jaywcjlove/github-action-contributors@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
           output: build/CONTRIBUTORS.svg
           avatarSize: 42
