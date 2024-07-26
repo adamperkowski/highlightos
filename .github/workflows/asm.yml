@@ -27,4 +27,4 @@ jobs:
         id: bootsector
         run: echo "::set-output name=check::$(file ./asm/boot.bin)"
       - name: Validate the check
-        run: echo ${{ steps.bootsector.outputs.check }} | grep -q "./asm/boot.bin: DOS/MBR boot sector"
+        run: 'echo ${{ steps.bootsector.outputs.check }}' | grep -q "./asm/boot.bin: DOS/MBR boot sector"
