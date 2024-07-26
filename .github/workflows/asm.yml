@@ -23,3 +23,8 @@ jobs:
       - name: Compile boot.asm
         working-directory: asm
         run: nasm -f bin boot.asm -o boot.bin
+      - name: Check DOS/MBR boot sector
+        id: bootsector
+        run: echo "::set-output name=check::$(file ./asm/boot.bin)"
+      - name: Validate the check
+        run: ${{ steps.bootsector.outputs.check == "./asm/boot.bin: DOS/MBR boot sector"}}
