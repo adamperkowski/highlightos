@@ -119,7 +119,7 @@ To gain further information on HighlightOS, we invite you to visit the [wiki](ht
 **HUGE thanks for everyone contributing:**
 
 <a href="https://github.com/adamperkowski/highlightos/graphs/contributors">
-  <img src="https://adamperkowski.github.io/highlightos/CONTRIBUTORS.svg"/>
+  <img src="https://raw.githubusercontent.com/adamperkowski/highlightos/gh-pages/CONTRIBUTORS.svg"/>
 </a>
 
 ### Credits
