@@ -1,12 +1,15 @@
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   generate-con:
