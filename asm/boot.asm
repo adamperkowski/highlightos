@@ -1,6 +1,7 @@
 ; Copyleft 🄯 2024  Adam Perkowski
-[org 0x7c00]
-section .text
+org 0x7c00
+bits 16
+
 global _start
 
 _start:
@@ -81,12 +82,12 @@ shell:
 print:
   lodsb
   or al, al
-  jz .end
+  jz .back
   mov ah, 0x0e
   int 0x10
   jmp print
 
-.end:
+.back:
   ret
 
 print_loop:
@@ -113,7 +114,7 @@ print_loop:
   jmp .null_char
 
 .end_print:
-  ret
+  jmp shell
 
 cls:
   pusha
@@ -123,7 +124,6 @@ cls:
   popa
   ret
 
-section .data
 boot_msg:
   db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
 nl:
