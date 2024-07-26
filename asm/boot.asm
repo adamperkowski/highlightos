@@ -1,18 +1,19 @@
 ; Copyleft 🄯 2024  Adam Perkowski
 [org 0x7c00]
-bits 16
 section .text
+global _start
 
-call cls
-xor ax, ax
-mov ds, ax
-mov es, ax
-mov si, boot_msg
-call print
+_start:
+  call cls
+  xor ax, ax
+  mov ds, ax
+  mov es, ax
+  mov si, boot_msg
+  call print
 
-jmp shell
+  jmp shell
 
-jmp $
+  jmp $
 
 
 shell:
