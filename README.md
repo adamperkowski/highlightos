@@ -116,7 +116,7 @@ To gain further information on HighlightOS, we invite you to visit the [wiki](ht
 **_Using precompiled binaries from the code section of the repo is not recommended._**
 
 ### Contributors
-**HUGE thanks for everyone contributing:**
+**HUGE thanks to everyone contributing:**
 
 <a href="https://github.com/adamperkowski/highlightos/graphs/contributors">
   <img src="https://raw.githubusercontent.com/adamperkowski/highlightos/gh-pages/CONTRIBUTORS.svg"/>
