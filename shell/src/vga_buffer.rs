@@ -200,6 +200,13 @@ impl Writer {
         self.write_string(&string);
         self.color_code = prv_colorcode;
     }
+
+    pub fn decrement_column_position(&mut self) {
+        self.column_position -= 1;
+    }
+    pub fn increment_column_position(&mut self) {
+        self.column_position += 1;
+    }
 }
 
 impl fmt::Write for Writer {
