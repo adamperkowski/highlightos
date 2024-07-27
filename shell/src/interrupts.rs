@@ -127,14 +127,12 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     }
 
                     DecodedKey::RawKey(key) => {
-                        if key == KeyCode::F1 {
-                            if unsafe { BUFFER_INDEX } > 0 {
-                                keyboard_buffer::clear_buffer();
-                                print!("\n");
-                                unsafe {
-                                    BUFFER[BUFFER_INDEX] = '\n';
-                                    BUFFER_INDEX += 1;
-                                }
+                        if key == KeyCode::F1 && unsafe { BUFFER_INDEX } > 0 {
+                            keyboard_buffer::clear_buffer();
+                            print!("\n");
+                            unsafe {
+                                BUFFER[BUFFER_INDEX] = '\n';
+                                BUFFER_INDEX += 1;
                             }
                         }
                     }
