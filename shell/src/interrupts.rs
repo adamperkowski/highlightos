@@ -2,8 +2,7 @@ extern crate alloc;
 
 use crate::gdt;
 use crate::hlt_loop;
-use crate::keyboard_buffer;
-use crate::keyboard_buffer::{BUFFER, BUFFER_INDEX, BUFFER_SIZE};
+use crate::keyboard_buffer::{clear_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
 use crate::vga_buffer::{Color, WRITER};
 use alloc::format;
@@ -109,8 +108,8 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     DecodedKey::Unicode(character) => {
                         if character == '\u{8}' {
                             // backspace
-                            if unsafe { BUFFER_INDEX } > 0 {
-                                unsafe {
+                            unsafe {
+                                if BUFFER_INDEX > 0 {
                                     BUFFER_INDEX -= 1;
                                     WRITER.lock().decrement_column_position();
                                     print!(" ");
@@ -128,7 +127,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
 
                     DecodedKey::RawKey(key) => {
                         if key == KeyCode::F1 && unsafe { BUFFER_INDEX } > 0 {
-                            keyboard_buffer::clear_buffer();
+                            clear_buffer();
                             print!("\n");
                             unsafe {
                                 BUFFER[BUFFER_INDEX] = '\n';
@@ -137,7 +136,6 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
                     }
                 }
-                // print!("{}", read_buffer());
             }
         }
     }
