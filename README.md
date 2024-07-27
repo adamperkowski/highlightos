@@ -106,7 +106,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 ## Appendix
 
 ### Development status
-https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
+https://github.com/user-attachments/assets/de796522-3d6b-4672-a335-ff282422fe86
 
 ### Additional info
 List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).
