@@ -95,7 +95,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 ```
 
 > [!IMPORTANT]
-> Make sure to replace `<your_binary_filename>.bin` with your downloaded/compiled binary name and **make sure to replace `/dev/sdX` with your USB's actual partition number. **Any data on it will be lost!**
+> Make sure to replace `<your_binary_filename>.bin` with your downloaded/compiled binary name and make sure to replace `/dev/sdX` with your USB's actual partition number. **Any data on it will be lost!**
 
 > [!NOTE]
 >You can choose the device to boot off of from your BIOS boot menu (accessible by pressing <kbd>F8</kbd> or <kbd>F12</kbd>).
