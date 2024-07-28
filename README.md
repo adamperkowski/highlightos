@@ -4,6 +4,9 @@
 
 x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 
+[![README in English](https://img.shields.io/badge/Lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
+[![README in Polish](https://img.shields.io/badge/Lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
+
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
@@ -106,7 +109,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 ## Appendix
 
 ### Development status
-https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
+https://github.com/user-attachments/assets/de796522-3d6b-4672-a335-ff282422fe86
 
 ### Additional info
 List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).

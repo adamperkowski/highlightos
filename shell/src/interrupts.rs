@@ -2,11 +2,12 @@ extern crate alloc;
 
 use crate::gdt;
 use crate::hlt_loop;
-use crate::keyboard_buffer::{BUFFER, BUFFER_INDEX, BUFFER_SIZE};
+use crate::keyboard_buffer::{clear_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
 use crate::vga_buffer::{Color, WRITER};
 use alloc::format;
 use lazy_static::lazy_static;
+use pc_keyboard::KeyCode;
 use pic8259::ChainedPics;
 use spin;
 use x86_64::structures::idt::PageFaultErrorCode;
@@ -105,22 +106,36 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
             if let Some(key) = keyboard.process_keyevent(key_event) {
                 match key {
                     DecodedKey::Unicode(character) => {
-                        unsafe {
-                            BUFFER[BUFFER_INDEX] = character;
-                            BUFFER_INDEX += 1;
+                        if character == '\u{8}' {
+                            // backspace
+                            unsafe {
+                                if BUFFER_INDEX > 0 {
+                                    BUFFER_INDEX -= 1;
+                                    WRITER.lock().decrement_column_position();
+                                    print!(" ");
+                                    WRITER.lock().decrement_column_position();
+                                }
+                            }
+                        } else {
+                            unsafe {
+                                BUFFER[BUFFER_INDEX] = character;
+                                BUFFER_INDEX += 1;
+                            }
+                            print!("{}", character);
                         }
-                        print!("{}", character);
                     }
 
-                    #[cfg(debug_assertions)]
                     DecodedKey::RawKey(key) => {
-                        print!("{:?}", key);
+                        if key == KeyCode::F1 && unsafe { BUFFER_INDEX } > 0 {
+                            clear_buffer();
+                            print!("\n");
+                            unsafe {
+                                BUFFER[BUFFER_INDEX] = '\n';
+                                BUFFER_INDEX += 1;
+                            }
+                        }
                     }
-
-                    #[cfg(not(debug_assertions))]
-                    DecodedKey::RawKey(_) => (),
                 }
-                // print!("{}", read_buffer());
             }
         }
     }
