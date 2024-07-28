@@ -129,4 +129,5 @@ Per scoprire di più, ti invitiamo a consultare la [wiki](https://github.com/ada
 ### Crediti
 *Alcune parti del codice sono ispirate da [blog_os](https://github.com/phil-opp/blog_os). Progetto fighissimo!*
 
+*Traduzione in italiano a cura di/Italian translation by: [>franzageek<](https://github.com/franzageek)*<br>
 *Copyleft 2024 Adam Perkowski*
