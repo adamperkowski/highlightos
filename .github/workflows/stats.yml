@@ -23,7 +23,9 @@ jobs:
           git config --global user.name 'Adam Perkowski'
           git config --global user.email 'adas1per@protonmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/adamperkowski/highlightos
-          git pull origin gh-pages --force
+          git checkout --orphan gh-pages
+          git rm -rf .
+          git pull origin gh-pages
           git checkout gh-pages
 
       - name: Generate Contributors Images
