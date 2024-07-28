@@ -113,8 +113,9 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 https://github.com/user-attachments/assets/de796522-3d6b-4672-a335-ff282422fe86
 
 ### Dodatkowe informacje
-Lista wbudowanych komend i funkcji jest dostępna [tutaj](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).
+**Czy wiedziałeś że mamy kanał IRC? Jest to '#highlightos' na [libera.chat](libera.chat).**
 
+Lista wbudowanych komend i funkcji jest dostępna [tutaj](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).<br>
 Po więcej informacji na temat HighlightOS, zapraszamy na nasze [wiki](https://github.com/adamperkowski/highlightos/wiki/).
 
 **_Używanie prekompilowanych plików binarnych z sekcji kodu tego repo nie jest zalecane._**
