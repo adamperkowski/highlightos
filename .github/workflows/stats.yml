@@ -28,7 +28,6 @@ jobs:
           avatarSize: 42
 
       - name: Push the svg
-        with:
         run: |
           git config --global user.name 'Adam Perkowski'
           git config --global user.email 'adas1per@protonmail.com'
