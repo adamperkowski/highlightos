@@ -138,10 +138,12 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
 
                         KeyCode::ArrowLeft => {
+                            #[cfg(debug_assertions)]
                             WRITER.lock().decrement_column_position();
                         }
 
                         KeyCode::ArrowRight => {
+                            #[cfg(debug_assertions)]
                             WRITER.lock().increment_column_position();
                         }
 
