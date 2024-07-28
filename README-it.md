@@ -37,19 +37,19 @@ Un sistema operativo x86_64 (kernel) realizzato in Assembly e Rust.
 ```bash
 rustup toolchain install nightly
 ```
- 3. Installa i componenti necessari:
+ 2. Installa i componenti necessari:
 ```bash
 rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage
 ```
- 4. Crea un clone locale di questa repository:
+ 3. Crea un clone locale di questa repository:
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 5. `cd` dentro la cartella `shell/`:
+ 4. `cd` dentro la cartella `shell/`:
 ```bash
 cd shell
 ```
- 6. Compila il file binario avviabile:
+ 5. Compila il file binario avviabile:
 ```bash
 cargo +nightly bootimage --release
 ```
