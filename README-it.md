@@ -25,7 +25,7 @@ Un sistema operativo x86_64 (kernel) realizzato in Assembly e Rust.
 ## Compilare da sorgente su Mac/Linux
 ### HLShell (kernel principale)
 **Requisiti:**
- - [Git](https://git-scm.com) (controllo verione)
+ - [Git](https://git-scm.com) (controllo versione)
  - [Toolchain Rust](https://www.rust-lang.org/tools/install)
 
 **Step:**
@@ -75,7 +75,7 @@ nasm -f bin boot.asm -o boot.bin
 
 **Requisiti:**
  - [QEMU](https://www.qemu.org/download/#linux) (pacchetto intero)
- - Un file binario avviabile di HighlightOS che puoi prendere da [releases](https://github.com/adamperkowski/highlightos/releases) o [compilarlo per conto tuo](#build-from-source-on-linux).
+ - Un file binario avviabile di HighlightOS che puoi prendere da [releases](https://github.com/adamperkowski/highlightos/releases) o [compilarlo per conto tuo](#compilare-da-sorgente-su-maclinux).
 
 **Step:**
  1. `cd` nella cartella che contiene il file binario.
