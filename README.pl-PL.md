@@ -4,16 +4,16 @@
 
 x86_64 System Operacyjny (jądro) zrobiony całkowicie od zera w Assembly & Rust
 
-[![README in English](https://img.shields.io/badge/lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
-[![README in Polish](https://img.shields.io/badge/lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
+[![README in English](https://img.shields.io/badge/Lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
+[![README in Polish](https://img.shields.io/badge/Lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
 
 ## Spis treści
-- [Budowa z źródła na Linuxie](#budowa-z-źródła-na-Linuxie)
-- [Uruchamianie w QEMU na linuxie](#uruchamianie-w-qemu-na-linuxie)
+- [Budowa ze źródła na Linuxie](#budowa-ze-źródła-na-linuxie)
+- [Uruchamianie w QEMU na Linuxie](#uruchamianie-w-qemu-na-linuxie)
 - [Uruchamianie na prawdziwym sprzęcie](#uruchamianie-na-prawdziwym-sprzęcie)
 - [Załączniki](#załączniki)
   - [Status rozwoju](#status-rozwoju)
@@ -25,14 +25,14 @@ x86_64 System Operacyjny (jądro) zrobiony całkowicie od zera w Assembly & Rust
 <!-- Lista wszystkich komend i funkcji będą dostępne wkrótce. -->
 
 <!-- instalacja & dokumenty -->
-## Budowa z źródła na Linuxie
+## Budowa ze źródła na Linuxie
 ### HLShell (główne jądro)
 **Wymagania:**
- - [Git](https://git-scm.com) system kontroli wersji <!-- nwm czy o to chodziło o co chodziło. "version control system"-->
+ - System kontroli wersji[Git] (https://git-scm.com)
  - [Rust toolchain](https://www.rust-lang.org/tools/install)
 
 **Kroki:**
- 1. Zainstaluj nightly toolchain:
+ 1. Zainstaluj toolchain nightly:
 ```bash
 rustup toolchain install nightly
 ```
@@ -56,8 +56,8 @@ cargo +nightly bootimage --release
 
 ### HighlightOS ASM
 **Wymagania:**
- - [Git](https://git-scm.com) system kontroli wersji
- - [NASM](https://nasm.us) Kompilator Assembly
+ - System kontroli wersji [Git](https://git-scm.com)
+ - Kompilator Assembly [NASM](https://nasm.us)
 
 **Kroki:**
  1. Stwórz lokalną kopię repozytorium:
@@ -74,7 +74,7 @@ nasm -f bin boot.asm -o boot.bin
 ```
 > Ta komenda stworzy plik `boot.bin` i umieści go w twoim aktualnym folderze.
 
-## Uruchamianie w QEMU na linuxie
+## Uruchamianie w QEMU na Linuxie
 
 **Wymagania:**
  - [QEMU](https://www.qemu.org/download/#linux) (cały pakiet)
@@ -128,6 +128,5 @@ Po więcej informacji na temat HighlightOS, zapraszamy na nasze [wiki](https://g
 ### Przypisy
 *Niektóre części kodu były inspirowane [blog_os](https://github.com/phil-opp/blog_os). Świetny projekt!*
 
-*Polskie tłumaczenie: [Sebaguardian](https://github.com/Sebaguardian)*
-
+*Polskie tłumaczenie: [Sebaguardian](https://github.com/Sebaguardian)*<br>
 *Copyleft 2024 Adam Perkowski*
