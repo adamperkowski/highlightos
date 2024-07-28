@@ -5,7 +5,7 @@
 #![warn(clippy::missing_safety_doc)]
 
 extern crate alloc;
-use alloc::{format, vec};
+use alloc::{format, string, vec};
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
@@ -60,6 +60,8 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     init_kernel(boot_info);
 
+    let mut cmd_history: vec::Vec<string::String> = vec![];
+
     loop {
         let input = keyboard_buffer::read_buffer();
 
@@ -67,6 +69,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
             keyboard_buffer::clear_buffer();
 
             let mut args: vec::Vec<&str> = input.split(' ').collect();
+            cmd_history.push(input.replace("\n", ""));
 
             if args[0] != "\n" {
                 let req_com = &args[0].replace("\n", "");
