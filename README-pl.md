@@ -2,7 +2,7 @@
 
 <!-- logo zamiast nazwy -->
 
-x86_64 System Operacyjny (jądro) zrobiony całkowicie od zera w Assembly & Rust
+x86_64 System Operacyjny (kernel) zrobiony od zera w Assembly & Rust
 
 [![README in English](https://img.shields.io/badge/Lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
 [![README in Polish](https://img.shields.io/badge/Lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
@@ -26,7 +26,7 @@ x86_64 System Operacyjny (jądro) zrobiony całkowicie od zera w Assembly & Rust
 
 <!-- instalacja & dokumenty -->
 ## Budowa ze źródła na Linuxie
-### HLShell (główne jądro)
+### HLShell (główny kernel)
 **Wymagania:**
  - System kontroli wersji[Git] (https://git-scm.com)
  - [Rust toolchain](https://www.rust-lang.org/tools/install)
@@ -97,8 +97,8 @@ Możesz również sflaszować plik binarny do swojego USB pedrive'a i uruchomić
 dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 ```
 
-> [!IMPORTANT] <!--**upewnij się...** tak powinno być? -->
-> Upewnij się że zamieniłeś `<nazwa_twojego_pliku_binarnego>` na właściwą nazwę pliku który pobrałeś/zbudowałeś i **upewnij się żeby zamienić `/dev/sdX` na numerem partycji z twojego USB. **Wszelkie dane zostaną starocone!**
+> [!IMPORTANT] 
+> Upewnij się że zamieniłeś `<nazwa_twojego_pliku_binarnego>` na właściwą nazwę pliku który pobrałeś/zbudowałeś i upewnij się żeby zamienić `/dev/sdX` na numerem partycji z twojego USB. **Wszelkie dane zostaną starocone!**
 
 > [!NOTE]
 >Możesz wybrać urządzenie bootujące z poziomu BIOS boot menu (dostępne poprzez klikanie <kbd>F8</kbd> lub <kbd>F12</kbd>).
