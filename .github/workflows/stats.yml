@@ -34,5 +34,6 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/adamperkowski/highlightos
           git add CONTRIBUTORS.svg
           git commit -am "Update CONTRIBUTORS.svg"
+          git pull origin gh-pages
           git checkout gh-pages
           git push --set-upstream origin gh-pages
