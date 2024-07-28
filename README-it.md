@@ -113,8 +113,9 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
 
 ### Altre info
-[Qui](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands) puoi trovare una lista di tutti i comandi disponibili.
+**Sai che abbiamo un canale IRC? È `#highlightos` su [libera.chat](https://libera.chat).**
 
+[Qui](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands) puoi trovare una lista di tutti i comandi disponibili.<br>
 Per scoprire di più, ti invitiamo a consultare la [wiki](https://github.com/adamperkowski/highlightos/wiki/).
 
 **_È altamente sconsigliato l'uso di file binari precompilati provenienti dalla sezione "codice" di questa repo._**
