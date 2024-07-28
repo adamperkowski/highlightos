@@ -36,19 +36,19 @@ x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 ```bash
 rustup toolchain install nightly
 ```
- 3. Install required components:
+ 2. Install required components:
 ```bash
 rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage
 ```
- 4. Create a local clone of the repository:
+ 3. Create a local clone of the repository:
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 5. `cd` into the `shell/` directory:
+ 4. `cd` into the `shell/` directory:
 ```bash
 cd shell
 ```
- 7. Build the bootable binary:
+ 5. Build the bootable binary:
 ```bash
 cargo +nightly bootimage --release
 ```
