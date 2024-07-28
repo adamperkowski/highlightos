@@ -6,6 +6,7 @@ x86_64 System Operacyjny (kernel) zrobiony od zera w Assembly & Rust
 
 [![README in English](https://img.shields.io/badge/Lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
 [![README in Polish](https://img.shields.io/badge/Lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
+[![README in Italian](https://img.shields.io/badge/Lang-%F0%9F%87%AE%F0%9F%87%B9-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-it.md)
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
@@ -36,19 +37,19 @@ x86_64 System Operacyjny (kernel) zrobiony od zera w Assembly & Rust
 ```bash
 rustup toolchain install nightly
 ```
- 3. Zainstaluj potrzebne komponenty:
+ 2. Zainstaluj potrzebne komponenty:
 ```bash
 rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage
 ```
- 4. Stwórz lokalną kopię repozytorium:
+ 3. Stwórz lokalną kopię repozytorium:
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 5. Użyj `cd` do folderu `shell/` :
+ 4. Użyj `cd` do folderu `shell/` :
 ```bash
 cd shell
 ```
- 7. Zbuduj bootowalny plik binarny :
+ 5. Zbuduj bootowalny plik binarny :
 ```bash
 cargo +nightly bootimage --release
 ```
