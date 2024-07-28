@@ -113,7 +113,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 https://github.com/user-attachments/assets/de796522-3d6b-4672-a335-ff282422fe86
 
 ### Dodatkowe informacje
-**Czy wiedziałeś że mamy kanał IRC? Jest to '#highlightos' na [libera.chat](libera.chat).**
+**Czy wiedziałeś że mamy kanał IRC? Jest to '#highlightos' na [libera.chat](https://libera.chat).**
 
 Lista wbudowanych komend i funkcji jest dostępna [tutaj](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).<br>
 Po więcej informacji na temat HighlightOS, zapraszamy na nasze [wiki](https://github.com/adamperkowski/highlightos/wiki/).
