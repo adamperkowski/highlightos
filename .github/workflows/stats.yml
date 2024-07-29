@@ -1,8 +1,9 @@
 name: "Stats"
 
 on:
-  push:
-    branches: ["main"]
+  #  push:
+  #  branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,11 +18,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: mkdir -p build
+      - name: Pull gh-pages
+        run: |
+          git config --global user.name 'Adam Perkowski'
+          git config --global user.email 'adas1per@protonmail.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/adamperkowski/highlightos
+          git checkout --orphan gh-pages
+          git rm -rf .
+          git pull origin gh-pages
+          git checkout gh-pages
 
       - name: Generate Contributors Images
         uses: jaywcjlove/github-action-contributors@main
         with:
           filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
-          output: build/CONTRIBUTORS.svg
+          output: CONTRIBUTORS.svg
           avatarSize: 42
+
+      - name: Push the svg
+        run: |
+          git add CONTRIBUTORS.svg
+          git commit -am "Update CONTRIBUTORS.svg"
+          git push --set-upstream origin gh-pages

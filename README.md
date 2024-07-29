@@ -4,6 +4,10 @@
 
 x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 
+[![README in English](https://img.shields.io/badge/Lang-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
+[![README in Polish](https://img.shields.io/badge/Lang-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
+[![README in Italian](https://img.shields.io/badge/Lang-%F0%9F%87%AE%F0%9F%87%B9-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-it.md)
+
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
@@ -33,19 +37,19 @@ x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 ```bash
 rustup toolchain install nightly
 ```
- 3. Install required components:
+ 2. Install required components:
 ```bash
 rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage
 ```
- 4. Create a local clone of the repository:
+ 3. Create a local clone of the repository:
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 5. `cd` into the `shell/` directory:
+ 4. `cd` into the `shell/` directory:
 ```bash
 cd shell
 ```
- 7. Build the bootable binary:
+ 5. Build the bootable binary:
 ```bash
 cargo +nightly bootimage --release
 ```
@@ -109,8 +113,9 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 https://github.com/user-attachments/assets/de796522-3d6b-4672-a335-ff282422fe86
 
 ### Additional info
-List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).
+**Did you know we have a IRC channel? It's `#highlightos` on [libera.chat](https://libera.chat).**
 
+List of built-in commands and features is available [here](https://github.com/adamperkowski/highlightos/wiki/Commands#built-in-commands).<br>
 To gain further information on HighlightOS, we invite you to visit the [wiki](https://github.com/adamperkowski/highlightos/wiki/).
 
 **_Using precompiled binaries from the code section of the repo is not recommended._**
