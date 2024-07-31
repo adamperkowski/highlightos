@@ -137,6 +137,10 @@ fn chcolor(_args: Vec<&str>) -> i32 {
     }
 }
 
+pub fn cmd_hist(_args: Vec<&str>) -> i32 {
+    0
+}
+
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
@@ -191,6 +195,12 @@ pub const COMMAND_LIST: &[Command] = &[
         args: "[fg] [bg]",
         doc: "change text color",
         fun: chcolor,
+    },
+    Command {
+        name: "history",
+        args: "",
+        doc: "display command history",
+        fun: cmd_hist
     },
     #[cfg(debug_assertions)]
     Command {

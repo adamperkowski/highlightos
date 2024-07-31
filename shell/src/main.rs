@@ -60,7 +60,7 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     init_kernel(boot_info);
 
-    let mut cmd_history: vec::Vec<string::String> = vec![];
+    let mut cmd_history = Commands::new();
 
     loop {
         let input = keyboard_buffer::read_buffer();
@@ -69,7 +69,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
             keyboard_buffer::clear_buffer();
 
             let mut args: vec::Vec<&str> = input.split(' ').collect();
-            cmd_history.push(input.replace("\n", ""));
+            cmd_history.history.push(input.replace("\n", ""));
 
             if args[0] != "\n" {
                 let req_com = &args[0].replace("\n", "");
@@ -101,6 +101,18 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     }
 
     // hlshell::hlt_loop();
+}
+
+pub struct Commands {
+    pub history: vec::Vec<string::String>,
+}
+
+impl Commands {
+    pub fn new() -> Commands {
+        Commands {
+            history: vec::Vec::new(),
+        }
+    }
 }
 
 const RTR_LIST: &[RtrType] = &[
