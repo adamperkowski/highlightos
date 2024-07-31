@@ -200,7 +200,7 @@ pub const COMMAND_LIST: &[Command] = &[
         name: "history",
         args: "",
         doc: "display command history",
-        fun: cmd_hist
+        fun: cmd_hist,
     },
     #[cfg(debug_assertions)]
     Command {
