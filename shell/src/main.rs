@@ -79,7 +79,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                     if rtr != 1 {
                         if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr)
                         {
-                            println!("\n > {}\n{}\n", req_com, return_code.info);
+                            println!("\n > {}\n{} : {}\n", req_com, rtr, return_code.info);
                         } else {
                             println!("\n > {}\nreturned : {}\n", req_com, rtr);
                         }
