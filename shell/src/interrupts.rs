@@ -137,6 +137,27 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                             }
                         }
 
+                        KeyCode::ArrowUp => {
+                            while unsafe { BUFFER_INDEX } > 0 {
+                                unsafe {
+                                    BUFFER_INDEX -= 1;
+                                    WRITER.lock().decrement_column_position();
+                                    print!(" ");
+                                    WRITER.lock().decrement_column_position();
+                                }
+                            }
+
+                            // clear_buffer();
+                            // let cmd_history = CMD_HISTORY.lock();
+                            for i in "hellotest".chars() {
+                                unsafe {
+                                    BUFFER[BUFFER_INDEX] = i;
+                                    BUFFER_INDEX += 1;
+                                }
+                                print!("{}", i);
+                            }
+                        }
+
                         KeyCode::ArrowLeft => {
                             #[cfg(debug_assertions)]
                             WRITER.lock().decrement_column_position();
