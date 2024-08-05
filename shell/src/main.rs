@@ -5,12 +5,10 @@
 #![warn(clippy::missing_safety_doc)]
 
 extern crate alloc;
-use alloc::{format, string, vec};
+use alloc::{format, vec};
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
-use lazy_static::lazy_static;
-use spin::Mutex;
 
 use hlshell::{
     history::CMD_HISTORY,
@@ -99,7 +97,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                 }
 
                 let mut cmd_history = CMD_HISTORY.lock();
-                if cmd_history.history.len() > 0 {
+                if !cmd_history.history.is_empty() {
                     if cmd_history.history[cmd_history.history.len() - 1] != input.replace("\n", "")
                     {
                         cmd_history.history.push(input.replace("\n", ""));
