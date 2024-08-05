@@ -154,7 +154,10 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                                 }
 
                                 // clear_buffer();
-                                for i in cmd_history.history[cmd_history.last].chars() {
+                                for i in cmd_history.history
+                                    [cmd_history.history.len() - cmd_history.last - 1]
+                                    .chars()
+                                {
                                     unsafe {
                                         BUFFER[BUFFER_INDEX] = i;
                                         BUFFER_INDEX += 1;
@@ -168,7 +171,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         KeyCode::ArrowDown => {
                             let mut cmd_history = CMD_HISTORY.lock();
 
-                            if cmd_history.last < 1 {
+                            if cmd_history.last > 1 {
                                 while unsafe { BUFFER_INDEX } > 0 {
                                     unsafe {
                                         BUFFER_INDEX -= 1;
@@ -180,10 +183,13 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
 
                                 cmd_history.last -= 1;
 
-                                for i in cmd_history.history[cmd_history.last].chars() {
+                                for i in cmd_history.history
+                                    [cmd_history.history.len() - cmd_history.last]
+                                    .chars()
+                                {
                                     unsafe {
                                         BUFFER[BUFFER_INDEX] = i;
-                                        BUFFER_INDEX = 1;
+                                        BUFFER_INDEX += 1;
                                     }
                                     print!("{}", i);
                                 }
