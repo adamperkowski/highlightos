@@ -9,6 +9,8 @@ use alloc::{format, string, vec};
 
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
+use lazy_static::lazy_static;
+use spin::Mutex;
 
 use hlshell::{
     keyboard_buffer, print, println,
@@ -60,8 +62,6 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     init_kernel(boot_info);
 
-    let mut cmd_history = Commands::new();
-
     loop {
         let input = keyboard_buffer::read_buffer();
 
@@ -69,13 +69,14 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
             keyboard_buffer::clear_buffer();
 
             let mut args: vec::Vec<&str> = input.split(' ').collect();
-            cmd_history.history.push(input.replace("\n", ""));
 
             if args[0] != "\n" {
                 let req_com = &args[0].replace("\n", "");
 
                 if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == req_com) {
                     args.remove(0);
+
+                    // print!("\n");
 
                     let rtr = (command.fun)(args);
 
@@ -94,6 +95,8 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         Color::Black,
                     );
                 }
+
+                CMD_HISTORY.lock().history.push(input.replace("\n", ""));
             }
 
             print!("hls < ");
@@ -113,6 +116,10 @@ impl Commands {
             history: vec::Vec::new(),
         }
     }
+}
+
+lazy_static! {
+    pub static ref CMD_HISTORY: Mutex<Commands> = Mutex::new(Commands::new());
 }
 
 const RTR_LIST: &[RtrType] = &[
