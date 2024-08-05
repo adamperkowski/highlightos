@@ -13,6 +13,7 @@ use lazy_static::lazy_static;
 use spin::Mutex;
 
 use hlshell::{
+    history::CMD_HISTORY,
     keyboard_buffer, print, println,
     vga_buffer::{Color, WRITER},
 };
@@ -67,6 +68,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
         if input.ends_with("\n") {
             keyboard_buffer::clear_buffer();
+            CMD_HISTORY.lock().last = 0;
 
             let mut args: vec::Vec<&str> = input.split(' ').collect();
 
@@ -96,7 +98,15 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                     );
                 }
 
-                CMD_HISTORY.lock().history.push(input.replace("\n", ""));
+                let mut cmd_history = CMD_HISTORY.lock();
+                if cmd_history.history.len() > 0 {
+                    if cmd_history.history[cmd_history.history.len() - 1] != input.replace("\n", "")
+                    {
+                        cmd_history.history.push(input.replace("\n", ""));
+                    }
+                } else {
+                    cmd_history.history.push(input.replace("\n", ""));
+                }
             }
 
             print!("hls < ");
@@ -104,22 +114,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     }
 
     // hlshell::hlt_loop();
-}
-
-pub struct Commands {
-    pub history: vec::Vec<string::String>,
-}
-
-impl Commands {
-    pub fn new() -> Commands {
-        Commands {
-            history: vec::Vec::new(),
-        }
-    }
-}
-
-lazy_static! {
-    pub static ref CMD_HISTORY: Mutex<Commands> = Mutex::new(Commands::new());
 }
 
 const RTR_LIST: &[RtrType] = &[

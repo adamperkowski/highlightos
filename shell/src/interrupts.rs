@@ -1,6 +1,7 @@
 extern crate alloc;
 
 use crate::gdt;
+use crate::history::CMD_HISTORY;
 use crate::hlt_loop;
 use crate::keyboard_buffer::{clear_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
@@ -138,23 +139,54 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
 
                         KeyCode::ArrowUp => {
-                            while unsafe { BUFFER_INDEX } > 0 {
-                                unsafe {
-                                    BUFFER_INDEX -= 1;
-                                    WRITER.lock().decrement_column_position();
-                                    print!(" ");
-                                    WRITER.lock().decrement_column_position();
-                                }
-                            }
+                            // TODO: zsh-like completion
+                            let mut cmd_history = CMD_HISTORY.lock();
 
-                            // clear_buffer();
-                            // let cmd_history = CMD_HISTORY.lock();
-                            for i in "hellotest".chars() {
-                                unsafe {
-                                    BUFFER[BUFFER_INDEX] = i;
-                                    BUFFER_INDEX += 1;
+                            if cmd_history.history.len() > cmd_history.last {
+                                while unsafe { BUFFER_INDEX } > 0 {
+                                    // TODO: add current to history
+                                    unsafe {
+                                        BUFFER_INDEX -= 1;
+                                        WRITER.lock().decrement_column_position();
+                                        print!(" ");
+                                        WRITER.lock().decrement_column_position();
+                                    }
                                 }
-                                print!("{}", i);
+
+                                // clear_buffer();
+                                for i in cmd_history.history[cmd_history.last].chars() {
+                                    unsafe {
+                                        BUFFER[BUFFER_INDEX] = i;
+                                        BUFFER_INDEX += 1;
+                                    }
+                                    print!("{}", i);
+                                }
+                                cmd_history.last += 1;
+                            }
+                        }
+
+                        KeyCode::ArrowDown => {
+                            let mut cmd_history = CMD_HISTORY.lock();
+
+                            if cmd_history.last < 1 {
+                                while unsafe { BUFFER_INDEX } > 0 {
+                                    unsafe {
+                                        BUFFER_INDEX -= 1;
+                                        WRITER.lock().decrement_column_position();
+                                        print!(" ");
+                                        WRITER.lock().decrement_column_position();
+                                    }
+                                }
+
+                                cmd_history.last -= 1;
+
+                                for i in cmd_history.history[cmd_history.last].chars() {
+                                    unsafe {
+                                        BUFFER[BUFFER_INDEX] = i;
+                                        BUFFER_INDEX = 1;
+                                    }
+                                    print!("{}", i);
+                                }
                             }
                         }
 
