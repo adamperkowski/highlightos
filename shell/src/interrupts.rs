@@ -153,7 +153,6 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                                     }
                                 }
 
-                                // clear_buffer();
                                 for i in cmd_history.history
                                     [cmd_history.history.len() - cmd_history.last - 1]
                                     .chars()

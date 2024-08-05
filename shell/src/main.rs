@@ -42,9 +42,6 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
 
-    // let args: vec::Vec<&str> = vec![""];
-    // (COMMAND_LIST[1].fun)(args);
-
     #[cfg(debug_assertions)]
     print!(
         "\nHighlightOS Shell v{} DEBUG\n\nhls < ",
@@ -75,8 +72,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
                 if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == req_com) {
                     args.remove(0);
-
-                    // print!("\n");
 
                     let rtr = (command.fun)(args);
 
