@@ -1,6 +1,7 @@
 extern crate alloc;
 
 use crate::gdt;
+use crate::history::CMD_HISTORY;
 use crate::hlt_loop;
 use crate::keyboard_buffer::{clear_buffer, BUFFER, BUFFER_INDEX, BUFFER_SIZE};
 use crate::print;
@@ -125,16 +126,87 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
                     }
 
-                    DecodedKey::RawKey(key) => {
-                        if key == KeyCode::F1 && unsafe { BUFFER_INDEX } > 0 {
-                            clear_buffer();
-                            print!("\n");
-                            unsafe {
-                                BUFFER[BUFFER_INDEX] = '\n';
-                                BUFFER_INDEX += 1;
+                    DecodedKey::RawKey(key) => match key {
+                        KeyCode::F1 => {
+                            if unsafe { BUFFER_INDEX } > 0 {
+                                clear_buffer();
+                                print!("\n");
+                                unsafe {
+                                    BUFFER[BUFFER_INDEX] = '\n';
+                                    BUFFER_INDEX += 1;
+                                }
                             }
                         }
-                    }
+
+                        KeyCode::ArrowUp => {
+                            // TODO: zsh-like completion
+                            let mut cmd_history = CMD_HISTORY.lock();
+
+                            if cmd_history.history.len() > cmd_history.last {
+                                while unsafe { BUFFER_INDEX } > 0 {
+                                    // TODO: add current to history
+                                    unsafe {
+                                        BUFFER_INDEX -= 1;
+                                        WRITER.lock().decrement_column_position();
+                                        print!(" ");
+                                        WRITER.lock().decrement_column_position();
+                                    }
+                                }
+
+                                for i in cmd_history.history
+                                    [cmd_history.history.len() - cmd_history.last - 1]
+                                    .chars()
+                                {
+                                    unsafe {
+                                        BUFFER[BUFFER_INDEX] = i;
+                                        BUFFER_INDEX += 1;
+                                    }
+                                    print!("{}", i);
+                                }
+                                cmd_history.last += 1;
+                            }
+                        }
+
+                        KeyCode::ArrowDown => {
+                            let mut cmd_history = CMD_HISTORY.lock();
+
+                            if cmd_history.last > 1 {
+                                while unsafe { BUFFER_INDEX } > 0 {
+                                    unsafe {
+                                        BUFFER_INDEX -= 1;
+                                        WRITER.lock().decrement_column_position();
+                                        print!(" ");
+                                        WRITER.lock().decrement_column_position();
+                                    }
+                                }
+
+                                cmd_history.last -= 1;
+
+                                for i in cmd_history.history
+                                    [cmd_history.history.len() - cmd_history.last]
+                                    .chars()
+                                {
+                                    unsafe {
+                                        BUFFER[BUFFER_INDEX] = i;
+                                        BUFFER_INDEX += 1;
+                                    }
+                                    print!("{}", i);
+                                }
+                            }
+                        }
+
+                        KeyCode::ArrowLeft => {
+                            #[cfg(debug_assertions)]
+                            WRITER.lock().decrement_column_position();
+                        }
+
+                        KeyCode::ArrowRight => {
+                            #[cfg(debug_assertions)]
+                            WRITER.lock().increment_column_position();
+                        }
+
+                        _ => {}
+                    },
                 }
             }
         }

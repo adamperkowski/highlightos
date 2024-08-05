@@ -11,6 +11,7 @@ use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
 use hlshell::{
+    history::CMD_HISTORY,
     keyboard_buffer, print, println,
     vga_buffer::{Color, WRITER},
 };
@@ -41,9 +42,6 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
 
-    // let args: vec::Vec<&str> = vec![""];
-    // (COMMAND_LIST[1].fun)(args);
-
     #[cfg(debug_assertions)]
     print!(
         "\nHighlightOS Shell v{} DEBUG\n\nhls < ",
@@ -65,6 +63,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
         if input.ends_with("\n") {
             keyboard_buffer::clear_buffer();
+            CMD_HISTORY.lock().last = 0;
 
             let mut args: vec::Vec<&str> = input.split(' ').collect();
 
@@ -90,6 +89,16 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         Color::LightRed,
                         Color::Black,
                     );
+                }
+
+                let mut cmd_history = CMD_HISTORY.lock();
+                if !cmd_history.history.is_empty() {
+                    if cmd_history.history[cmd_history.history.len() - 1] != input.replace("\n", "")
+                    {
+                        cmd_history.history.push(input.replace("\n", ""));
+                    }
+                } else {
+                    cmd_history.history.push(input.replace("\n", ""));
                 }
             }
 

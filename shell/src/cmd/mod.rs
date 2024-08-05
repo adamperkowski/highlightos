@@ -12,6 +12,8 @@ use alloc::{format, vec};
 use hlshell::println;
 use hlshell::vga_buffer::{Color, STR_COLORS, WRITER};
 
+use crate::CMD_HISTORY;
+
 pub struct Command {
     pub name: &'static str,
     pub args: &'static str,
@@ -137,6 +139,15 @@ fn chcolor(_args: Vec<&str>) -> i32 {
     }
 }
 
+pub fn cmd_hist(_args: Vec<&str>) -> i32 {
+    let cmd_history = CMD_HISTORY.lock();
+    for i in &cmd_history.history {
+        println!("{}", i);
+    }
+
+    0
+}
+
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
@@ -191,6 +202,12 @@ pub const COMMAND_LIST: &[Command] = &[
         args: "[fg] [bg]",
         doc: "change text color",
         fun: chcolor,
+    },
+    Command {
+        name: "history",
+        args: "",
+        doc: "display command history",
+        fun: cmd_hist,
     },
     #[cfg(debug_assertions)]
     Command {
