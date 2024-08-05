@@ -73,6 +73,8 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                 if let Some(command) = COMMAND_LIST.iter().find(|&com| com.name == req_com) {
                     args.remove(0);
 
+                    print!("\n");
+
                     let rtr = (command.fun)(args);
 
                     if rtr != 1 {
