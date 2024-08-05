@@ -1,3 +1,10 @@
+# v0.3.3 (05-08-2024)
+**Changes:**
+- Added backspace and command interrupting functionality (F1) ([#19](https://github.com/adamperkowski/highlightos/pull/19))
+- Improved return codes syntax ([3429553](https://github.com/adamperkowski/highlightos/commit/342955301aabafdaf545f51230aa2c155dc55fab))
+- Implemented arrow keys functionality and command history ([#20](https://github.com/adamperkowski/highlightos/pull/20))
+- Improved command syntax (newline) ([6c9c009](https://github.com/adamperkowski/highlightos/commit/6c9c0098633a2f7e87f080862e8c72dbe60b30eb))
+
 # v0.3.2 (25-07-2024)
 **The colorful release**
 
