@@ -45,9 +45,9 @@ rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && ru
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 4. `cd` into the `shell/` directory:
+ 4. `cd` into the `kernel/` directory:
 ```bash
-cd shell
+cd kernel
 ```
  5. Build the bootable binary:
 ```bash

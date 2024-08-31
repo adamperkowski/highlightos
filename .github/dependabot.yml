@@ -3,7 +3,7 @@
 version: 2
 updates:
   - package-ecosystem: "cargo"
-    directory: "/shell"
+    directory: "/kernel"
     schedule:
       interval: "weekly"
     allow:

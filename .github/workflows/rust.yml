@@ -3,11 +3,11 @@ name: Rust
 on:
   push:
     paths:
-      - shell/**
+      - kernel/**
     branches: [ "main" ]
   pull_request:
     paths:
-      - shell/**
+      - kernel/**
     branches: [ "main" ]
   merge_group:
   workflow_dispatch:
@@ -17,7 +17,7 @@ env:
 
 jobs:
   build-bin:
-    name: Build hlshell [bin] [dev]
+    name: Build hlkernel [bin] [dev]
     runs-on: ubuntu-latest
 
     steps:
@@ -30,15 +30,15 @@ jobs:
           components: rust-src, llvm-tools-preview
 
       - name: Install bootimage
-        working-directory: shell
+        working-directory: kernel
         run: cargo install bootimage
 
-      - name: Build hlshell [bin] [dev]
-        working-directory: shell
+      - name: Build hlkernel [bin] [dev]
+        working-directory: kernel
         run: cargo bootimage
 
   build-bin-re:
-    name: Build hlshell [bin] [release]
+    name: Build hlkernel [bin] [release]
     runs-on: ubuntu-latest
 
     steps:
@@ -51,15 +51,15 @@ jobs:
           components: rust-src, llvm-tools-preview
 
       - name: Install bootimage
-        working-directory: shell
+        working-directory: kernel
         run: cargo install bootimage
 
-      - name: Build hlshell [bin] [release]
-        working-directory: shell
+      - name: Build hlkernel [bin] [release]
+        working-directory: kernel
         run: cargo +nightly bootimage --release
 
   lints:
-    name: hlshell Lints
+    name: hlkernel Lints
     runs-on: ubuntu-latest
 
     steps:
@@ -73,10 +73,10 @@ jobs:
           override: true
           components: rust-src, rustfmt, clippy
       
-      - name: Run cargo fmt on hlshell
-        working-directory: shell
+      - name: Run cargo fmt on hlkernel
+        working-directory: kernel
         run: cargo fmt --all --check
 
-      - name: Run cargo clippy on hlshell
-        working-directory: shell
+      - name: Run cargo clippy on hlkernel
+        working-directory: kernel
         run: cargo clippy

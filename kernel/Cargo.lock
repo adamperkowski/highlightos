@@ -33,7 +33,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "365861702868e2a37b4247aaecc7bd8f4389baec8d025497ad8ba7ff37ee9440"
 
 [[package]]
-name = "hlshell"
+name = "hlkernel"
 version = "0.3.3"
 dependencies = [
  "bootloader",
