@@ -10,7 +10,7 @@ Un sistema operativo x86_64 (kernel) realizzato in Assembly e Rust.
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLKernel%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
 
 ## Table of contents
 - [Compilare da sorgente su Mac/Linux](#compilare-da-sorgente-su-maclinux)
@@ -27,7 +27,7 @@ Un sistema operativo x86_64 (kernel) realizzato in Assembly e Rust.
 
 <!-- installation & docs -->
 ## Compilare da sorgente su Mac/Linux
-### HLShell (kernel principale)
+### Kernel Principale
 **Requisiti:**
  - [Git](https://git-scm.com) (controllo versione)
  - [Toolchain Rust](https://www.rust-lang.org/tools/install)
@@ -53,7 +53,7 @@ cd kernel
 ```bash
 cargo +nightly bootimage --release
 ```
-> Questo comando creerà la sottocartella `target/target/release` in cui verrà creato il file binario `bootimage-hlshell.bin`.
+> Questo comando creerà la sottocartella `target/target/release` in cui verrà creato il file binario `bootimage-hlkernel.bin`.
 
 ### HighlightOS ASM
 **Requisiti:**

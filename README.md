@@ -10,7 +10,7 @@ x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLShell%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/asm.yml?branch=main&label=ASM%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions) [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/adamperkowski/highlightos/rust.yml?branch=main&label=HLKernel%20Build&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/actions)
 
 ## Table of contents
 - [Build from source on Linux](#build-from-source-on-linux)
@@ -27,7 +27,7 @@ x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 
 <!-- installation & docs -->
 ## Build from source on Linux
-### HLShell (main kernel)
+### Main Kernel
 **Requirements:**
  - [Git](https://git-scm.com) version control system
  - [Rust toolchain](https://www.rust-lang.org/tools/install)
@@ -53,7 +53,7 @@ cd kernel
 ```bash
 cargo +nightly bootimage --release
 ```
-> This command will create the `target/target/release` directory in which you'll find the `bootimage-hlshell.bin` binary file.
+> This command will create the `target/target/release` directory in which you'll find the `bootimage-hlkernel.bin` binary file.
 
 ### HighlightOS ASM
 **Requirements:**
