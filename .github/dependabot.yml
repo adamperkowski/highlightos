@@ -1,0 +1,19 @@
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "cargo"
+    directory: "/shell"
+    schedule:
+      interval: "weekly"
+    allow:
+      dependency-name: "spin"
+      dependency-name: "uart_16550"
+      dependency-name: "pic18259"
+      dependency-name: "pc-keyboard"
+    assignees:
+      - "adamperkowski"
+    labels:
+      - "deps"
+    commit-message:
+      prefix: "cargo"
