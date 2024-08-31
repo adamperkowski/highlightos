@@ -1,7 +1,10 @@
 [package]
 name = "hlkernel"
-version = "0.3.3"
+description = "x86_64 OS (kernel) made from scratch in Assembly & Rust"
+homepage = "https://os.adamperkowski.dev"
 authors = ["Adam Perkowski <adas1per@protonmail.com>"]
+license = "GPL-3.0"
+version = "0.3.3"
 edition = "2021"
 
 [dependencies]
