@@ -10,7 +10,7 @@ use alloc::{format, vec};
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
-use hlshell::{
+use hlkernel::{
     history::CMD_HISTORY,
     keyboard_buffer, print, println,
     vga_buffer::{Color, WRITER},
@@ -27,14 +27,14 @@ struct RtrType {
 }
 
 pub fn init_kernel(boot_info: &'static BootInfo) {
-    use hlshell::allocator;
-    use hlshell::mem::{self, BootInfoFrameAlloc};
+    use hlkernel::allocator;
+    use hlkernel::mem::{self, BootInfoFrameAlloc};
     use x86_64::VirtAddr;
 
     #[cfg(debug_assertions)]
     println!("Initializing...\n");
 
-    hlshell::init();
+    hlkernel::init();
 
     let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset);
     let mut mapper = unsafe { mem::init(phys_mem_offset) };
@@ -44,13 +44,13 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 
     #[cfg(debug_assertions)]
     print!(
-        "\nHighlightOS Shell v{} DEBUG\n\nhls < ",
+        "\nHighlightOS v{} DEBUG\n\nhls < ",
         env!("CARGO_PKG_VERSION")
     );
 
     #[cfg(not(debug_assertions))]
     print!(
-        "\nHighlightOS Shell v{}\n\nhls < ",
+        "\nHighlightOS v{}\n\nhls < ",
         env!("CARGO_PKG_VERSION")
     );
 }
@@ -108,7 +108,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
         }
     }
 
-    // hlshell::hlt_loop();
+    // hlkernel::hlt_loop();
 }
 
 const RTR_LIST: &[RtrType] = &[
@@ -137,5 +137,5 @@ fn panic(info: &PanicInfo) -> ! {
         Color::Red,
         Color::Black,
     );
-    hlshell::hlt_loop();
+    hlkernel::hlt_loop();
 }

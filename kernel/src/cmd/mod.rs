@@ -9,8 +9,8 @@ use alloc::string::ToString;
 use alloc::vec::Vec;
 use alloc::{format, vec};
 
-use hlshell::println;
-use hlshell::vga_buffer::{Color, STR_COLORS, WRITER};
+use hlkernel::println;
+use hlkernel::vga_buffer::{Color, STR_COLORS, WRITER};
 
 use crate::CMD_HISTORY;
 
