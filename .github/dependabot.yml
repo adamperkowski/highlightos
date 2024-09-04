@@ -11,6 +11,7 @@ updates:
       - dependency-name: "uart_16550"
       - dependency-name: "pic18259"
       - dependency-name: "pc-keyboard"
+      - dependency-name: "linked_list_allocator"
     assignees:
       - "adamperkowski"
     labels:
