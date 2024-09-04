@@ -14,7 +14,7 @@ x86_64 = "0.14"
 uart_16550 = "0.3"
 pic8259 = "0.11"
 pc-keyboard = "0.7"
-linked_list_allocator = "0.9"
+linked_list_allocator = "0.10"
 
 [dependencies.bootloader]
 version = "0.9"
