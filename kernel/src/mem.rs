@@ -1,8 +1,6 @@
 use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
 use x86_64::{
-    structures::paging::{
-        FrameAllocator, Mapper, OffsetPageTable, Page, PageTable, PhysFrame, Size4KiB,
-    },
+    structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, PageTable, PhysFrame, Size4KiB},
     PhysAddr, VirtAddr,
 };
 
@@ -58,10 +56,7 @@ pub struct BootInfoFrameAlloc {
 #[allow(clippy::missing_safety_doc)]
 impl BootInfoFrameAlloc {
     pub unsafe fn init(memory_map: &'static MemoryMap) -> Self {
-        BootInfoFrameAlloc {
-            memory_map,
-            next: 0,
-        }
+        BootInfoFrameAlloc { memory_map, next: 0 }
     }
     fn usable_frames(&self) -> impl Iterator<Item = PhysFrame> {
         let regions = self.memory_map.iter();

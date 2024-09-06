@@ -29,9 +29,7 @@ pub struct LinkedListAllocator {
 #[allow(clippy::missing_safety_doc)]
 impl LinkedListAllocator {
     pub const fn new() -> Self {
-        Self {
-            head: ListNode::new(0),
-        }
+        Self { head: ListNode::new(0) }
     }
 
     pub unsafe fn init(&mut self, heap_start: usize, heap_size: usize) {
