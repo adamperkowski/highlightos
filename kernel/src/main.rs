@@ -43,10 +43,7 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
 
     #[cfg(debug_assertions)]
-    print!(
-        "\nHighlightOS v{} DEBUG\n\nhls < ",
-        env!("CARGO_PKG_VERSION")
-    );
+    print!("\nHighlightOS v{} DEBUG\n\nhls < ", env!("CARGO_PKG_VERSION"));
 
     #[cfg(not(debug_assertions))]
     print!("\nHighlightOS v{}\n\nhls < ", env!("CARGO_PKG_VERSION"));
@@ -75,8 +72,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                     let rtr = (command.fun)(args);
 
                     if rtr != 1 {
-                        if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr)
-                        {
+                        if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
                             println!("\n > {}\n{} : {}\n", req_com, rtr, return_code.info);
                         } else {
                             println!("\n > {}\nreturned : {}\n", req_com, rtr);
@@ -92,8 +88,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
                 let mut cmd_history = CMD_HISTORY.lock();
                 if !cmd_history.history.is_empty() {
-                    if cmd_history.history[cmd_history.history.len() - 1] != input.replace("\n", "")
-                    {
+                    if cmd_history.history[cmd_history.history.len() - 1] != input.replace("\n", "") {
                         cmd_history.history.push(input.replace("\n", ""));
                     }
                 } else {
@@ -129,10 +124,8 @@ const RTR_LIST: &[RtrType] = &[
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    WRITER.lock().print_colored(
-        format!("KERNEL CRASHED\n{}\n", info),
-        Color::Red,
-        Color::Black,
-    );
+    WRITER
+        .lock()
+        .print_colored(format!("KERNEL CRASHED\n{}\n", info), Color::Red, Color::Black);
     hlkernel::hlt_loop();
 }

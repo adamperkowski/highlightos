@@ -91,19 +91,15 @@ fn document(_args: Vec<&str>) -> i32 {
             println!("{}  >>  {}", command.name, command.doc);
             0
         } else {
-            WRITER.lock().print_colored(
-                "Command not found.\n".to_string(),
-                Color::LightRed,
-                Color::Black,
-            );
+            WRITER
+                .lock()
+                .print_colored("Command not found.\n".to_string(), Color::LightRed, Color::Black);
             3
         }
     } else {
-        WRITER.lock().print_colored(
-            "No command specified.\n".to_string(),
-            Color::LightRed,
-            Color::Black,
-        );
+        WRITER
+            .lock()
+            .print_colored("No command specified.\n".to_string(), Color::LightRed, Color::Black);
         4
     }
 }
@@ -113,17 +109,12 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         let mut new_colors: vec::Vec<Color> = vec![];
 
         for arg in _args {
-            if let Some(color) = STR_COLORS
-                .iter()
-                .find(|&col| col.name == arg.replace("\n", ""))
-            {
+            if let Some(color) = STR_COLORS.iter().find(|&col| col.name == arg.replace("\n", "")) {
                 new_colors.push(color.color);
             } else {
-                WRITER.lock().print_colored(
-                    format!("Color not found: {}\n", arg),
-                    Color::LightRed,
-                    Color::Black,
-                );
+                WRITER
+                    .lock()
+                    .print_colored(format!("Color not found: {}\n", arg), Color::LightRed, Color::Black);
                 return 4;
             }
         }
