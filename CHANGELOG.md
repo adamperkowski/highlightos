@@ -1,3 +1,10 @@
+# v0.3.4 (12-10-2024)
+**Changes:**
+- Dep updates ([#26](https://github.com/adamperkowski/highlightos/pull/26), [#28](https://github.com/adamperkowski/highlightos/pull/28), [#30](https://github.com/adamperkowski/highlightos/pull/30))
+- Move `shell` to `kernel` ([#27](https://github.com/adamperkowski/highlightos/pull/27))
+- Some internal fixes ([87eebe4](https://github.com/adamperkowski/highlightos/commit/87eebe48aa229ce4673553dbe31f3ebc2801bb12))
+
+
 # v0.3.3 (05-08-2024)
 **Changes:**
 - Added backspace and command interrupting functionality (F1) ([#19](https://github.com/adamperkowski/highlightos/pull/19))
