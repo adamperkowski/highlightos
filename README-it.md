@@ -51,7 +51,7 @@ cd kernel
 ```
  5. Compila il file binario avviabile:
 ```bash
-cargo +nightly bootimage --release
+cargo bootimage --release
 ```
 > Questo comando creerà la sottocartella `target/target/release` in cui verrà creato il file binario `bootimage-hlkernel.bin`.
 

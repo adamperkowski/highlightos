@@ -51,7 +51,7 @@ cd kernel
 ```
  5. Zbuduj bootowalny plik binarny :
 ```bash
-cargo +nightly bootimage --release
+cargo bootimage --release
 ```
 > Ta komenda stworzy folder `target/target/release` w którym znajdziesz `bootimage-hlkernel.bin`, czyli plik binarny.
 
