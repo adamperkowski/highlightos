@@ -99,8 +99,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
             print!("hls < ");
         }
     }
-
-    // hlkernel::hlt_loop();
 }
 
 const RTR_LIST: &[RtrType] = &[
