@@ -117,7 +117,7 @@ pub fn cmd_hist(_args: Vec<&str>) -> i32 {
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
-    panic!("Invoked by THE CRASHER >:)");
+    panic!("Invoked by THE CRASHER >:)"); // FIXME: THIS IS NOT SAFE
 }
 
 pub const COMMAND_LIST: &[Command] = &[
