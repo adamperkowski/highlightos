@@ -56,10 +56,10 @@ jobs:
 
       - name: Build hlkernel [bin] [release]
         working-directory: kernel
-        run: cargo +nightly bootimage --release
+        run: cargo bootimage --release
 
-  lints:
-    name: hlkernel Lints
+  checks:
+    name: hlkernel Checks
     runs-on: ubuntu-latest
 
     steps:
@@ -79,4 +79,6 @@ jobs:
 
       - name: Run cargo clippy on hlkernel
         working-directory: kernel
-        run: cargo clippy
+        run: |
+          cargo clippy -- -Dwarnings
+          cargo clippy --release -- -Dwarnings
