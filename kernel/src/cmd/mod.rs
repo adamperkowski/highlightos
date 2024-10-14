@@ -23,7 +23,7 @@ fn help(_args: Vec<&str>) -> i32 {
     println!(
         "HighlightOS Shell
 
-  List of commands:"
+  List of available commands:"
     );
 
     for cmd in COMMAND_LIST {
@@ -97,7 +97,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         0
     } else {
         WRITER.lock().print_colored(
-            "Specify both fg and bg color.\nExample usage: chcolor red white\n".to_string(),
+            "Specify both foreground and background color.\nExample usage: chcolor red white\n".to_string(),
             Color::LightRed,
             Color::Black,
         );
@@ -117,20 +117,20 @@ pub fn cmd_hist(_args: Vec<&str>) -> i32 {
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
-    panic!("Invoked by crasher");
+    panic!("Invoked by THE CRASHER");
 }
 
 pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "clrs",
         args: "",
-        doc: "clear screen",
+        doc: "clear the output",
         fun: clrs,
     },
     Command {
         name: "help",
         args: "",
-        doc: "show list of commands",
+        doc: "show a list of available commands",
         fun: help,
     },
     Command {
@@ -148,7 +148,7 @@ pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "getdoc",
         args: "[cmd]",
-        doc: "display doc of selected command",
+        doc: "display the documentation of selected command",
         fun: document,
     },
     // Command {
@@ -173,7 +173,7 @@ pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "crash_kernel",
         args: "",
-        doc: "DEV | panic! the system",
+        doc: "DEV | cause a kernel panic",
         fun: crasher,
     },
 ];
