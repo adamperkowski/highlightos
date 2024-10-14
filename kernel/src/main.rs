@@ -34,13 +34,13 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
     #[cfg(debug_assertions)]
     println!("Initializing...\n");
 
-    hlkernel::init();
-
     let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset);
     let mut mapper = unsafe { mem::init(phys_mem_offset) };
     let mut frame_allocator = unsafe { BootInfoFrameAlloc::init(&boot_info.memory_map) };
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
+
+    hlkernel::init();
 
     #[cfg(debug_assertions)]
     print!("\nHighlightOS v{} DEBUG\n\nhls < ", env!("CARGO_PKG_VERSION"));
