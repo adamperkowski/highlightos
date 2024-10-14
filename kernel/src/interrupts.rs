@@ -63,14 +63,14 @@ pub fn init_idt() {
 
 extern "x86-interrupt" fn breakpoint_handler(stack_frame: InterruptStackFrame) {
     WRITER.lock().print_colored(
-        format!("\nKERNEL CRASHED\nEX: BREAKPOINT\n{:#?}\n\n", stack_frame),
+        format!("\nEX: BREAKPOINT\n{:#?}\n\n", stack_frame),
         Color::Red,
         Color::Black,
     );
 }
 
 extern "x86-interrupt" fn double_fault_handler(stack_frame: InterruptStackFrame, _error_code: u64) -> ! {
-    panic!("\nKERNEL CRASHED\nEX: DOUBLE FAULT\n{:#?}\n", stack_frame);
+    panic!("\nEX: DOUBLE FAULT\n{:#?}\n", stack_frame);
 }
 
 extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: InterruptStackFrame) {
@@ -208,7 +208,7 @@ extern "x86-interrupt" fn page_fault_handler(stack_frame: InterruptStackFrame, e
 
     WRITER.lock().print_colored(
         format!(
-            "\nKERNEL CRASHED\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n\n",
+            "\nEX: PAGE FAULT\nAccessed address: {:?}\nError code: {:?}\n\n{:#?}\n\n",
             Cr2::read(),
             error_code,
             stack_frame
