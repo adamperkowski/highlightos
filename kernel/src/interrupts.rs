@@ -133,12 +133,10 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
 
                         KeyCode::ArrowUp => {
-                            // TODO: zsh-like completion
                             let mut cmd_history = CMD_HISTORY.lock();
 
                             if cmd_history.history.len() > cmd_history.last {
                                 while unsafe { BUFFER_INDEX } > 0 {
-                                    // TODO: add current to history
                                     unsafe {
                                         BUFFER_INDEX -= 1;
                                         WRITER.lock().decrement_column_position();

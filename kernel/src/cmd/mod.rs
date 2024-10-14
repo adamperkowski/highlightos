@@ -1,8 +1,3 @@
-// use std::io;
-// use std::io::Write;
-// use std::process;
-
-extern crate alloc;
 use alloc::string::ToString;
 use alloc::vec::Vec;
 use alloc::{format, vec};
@@ -63,24 +58,6 @@ fn cc(_args: Vec<&str>) -> i32 {
 
     0
 }
-
-// fn exit_hls(_args: Vec<&str>) -> i32 {
-//     print!("are you sure you want to exit? [ y/N ] < ");
-
-//     let mut inpt = String::new();
-
-//     io::stdout().flush().unwrap();
-//     io::stdin().read_line(&mut inpt).unwrap();
-
-//     if inpt.to_lowercase() == "y\n" {
-//         println!();
-//         process::exit(0);
-//     }
-//     // return 0
-//     else {
-//         3
-//     }
-// }
 
 fn document(_args: Vec<&str>) -> i32 {
     if !_args.is_empty() {
@@ -168,12 +145,6 @@ pub const COMMAND_LIST: &[Command] = &[
         doc: "display copyright info",
         fun: cc,
     },
-    // Command {
-    //     name: "exit",
-    //     args: "",
-    //     doc: "exit the shell :((",
-    //     fun: exit_hls,
-    // },
     Command {
         name: "getdoc",
         args: "[cmd]",
@@ -183,7 +154,7 @@ pub const COMMAND_LIST: &[Command] = &[
     // Command {
     //     name: "reinit",
     //     args: "",
-    //     doc: "re-init the system",
+    //     doc: "re-initialize the kernel",
     //     fun: crate::init_kernel,
     // },
     Command {

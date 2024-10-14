@@ -20,7 +20,7 @@ unsafe fn active_lvl_4_table(ph_memory_offset: VirtAddr) -> &'static mut PageTab
     let virt = ph_memory_offset + phys.as_u64();
     let page_table_ptr: *mut PageTable = virt.as_mut_ptr();
 
-    &mut *page_table_ptr // unsafe return
+    &mut *page_table_ptr // FIXME: unsafe return
 }
 
 pub fn create_example_mapping(
