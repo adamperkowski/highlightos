@@ -43,10 +43,20 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
     hlkernel::init();
 
     #[cfg(debug_assertions)]
-    print!("\nHighlightOS v{} DEBUG\n\nhls < ", env!("CARGO_PKG_VERSION"));
+    WRITER.lock().print_colored(
+        format!("\nHighlightOS v{} DEBUG", env!("CARGO_PKG_VERSION")),
+        Color::Black,
+        Color::Yellow,
+    );
 
     #[cfg(not(debug_assertions))]
-    print!("\nHighlightOS v{}\n\nhls < ", env!("CARGO_PKG_VERSION"));
+    WRITER.lock().print_colored(
+        format!("\nHighlightOS v{}", env!("CARGO_PKG_VERSION")),
+        Color::Black,
+        Color::Yellow,
+    );
+
+    print!("\n\nhls < ");
 }
 
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
