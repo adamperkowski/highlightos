@@ -32,6 +32,7 @@ pub enum Color {
     Pink = 13,
     Yellow = 14,
     White = 15,
+    None = u8::MAX,
 }
 
 pub struct ColorStr {

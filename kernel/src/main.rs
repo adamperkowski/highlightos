@@ -24,6 +24,7 @@ entry_point!(kernel_main);
 struct RtrType {
     code: &'static i32,
     info: &'static str,
+    color: Color,
 }
 
 pub fn init_kernel(boot_info: &'static BootInfo) {
@@ -83,7 +84,12 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
                     if rtr != 1 {
                         if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
-                            println!("\n > {}\n{} : {}\n", req_com, rtr, return_code.info);
+                            println!("\n > {}", req_com);
+                            WRITER.lock().print_colored(
+                                format!("{} : {}\n\n", rtr, return_code.info),
+                                return_code.color,
+                                Color::Black, // Color::None ??
+                            );
                         } else {
                             println!("\n > {}\nreturned : {}\n", req_com, rtr);
                         }
@@ -115,18 +121,22 @@ const RTR_LIST: &[RtrType] = &[
     RtrType {
         code: &0,
         info: "executed successfully",
+        color: Color::Green,
     },
     RtrType {
         code: &2,
         info: "returned general error",
+        color: Color::Red,
     },
     RtrType {
         code: &3,
         info: "returned critical error",
+        color: Color::Red,
     },
     RtrType {
         code: &4,
         info: "returned user error",
+        color: Color::Red,
     },
 ];
 
