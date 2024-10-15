@@ -53,7 +53,7 @@ unsafe impl GlobalAlloc for Dummy {
     }
 
     unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout) {
-        panic!("dealloc should be never called")
+        panic!("dealloc should never be called")
     }
 }
 

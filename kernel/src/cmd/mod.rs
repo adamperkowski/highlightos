@@ -1,10 +1,3 @@
-// Copyleft 🄯 2024  Adam Perkowski
-
-// use std::io;
-// use std::io::Write;
-// use std::process;
-
-extern crate alloc;
 use alloc::string::ToString;
 use alloc::vec::Vec;
 use alloc::{format, vec};
@@ -30,7 +23,7 @@ fn help(_args: Vec<&str>) -> i32 {
     println!(
         "HighlightOS Shell
 
-  List of commands:"
+  List of available commands:"
     );
 
     for cmd in COMMAND_LIST {
@@ -47,7 +40,7 @@ fn test(_args: Vec<&str>) -> i32 {
 
 fn cc(_args: Vec<&str>) -> i32 {
     println!(
-        "Copyright (C) 2024  Adam Perkowski
+        "Copyright (C) 2024 Adam Perkowski
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -65,24 +58,6 @@ fn cc(_args: Vec<&str>) -> i32 {
 
     0
 }
-
-// fn exit_hls(_args: Vec<&str>) -> i32 {
-//     print!("are you sure you want to exit? [ y/N ] < ");
-
-//     let mut inpt = String::new();
-
-//     io::stdout().flush().unwrap();
-//     io::stdin().read_line(&mut inpt).unwrap();
-
-//     if inpt.to_lowercase() == "y\n" {
-//         println!();
-//         process::exit(0);
-//     }
-//     // return 0
-//     else {
-//         3
-//     }
-// }
 
 fn document(_args: Vec<&str>) -> i32 {
     if !_args.is_empty() {
@@ -122,7 +97,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         0
     } else {
         WRITER.lock().print_colored(
-            "Specify both fg and bg color.\nExample usage: chcolor red white\n".to_string(),
+            "Specify both foreground and background color.\nExample usage: chcolor red white\n".to_string(),
             Color::LightRed,
             Color::Black,
         );
@@ -142,20 +117,20 @@ pub fn cmd_hist(_args: Vec<&str>) -> i32 {
 #[cfg(debug_assertions)]
 fn crasher(_args: Vec<&str>) -> i32 {
     println!("CRASHING...\n\n");
-    panic!("Invoked by crasher");
+    panic!("Invoked by THE CRASHER >:)"); // FIXME: THIS IS NOT SAFE
 }
 
 pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "clrs",
         args: "",
-        doc: "clear screen",
+        doc: "clear the output",
         fun: clrs,
     },
     Command {
         name: "help",
         args: "",
-        doc: "show list of commands",
+        doc: "show a list of available commands",
         fun: help,
     },
     Command {
@@ -170,22 +145,16 @@ pub const COMMAND_LIST: &[Command] = &[
         doc: "display copyright info",
         fun: cc,
     },
-    // Command {
-    //     name: "exit",
-    //     args: "",
-    //     doc: "exit the shell :((",
-    //     fun: exit_hls,
-    // },
     Command {
         name: "getdoc",
         args: "[cmd]",
-        doc: "display doc of selected command",
+        doc: "display the documentation of selected command",
         fun: document,
     },
     // Command {
     //     name: "reinit",
     //     args: "",
-    //     doc: "re-init the system",
+    //     doc: "re-initialize the kernel",
     //     fun: crate::init_kernel,
     // },
     Command {
@@ -204,7 +173,7 @@ pub const COMMAND_LIST: &[Command] = &[
     Command {
         name: "crash_kernel",
         args: "",
-        doc: "DEV | panic! the system",
+        doc: "DEV | cause a kernel panic",
         fun: crasher,
     },
 ];
