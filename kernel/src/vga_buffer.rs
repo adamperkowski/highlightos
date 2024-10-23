@@ -208,6 +208,9 @@ impl Writer {
     pub fn increment_column_position(&mut self) {
         self.column_position += 1;
     }
+    pub fn get_column_position(&mut self) -> usize {
+        self.column_position
+    }
 }
 
 impl fmt::Write for Writer {

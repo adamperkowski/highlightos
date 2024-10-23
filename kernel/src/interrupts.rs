@@ -182,15 +182,24 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         }
 
                         KeyCode::ArrowLeft => {
-                            // TODO #29: Limits & newlines
-                            #[cfg(debug_assertions)]
-                            WRITER.lock().decrement_column_position();
+                            if unsafe { BUFFER_INDEX } > 0 {
+                                WRITER.lock().decrement_column_position();
+
+                                /* unsafe {
+                                    BUFFER_INDEX -= 1;
+                                }
+
+                                print!(" ");
+                                WRITER.lock().decrement_column_position(); */
+                            }
                         }
 
                         KeyCode::ArrowRight => {
-                            // TODO #29: Limits & newlines
-                            #[cfg(debug_assertions)]
-                            WRITER.lock().increment_column_position();
+                            let mut writer = WRITER.lock();
+
+                            if writer.get_column_position() < unsafe { BUFFER_INDEX } {
+                                writer.increment_column_position();
+                            }
                         }
 
                         _ => {}
