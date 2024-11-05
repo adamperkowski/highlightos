@@ -29,7 +29,7 @@ x86_64 System Operacyjny (kernel) zrobiony od zera w Assembly & Rust
 ## Budowa ze źródła na Linuxie
 ### Główny Kernel
 **Wymagania:**
- - System kontroli wersji[Git] (https://git-scm.com)
+ - System kontroli wersji [Git](https://git-scm.com)
  - [Rust toolchain](https://www.rust-lang.org/tools/install)
 
 **Kroki:**
