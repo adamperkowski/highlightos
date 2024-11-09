@@ -7,11 +7,11 @@ title = "HighlightOS"
 
 [output.html]
 cname = "os.adamperkowski.dev"
-#default-theme = "colibri"
-#preferred-dark-theme = "colibri"
+default-theme = "highlight"
+preferred-dark-theme = "highlight"
 git-repository-url = "https://github.com/adamperkowski/highlightos"
 edit-url-template = "https://github.com/adamperkowski/highlightos/edit/master/book/{path}"
-#additional-css = ["custom.css"]
+additional-css = ["./theme/custom.css"]
 
 [output.html.search]
 use-boolean-and = true
