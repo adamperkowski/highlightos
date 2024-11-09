@@ -226,9 +226,11 @@ impl Writer {
 
     pub fn decrement_column_position(&mut self) {
         self.column_position -= 1;
+        self.update_cursor();
     }
     pub fn increment_column_position(&mut self) {
         self.column_position += 1;
+        self.update_cursor();
     }
 }
 
