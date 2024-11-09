@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>HighlightOS</title>
-        <meta name="robots" content="noindex">
+        <title>Usage - HighlightOS</title>
 
 
         <!-- Custom HTML head -->
@@ -128,6 +127,9 @@
                         <a href="https://github.com/adamperkowski/highlightos" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+                        <a href="https://github.com/adamperkowski/highlightos/edit/master/book/src/usage.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -154,12 +156,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="highlightos"><a class="header" href="#highlightos">HighlightOS</a></h1>
-<p>x86_64 OS (kernel) made completely from scratch in Assembly &amp; Rust</p>
-<p>This documentation includes only the "main kernel" (inside the <code>/kernel</code> directory).</p>
-<p>Documentation for bleeding-edge main can be found at <a href="https://os.adamperkowski.dev/main">https://os.adamperkowski.dev/main</a>.</p>
-<p>Keep in mind that this website is still a WIP.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="usage"><a class="header" href="#usage">Usage</a></h1>
+                        <h1 id="usage"><a class="header" href="#usage">Usage</a></h1>
 <h2 id="running-in-qemu-on-linux"><a class="header" href="#running-in-qemu-on-linux">Running in QEMU on Linux</a></h2>
 <p><strong>Requirements:</strong></p>
 <ul>
@@ -182,88 +179,18 @@
 <p>Make sure to replace <code>&lt;your_binary_filename&gt;.bin</code> with your downloaded/compiled binary name and make sure to replace <code>/dev/sdX</code> with your USB's actual partition number.<br><strong>Any data on it will be lost!</strong></p>
 <p>You can choose the device to boot off of from your BIOS boot menu (accessible by pressing <kbd>F2</kbd>, <kbd>F8</kbd> or <kbd>F12</kbd> - depending on your motherboard).</p>
 <p><strong><ins>Double-check that your motherboard is capable of booting legacy media(s)</ins>, as HighlightOS is not UEFI-compatible yet.</strong></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="building-from-source"><a class="header" href="#building-from-source">Building from source</a></h1>
-<h2 id="main-kernel-on-x86_64-linux"><a class="header" href="#main-kernel-on-x86_64-linux">Main kernel (on x86_64 Linux)</a></h2>
-<p><strong>Requirements:</strong></p>
-<ul>
-<li><a href="https://git-scm.com">Git</a> version control system</li>
-<li><a href="https://www.rust-lang.org/tools/install">Rust toolchain</a></li>
-</ul>
-<p><strong>Steps:</strong></p>
-<ol>
-<li>Install the nightly toolchain:</li>
-</ol>
-<pre><code class="language-bash">rustup toolchain install nightly
-</code></pre>
-<ol start="2">
-<li>Install required components:</li>
-</ol>
-<pre><code class="language-bash">rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu &amp;&amp; rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu &amp;&amp; cargo install bootimage
-</code></pre>
-<ol start="3">
-<li>Create a local clone of the repository:</li>
-</ol>
-<pre><code class="language-bash">git clone git@github.com:adamperkowski/highlightos.git &amp;&amp; cd highlightos
-</code></pre>
-<ol start="4">
-<li><code>cd</code> into the <code>kernel/</code> directory:</li>
-</ol>
-<pre><code class="language-bash">cd kernel
-</code></pre>
-<ol start="5">
-<li>Build the bootable binary:</li>
-</ol>
-<pre><code class="language-bash">cargo bootimage --release
-</code></pre>
-<p>This command will create a <code>target/target/release</code> directory in which you'll find the <code>bootimage-hlkernel.bin</code> binary file.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="core-structure"><a class="header" href="#core-structure">Core structure</a></h1>
-<h2 id="prompt-input"><a class="header" href="#prompt-input">Prompt input</a></h2>
-<p>Current buffer can be interrupted by pressing <kbd>F1</kbd>.</p>
-<p>The shell keeps a history of all commands executed.<br>History can be browsed with the <code>history</code> command or <kbd>↑</kbd> and <kbd>↓</kbd> keys.</p>
-<h2 id="command-return-codes"><a class="header" href="#command-return-codes">Command return codes</a></h2>
-<ul>
-<li><code>0</code>  &gt;  executed successfully</li>
-<li><code>1</code>  &gt;  "silent" return code - doesn't show the message</li>
-<li><code>2</code>  &gt;  returned general error (minor)</li>
-<li><code>3</code>  &gt;  returned critical error (could not recover)</li>
-<li><code>4</code>  &gt;  returned user error (ex. incorrect input)</li>
-</ul>
-<h2 id="colors"><a class="header" href="#colors">Colors</a></h2>
-<p><strong>Currently available colors (user):</strong></p>
-<ul>
-<li><code>black</code></li>
-<li><code>blue</code></li>
-<li><code>green</code></li>
-<li><code>cyan</code></li>
-<li><code>red</code></li>
-<li><code>magenta</code></li>
-<li><code>brown</code></li>
-<li><code>lightgray</code></li>
-<li><code>lightgreen</code></li>
-<li><code>lightcyan</code></li>
-<li><code>lightred</code></li>
-<li><code>yellow</code></li>
-<li><code>white</code></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="built-in-commands"><a class="header" href="#built-in-commands">Built-in commands</a></h1>
-<ul>
-<li><code>clrs</code>  &gt;  clears the screen</li>
-<li><code>help</code>  &gt;  shows the list of built-in commands</li>
-<li><code>test</code>  &gt;  this one always returns <code>2</code> (see <a href="https://github.com/adamperkowski/highlightos/wiki/core#return-codes">return codes</a>)</li>
-<li><code>cc</code>  &gt;  displays copyright info (see <a href="https://github.com/adamperkowski/highlightos/blob/main/LICENSE">license</a>)</li>
-<li><code>getdoc [cmd]</code>  &gt;  displays a short summary of provided command</li>
-<li><code>chcolor [fg] [bg]</code>  &gt;  changes console text colors (see <a href="https://github.com/adamperkowski/highlightos/wiki/Core#currently-available-colors-user">available colors</a>)</li>
-</ul>
-<h2 id="debug-commands"><a class="header" href="#debug-commands">DEBUG commands:</a></h2>
-<ul>
-<li><code>crash_kernel</code>  &gt;  <code>panic!</code>s the system</li>
-</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="highlightos.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="building.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -271,7 +198,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="highlightos.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="building.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -294,11 +227,6 @@
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>
