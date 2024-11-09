@@ -1,0 +1,278 @@
+/* Globals */
+
+:root {
+    --sidebar-width: 300px;
+    --sidebar-resize-indicator-width: 8px;
+    --sidebar-resize-indicator-space: 2px;
+    --page-padding: 15px;
+    --content-max-width: 750px;
+    --menu-bar-height: 50px;
+    --mono-font: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace;
+    --code-font-size: 0.875em /* please adjust the ace font size accordingly in editor.js */
+}
+
+::selection {
+    background: #355c7d;
+    color: #ffffff;
+}
+
+/* Themes */
+
+.highlight {
+    --bg: #131516;
+    --fg: #98a3ad;
+
+    --sidebar-bg: #191b1c;
+    --sidebar-fg: #a1adb8;
+    --sidebar-non-existant: #505254;
+    --sidebar-active: #ffb454;
+    --sidebar-spacer: #393939;
+
+    --scrollbar: var(--sidebar-fg);
+
+    --icons: #43484d;
+    --icons-hover: #b3c0cc;
+
+    --links: #ba843f;
+
+    --inline-code-color: #c5c8c6;
+
+    --theme-popup-bg: #141617;
+    --theme-popup-border: #43484d;
+    --theme-hover: #1f2124;
+
+    --quote-bg: hsl(234, 21%, 18%);
+    --quote-border: hsl(234, 21%, 23%);
+
+    --warning-border: #ff8e00;
+
+    --table-border-color: hsl(200, 7%, 13%);
+    --table-header-bg: hsl(200, 7%, 28%);
+    --table-alternate-bg: hsl(200, 7%, 11%);
+
+    --searchbar-border-color: #aaa;
+    --searchbar-bg: #b7b7b7;
+    --searchbar-fg: #000;
+    --searchbar-shadow-color: #aaa;
+    --searchresults-header-fg: #666;
+    --searchresults-border-color: #98a3ad;
+    --searchresults-li-bg: #2b2b2f;
+    --search-mark-bg: #355c7d;
+
+    --color-scheme: dark;
+
+    /* Same as `--icons` */
+    --copy-button-filter: invert(26%) sepia(8%) saturate(575%) hue-rotate(169deg) brightness(87%) contrast(82%);
+    /* Same as `--sidebar-active` */
+    --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%) hue-rotate(167deg) brightness(98%) contrast(89%);
+}
+
+.highlight code {
+  color: #98a3ad;
+  background: #0a0c0c;
+}
+
+
+/* https://highlightjs.readthedocs.io/en/latest/css-classes-reference.html */
+.mocha.hljs {
+  color: #cdd6f4;
+  background: #1e1e2e;
+}
+.mocha .hljs-keyword {
+  color: #cba6f7;
+}
+.mocha .hljs-built_in {
+  color: #f38ba8;
+}
+.mocha .hljs-type {
+  color: #f9e2af;
+}
+.mocha .hljs-literal {
+  color: #fab387;
+}
+.mocha .hljs-number {
+  color: #fab387;
+}
+.mocha .hljs-operator {
+  color: #89dceb;
+}
+.mocha .hljs-punctuation {
+  color: #bac2de;
+}
+.mocha .hljs-property {
+  color: #94e2d5;
+}
+.mocha .hljs-regexp {
+  color: #f5c2e7;
+}
+.mocha .hljs-string {
+  color: #a6e3a1;
+}
+.mocha .hljs-char.escape_ {
+  color: #a6e3a1;
+}
+.mocha .hljs-subst {
+  color: #a6adc8;
+}
+.mocha .hljs-symbol {
+  color: #f2cdcd;
+}
+.mocha .hljs-variable {
+  color: #cba6f7;
+}
+.mocha .hljs-variable.language_ {
+  color: #cba6f7;
+}
+.mocha .hljs-variable.constant_ {
+  color: #fab387;
+}
+.mocha .hljs-title {
+  color: #89b4fa;
+}
+.mocha .hljs-title.class_ {
+  color: #f9e2af;
+}
+.mocha .hljs-title.function_ {
+  color: #89b4fa;
+}
+.mocha .hljs-params {
+  color: #cdd6f4;
+}
+.mocha .hljs-comment {
+  color: #9399b2;
+}
+.mocha .hljs-doctag {
+  color: #f38ba8;
+}
+.mocha .hljs-meta {
+  color: #fab387;
+}
+.mocha .hljs-section {
+  color: #89b4fa;
+}
+.mocha .hljs-tag {
+  color: #94e2d5;
+}
+.mocha .hljs-name {
+  color: #cba6f7;
+}
+.mocha .hljs-attr {
+  color: #89b4fa;
+}
+.mocha .hljs-attribute {
+  color: #a6e3a1;
+}
+.mocha .hljs-bullet {
+  color: #94e2d5;
+}
+.mocha .hljs-code {
+  color: #a6e3a1;
+}
+.mocha .hljs-emphasis {
+  color: #f38ba8;
+  font-style: italic;
+}
+.mocha .hljs-strong {
+  color: #f38ba8;
+  font-weight: bold;
+}
+.mocha .hljs-formula {
+  color: #94e2d5;
+}
+.mocha .hljs-link {
+  color: #74c7ec;
+  font-style: italic;
+}
+.mocha .hljs-quote {
+  color: #a6e3a1;
+  font-style: italic;
+}
+.mocha .hljs-selector-tag {
+  color: #f9e2af;
+}
+.mocha .hljs-selector-id {
+  color: #89b4fa;
+}
+.mocha .hljs-selector-class {
+  color: #94e2d5;
+}
+.mocha .hljs-selector-attr {
+  color: #cba6f7;
+}
+.mocha .hljs-selector-pseudo {
+  color: #94e2d5;
+}
+.mocha .hljs-template-tag {
+  color: #f2cdcd;
+}
+.mocha .hljs-template-variable {
+  color: #f2cdcd;
+}
+.mocha .hljs-addition {
+  color: #a6e3a1;
+  background: rgba(166, 227, 161, 0.15);
+}
+.mocha .hljs-deletion {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.15);
+}
+.mocha code {
+  color: #cdd6f4;
+  background: #181825;
+}
+.mocha blockquote blockquote {
+  border-top: 0.1em solid #585b70;
+  border-bottom: 0.1em solid #585b70;
+}
+.mocha hr {
+  border-color: #585b70;
+  border-style: solid;
+}
+.mocha del {
+  color: #9399b2;
+}
+.mocha .ace_gutter {
+  color: #7f849c;
+  background: #181825;
+}
+.mocha .ace_gutter-active-line.ace_gutter-cell {
+  color: #f5c2e7;
+  background: #181825;
+}
+.mocha .tooltiptext {
+  background: #181825;
+  color: #cdd6f4;
+}
+
+.mocha {
+  --bg: #1e1e2e;
+  --fg: #cdd6f4;
+  --sidebar-bg: #181825;
+  --sidebar-fg: #cdd6f4;
+  --sidebar-non-existant: #6c7086;
+  --sidebar-active: #89b4fa;
+  --sidebar-spacer: #6c7086;
+  --scrollbar: #6c7086;
+  --icons: #6c7086;
+  --icons-hover: #7f849c;
+  --links: #89b4fa;
+  --inline-code-color: #fab387;
+  --theme-popup-bg: #181825;
+  --theme-popup-border: #6c7086;
+  --theme-hover: #313244;
+  --quote-bg: #181825;
+  --quote-border: #11111b;
+  --table-border-color: #313244;
+  --table-header-bg: #181825;
+  --table-alternate-bg: #181825;
+  --searchbar-border-color: #313244;
+  --searchbar-bg: #181825;
+  --searchbar-fg: #cdd6f4;
+  --searchbar-shadow-color: #11111b;
+  --searchresults-header-fg: #cdd6f4;
+  --searchresults-border-color: #313244;
+  --searchresults-li-bg: #1e1e2e;
+  --search-mark-bg: #fab387;
+  --warning-border: #fab387;
+  --color-scheme: dark;
+}
