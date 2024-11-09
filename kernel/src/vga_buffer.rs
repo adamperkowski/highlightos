@@ -161,10 +161,7 @@ impl Writer {
                     color_code,
                 });
                 self.column_position += 1;
-
-                if self.column_position < BUFFER_WIDTH {
-                    self.update_cursor();
-                }
+                self.update_cursor();
             }
         }
     }
@@ -193,7 +190,7 @@ impl Writer {
     fn clear_row(&mut self, row: usize) {
         let blank = ScreenChar {
             ascii_character: b' ',
-            color_code: self.color_code,
+            color_code: ColorCode::new(Color::White, Color::Black),
         };
         for col in 0..BUFFER_WIDTH {
             self.buffer.chars[row][col].write(blank);
@@ -223,12 +220,14 @@ impl Writer {
     pub fn decrement_column_position(&mut self) {
         if self.column_position > 0 {
             self.column_position -= 1;
+            self.update_cursor();
         }
     }
 
     pub fn increment_column_position(&mut self) {
         if self.column_position < BUFFER_WIDTH - 1 {
             self.column_position += 1;
+            self.update_cursor();
         }
     }
 
