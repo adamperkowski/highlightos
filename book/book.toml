@@ -1,0 +1,17 @@
+[book]
+authors = ["Adam Perkowski"]
+language = "en"
+multilingual = false
+src = "src"
+title = "HighlightOS"
+
+[output.html]
+cname = "os.adamperkowski.dev"
+#default-theme = "colibri"
+#preferred-dark-theme = "colibri"
+git-repository-url = "https://github.com/adamperkowski/highlightos"
+edit-url-template = "https://github.com/adamperkowski/highlightos/edit/master/book/{path}"
+#additional-css = ["custom.css"]
+
+[output.html.search]
+use-boolean-and = true
