@@ -165,7 +165,10 @@ impl Writer {
                     color_code,
                 });
                 self.column_position += 1;
-                self.update_cursor();
+
+                if self.column_position < BUFFER_WIDTH {
+                    self.update_cursor();
+                }
             }
         }
     }
