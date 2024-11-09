@@ -4,9 +4,10 @@
 
 x86_64 OS (kernel) made completely from scratch in Assembly & Rust
 
-[![README in English](https://img.shields.io/badge/EN-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
-[![README in Polish](https://img.shields.io/badge/PL-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
-[![README in Italian](https://img.shields.io/badge/IT-%F0%9F%87%AE%F0%9F%87%B9-blue?color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/README-it.md)
+[![README in English](https://img.shields.io/badge/EN-%F0%9F%87%AC%F0%9F%87%A7-blue?color=%23ffb454&labelColor=%230a0c0c)](https://github.com/adamperkowski/highlightos/blob/main/README.md)
+[![README in Polish](https://img.shields.io/badge/PL-%F0%9F%87%B5%F0%9F%87%B1-blue?color=%23ffb454&labelColor=%230a0c0c)](https://github.com/adamperkowski/highlightos/blob/main/README-pl.md)
+[![README in Italian](https://img.shields.io/badge/IT-%F0%9F%87%AE%F0%9F%87%B9-blue?color=%23ffb454&labelColor=%230a0c0c)](https://github.com/adamperkowski/highlightos/blob/main/README-it.md)
+[![Documentation](https://img.shields.io/badge/Documentation-%F0%9F%8C%84-blue?color=%23ffb454&labelColor=%230a0c0c)](https://os.adamperkowski.dev)
 
 [![GitHub Release](https://img.shields.io/github/v/release/adamperkowski/highlightos?label=Latest%20Released%20Version&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/releases)
 [![GitHub License](https://img.shields.io/github/license/adamperkowski/highlightos?label=License&color=%23ffcc4d&labelColor=%23000000)](https://github.com/adamperkowski/highlightos/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/adamperkowski/highlightos?label=Repo%20Size&color=%23ffcc4d&labelColor=%23000000)
@@ -108,6 +109,8 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 
 <!-- contributing -->
 ## Appendix
+
+[![Documentation](https://img.shields.io/badge/Documentation-%F0%9F%8C%84-blue?color=%23ffb454&labelColor=%230a0c0c)](https://os.adamperkowski.dev)
 
 ### Development status
 https://github.com/user-attachments/assets/663e8477-4275-411b-a39a-c12e54096ad8
