@@ -110,7 +110,7 @@ dd if=<your_binary_filename>.bin of=/dev/sdX && sync
 ## Appendice
 
 ### Stato dello sviluppo
-https://github.com/user-attachments/assets/f07cad18-845f-4457-a72a-a9bb4d3f6074
+https://github.com/user-attachments/assets/663e8477-4275-411b-a39a-c12e54096ad8
 
 ### Altre info
 **Sai che abbiamo un canale IRC? È `#highlightos` su [libera.chat](https://libera.chat).**
