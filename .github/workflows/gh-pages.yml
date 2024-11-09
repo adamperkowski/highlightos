@@ -12,8 +12,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -23,17 +25,6 @@ jobs:
           mdbook-version: 'latest'
 
       - run: mdbook build book
-
-  deploy:
-    environment:
-      name: gh-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
 
       - name: Set output directory
         run: |
