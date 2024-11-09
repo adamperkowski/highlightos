@@ -132,6 +132,18 @@ pub struct Writer {
 }
 
 impl Writer {
+    fn update_cursor(&self) {
+        let pos = (BUFFER_HEIGHT - 1) * BUFFER_WIDTH + self.column_position;
+        unsafe {
+            let mut port = x86_64::instructions::port::Port::new(0x3D4);
+            port.write(0x0F as u8);
+            let mut data_port = x86_64::instructions::port::Port::new(0x3D5);
+            data_port.write((pos & 0xFF) as u8);
+            port.write(0x0E as u8);
+            data_port.write(((pos >> 8) & 0xFF) as u8);
+        }
+    }
+
     pub fn write_byte(&mut self, byte: u8) {
         match byte {
             b'\n' => self.new_line(),
@@ -149,6 +161,7 @@ impl Writer {
                     color_code,
                 });
                 self.column_position += 1;
+                self.update_cursor();
             }
         }
     }
@@ -171,6 +184,7 @@ impl Writer {
         }
         self.clear_row(BUFFER_HEIGHT - 1);
         self.column_position = 0;
+        self.update_cursor();
     }
 
     fn clear_row(&mut self, row: usize) {
@@ -188,6 +202,7 @@ impl Writer {
             self.clear_row(row);
         }
         self.column_position = 0;
+        self.update_cursor();
     }
 
     pub fn change_color(&mut self, fgc: Color, bgc: Color) {
