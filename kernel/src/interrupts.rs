@@ -123,14 +123,18 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     KeyCode::ArrowLeft => {
                         if unsafe { BUFFER_INDEX } > 0 {
                             WRITER.lock().decrement_column_position();
-                            unsafe { BUFFER_INDEX -= 1; }
+                            unsafe {
+                                BUFFER_INDEX -= 1;
+                            }
                         }
                     }
 
                     KeyCode::ArrowRight => {
                         if unsafe { BUFFER_INDEX } < BUFFER_SIZE {
                             WRITER.lock().increment_column_position();
-                            unsafe { BUFFER_INDEX += 1; }
+                            unsafe {
+                                BUFFER_INDEX += 1;
+                            }
                         }
                     }
 
