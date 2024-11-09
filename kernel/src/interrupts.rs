@@ -92,109 +92,112 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
         ));
     }
 
-    if unsafe { BUFFER_INDEX } < BUFFER_SIZE {
-        let mut keyboard = KEYBOARD.lock();
-        let mut port = Port::new(0x60);
+    let mut keyboard = KEYBOARD.lock();
+    let mut port = Port::new(0x60);
 
-        let scancode: u8 = unsafe { port.read() };
-        if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
-            if let Some(key) = keyboard.process_keyevent(key_event) {
-                match key {
-                    DecodedKey::Unicode(character) => {
-                        if character == '\u{8}' {
-                            // backspace
+    let scancode: u8 = unsafe { port.read() };
+    if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
+        if let Some(key) = keyboard.process_keyevent(key_event) {
+            match key {
+                DecodedKey::Unicode(character) => {
+                    if character == '\u{8}' {
+                        // backspace
+                        unsafe {
+                            if BUFFER_INDEX > 0 {
+                                BUFFER_INDEX -= 1;
+                                WRITER.lock().decrement_column_position();
+                                print!(" ");
+                                WRITER.lock().decrement_column_position();
+                            }
+                        }
+                    } else {
+                        unsafe {
+                            BUFFER[BUFFER_INDEX] = character;
+                            BUFFER_INDEX += 1;
+                        }
+                        print!("{}", character);
+                    }
+                }
+
+                DecodedKey::RawKey(key) => match key {
+                    KeyCode::ArrowLeft => {
+                        if unsafe { BUFFER_INDEX } > 0 {
+                            WRITER.lock().decrement_column_position();
+                            unsafe { BUFFER_INDEX -= 1; }
+                        }
+                    }
+
+                    KeyCode::ArrowRight => {
+                        if unsafe { BUFFER_INDEX } < BUFFER_SIZE {
+                            WRITER.lock().increment_column_position();
+                            unsafe { BUFFER_INDEX += 1; }
+                        }
+                    }
+
+                    KeyCode::F1 => {
+                        if unsafe { BUFFER_INDEX } > 0 {
+                            clear_buffer();
+                            print!("\n");
                             unsafe {
-                                if BUFFER_INDEX > 0 {
+                                BUFFER[BUFFER_INDEX] = '\n';
+                                BUFFER_INDEX += 1;
+                            }
+                        }
+                    }
+
+                    KeyCode::ArrowUp => {
+                        let mut cmd_history = CMD_HISTORY.lock();
+
+                        if cmd_history.history.len() > cmd_history.last {
+                            while unsafe { BUFFER_INDEX } > 0 {
+                                unsafe {
                                     BUFFER_INDEX -= 1;
                                     WRITER.lock().decrement_column_position();
                                     print!(" ");
                                     WRITER.lock().decrement_column_position();
                                 }
                             }
-                        } else {
-                            unsafe {
-                                BUFFER[BUFFER_INDEX] = character;
-                                BUFFER_INDEX += 1;
+
+                            for i in cmd_history.history[cmd_history.history.len() - cmd_history.last - 1].chars() {
+                                unsafe {
+                                    BUFFER[BUFFER_INDEX] = i;
+                                    BUFFER_INDEX += 1;
+                                }
+                                print!("{}", i);
                             }
-                            print!("{}", character);
+                            cmd_history.last += 1;
                         }
                     }
 
-                    DecodedKey::RawKey(key) => match key {
-                        KeyCode::F1 => {
-                            if unsafe { BUFFER_INDEX } > 0 {
-                                clear_buffer();
-                                print!("\n");
+                    KeyCode::ArrowDown => {
+                        let mut cmd_history = CMD_HISTORY.lock();
+
+                        if cmd_history.last > 1 {
+                            while unsafe { BUFFER_INDEX } > 0 {
                                 unsafe {
-                                    BUFFER[BUFFER_INDEX] = '\n';
+                                    BUFFER_INDEX -= 1;
+                                    WRITER.lock().decrement_column_position();
+                                    print!(" ");
+                                    WRITER.lock().decrement_column_position();
+                                }
+                            }
+
+                            cmd_history.last -= 1;
+
+                            for i in cmd_history.history[cmd_history.history.len() - cmd_history.last].chars() {
+                                unsafe {
+                                    BUFFER[BUFFER_INDEX] = i;
                                     BUFFER_INDEX += 1;
                                 }
+                                print!("{}", i);
                             }
                         }
+                    }
 
-                        KeyCode::ArrowUp => {
-                            let mut cmd_history = CMD_HISTORY.lock();
-
-                            if cmd_history.history.len() > cmd_history.last {
-                                while unsafe { BUFFER_INDEX } > 0 {
-                                    unsafe {
-                                        BUFFER_INDEX -= 1;
-                                        WRITER.lock().decrement_column_position();
-                                        print!(" ");
-                                        WRITER.lock().decrement_column_position();
-                                    }
-                                }
-
-                                for i in cmd_history.history[cmd_history.history.len() - cmd_history.last - 1].chars() {
-                                    unsafe {
-                                        BUFFER[BUFFER_INDEX] = i;
-                                        BUFFER_INDEX += 1;
-                                    }
-                                    print!("{}", i);
-                                }
-                                cmd_history.last += 1;
-                            }
-                        }
-
-                        KeyCode::ArrowDown => {
-                            let mut cmd_history = CMD_HISTORY.lock();
-
-                            if cmd_history.last > 1 {
-                                while unsafe { BUFFER_INDEX } > 0 {
-                                    unsafe {
-                                        BUFFER_INDEX -= 1;
-                                        WRITER.lock().decrement_column_position();
-                                        print!(" ");
-                                        WRITER.lock().decrement_column_position();
-                                    }
-                                }
-
-                                cmd_history.last -= 1;
-
-                                for i in cmd_history.history[cmd_history.history.len() - cmd_history.last].chars() {
-                                    unsafe {
-                                        BUFFER[BUFFER_INDEX] = i;
-                                        BUFFER_INDEX += 1;
-                                    }
-                                    print!("{}", i);
-                                }
-                            }
-                        }
-
-                        KeyCode::ArrowLeft => {
-                            #[cfg(debug_assertions)]
-                            WRITER.lock().decrement_column_position();
-                        }
-
-                        KeyCode::ArrowRight => {
-                            #[cfg(debug_assertions)]
-                            WRITER.lock().increment_column_position();
-                        }
-
-                        _ => {}
-                    },
-                }
+                    _ => {}
+                },
             }
+            WRITER.lock().update_cursor();
         }
     }
 
