@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    needs: deploy
+    if: always()
 
     steps:
       - uses: actions/checkout@v4
@@ -74,6 +76,6 @@ jobs:
 
       - name: Push the svg
         run: |
-          git add CONTRIBUTORS.svg
-          git commit -am "Update CONTRIBUTORS.svg"
-          git push --set-upstream origin gh-pages
+          git add CONTRIBUTORS.svg || true
+          git commit -am "update `CONTRIBUTORS.svg`" || true
+          git push --set-upstream origin gh-pages || true
