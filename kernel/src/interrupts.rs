@@ -131,23 +131,9 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                     } else {
                         unsafe {
                             if BUFFER_INDEX < BUFFER_SIZE {
-                                for i in (BUFFER_INDEX..BUFFER_SIZE - 1).rev() {
-                                    BUFFER[i + 1] = BUFFER[i];
-                                }
                                 BUFFER[BUFFER_INDEX] = character;
-
-                                let pos = WRITER.lock().get_column_position();
-                                for i in BUFFER_INDEX..BUFFER_SIZE {
-                                    if BUFFER[i] != 0 as char {
-                                        print!("{}", BUFFER[i]);
-                                    }
-                                }
-
+                                print!("{}", character);
                                 BUFFER_INDEX += 1;
-                                let new_pos = WRITER.lock().get_column_position();
-                                for _ in pos + 1..new_pos {
-                                    WRITER.lock().decrement_column_position();
-                                }
                             }
                         }
                     }
@@ -173,8 +159,10 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                             clear_buffer();
                             print!("\n");
                             unsafe {
-                                BUFFER[BUFFER_INDEX] = '\n';
-                                BUFFER_INDEX += 1;
+                                BUFFER_INDEX = 0;
+                                for i in 0..BUFFER_SIZE {
+                                    BUFFER[i] = 0 as char;
+                                }
                             }
                         }
                     }
