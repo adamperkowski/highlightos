@@ -104,39 +104,69 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                         // backspace
                         unsafe {
                             if BUFFER_INDEX > 0 {
+                                for i in BUFFER_INDEX..BUFFER_SIZE {
+                                    BUFFER[i - 1] = BUFFER[i];
+                                }
+                                BUFFER[BUFFER_SIZE - 1] = 0 as char;
                                 BUFFER_INDEX -= 1;
+
                                 WRITER.lock().decrement_column_position();
                                 print!(" ");
                                 WRITER.lock().decrement_column_position();
+
+                                let pos = WRITER.lock().get_column_position();
+                                for i in BUFFER_INDEX..BUFFER_SIZE {
+                                    if BUFFER[i] != 0 as char {
+                                        print!("{}", BUFFER[i]);
+                                    }
+                                }
+                                print!(" ");
+
+                                let new_pos = WRITER.lock().get_column_position();
+                                for _ in pos..new_pos {
+                                    WRITER.lock().decrement_column_position();
+                                }
                             }
                         }
                     } else {
                         unsafe {
-                            BUFFER[BUFFER_INDEX] = character;
-                            BUFFER_INDEX += 1;
+                            if BUFFER_INDEX < BUFFER_SIZE {
+                                for i in (BUFFER_INDEX..BUFFER_SIZE - 1).rev() {
+                                    BUFFER[i + 1] = BUFFER[i];
+                                }
+                                BUFFER[BUFFER_INDEX] = character;
+
+                                let pos = WRITER.lock().get_column_position();
+                                for i in BUFFER_INDEX..BUFFER_SIZE {
+                                    if BUFFER[i] != 0 as char {
+                                        print!("{}", BUFFER[i]);
+                                    }
+                                }
+
+                                BUFFER_INDEX += 1;
+                                let new_pos = WRITER.lock().get_column_position();
+                                for _ in pos + 1..new_pos {
+                                    WRITER.lock().decrement_column_position();
+                                }
+                            }
                         }
-                        print!("{}", character);
                     }
                 }
 
                 DecodedKey::RawKey(key) => match key {
-                    KeyCode::ArrowLeft => {
-                        if unsafe { BUFFER_INDEX } > 0 {
+                    KeyCode::ArrowLeft => unsafe {
+                        if BUFFER_INDEX > 0 {
+                            BUFFER_INDEX -= 1;
                             WRITER.lock().decrement_column_position();
-                            unsafe {
-                                BUFFER_INDEX -= 1;
-                            }
                         }
-                    }
+                    },
 
-                    KeyCode::ArrowRight => {
-                        if unsafe { BUFFER_INDEX } < BUFFER_SIZE {
+                    KeyCode::ArrowRight => unsafe {
+                        if BUFFER_INDEX < BUFFER_SIZE && BUFFER[BUFFER_INDEX] != 0 as char {
+                            BUFFER_INDEX += 1;
                             WRITER.lock().increment_column_position();
-                            unsafe {
-                                BUFFER_INDEX += 1;
-                            }
                         }
-                    }
+                    },
 
                     KeyCode::F1 => {
                         if unsafe { BUFFER_INDEX } > 0 {
