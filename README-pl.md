@@ -133,5 +133,7 @@ Po więcej informacji na temat HighlightOS, zapraszamy na nasze [wiki](https://g
 ### Przypisy
 *Niektóre części kodu były inspirowane [blog_os](https://github.com/phil-opp/blog_os). Świetny projekt!*
 
-*Polskie tłumaczenie: [Sebaguardian](https://github.com/Sebaguardian)*<br>
-*Copyleft 2024 Adam Perkowski*
+*Polskie tłumaczenie: [Sebaguardian](https://github.com/Sebaguardian)*
+
+### Copyright
+[Copyright &copy; 2024 Adam Perkowski](/README.md#copyright)
