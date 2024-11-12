@@ -132,7 +132,7 @@ pub struct Writer {
 }
 
 impl Writer {
-    fn update_cursor(&mut self) {
+    pub fn update_cursor(&mut self) {
         let pos = (BUFFER_HEIGHT - 1) * BUFFER_WIDTH + self.column_position;
         unsafe {
             let mut port = x86_64::instructions::port::Port::new(0x3D4);
@@ -142,10 +142,6 @@ impl Writer {
             port.write(0x0E_u8);
             data_port.write(((pos >> 8) & 0xFF) as u8);
         }
-        self.buffer.chars[BUFFER_HEIGHT - 1][self.column_position].write(ScreenChar {
-            ascii_character: b' ',
-            color_code: self.color_code,
-        });
     }
 
     pub fn write_byte(&mut self, byte: u8) {
@@ -165,10 +161,7 @@ impl Writer {
                     color_code,
                 });
                 self.column_position += 1;
-
-                if self.column_position < BUFFER_WIDTH {
-                    self.update_cursor();
-                }
+                self.update_cursor();
             }
         }
     }
@@ -197,7 +190,7 @@ impl Writer {
     fn clear_row(&mut self, row: usize) {
         let blank = ScreenChar {
             ascii_character: b' ',
-            color_code: self.color_code,
+            color_code: ColorCode::new(Color::White, Color::Black),
         };
         for col in 0..BUFFER_WIDTH {
             self.buffer.chars[row][col].write(blank);
@@ -225,12 +218,21 @@ impl Writer {
     }
 
     pub fn decrement_column_position(&mut self) {
-        self.column_position -= 1;
-        self.update_cursor();
+        if self.column_position > 0 {
+            self.column_position -= 1;
+            self.update_cursor();
+        }
     }
+
     pub fn increment_column_position(&mut self) {
-        self.column_position += 1;
-        self.update_cursor();
+        if self.column_position < BUFFER_WIDTH - 1 {
+            self.column_position += 1;
+            self.update_cursor();
+        }
+    }
+
+    pub fn get_column_position(&mut self) -> usize {
+        self.column_position
     }
 }
 
