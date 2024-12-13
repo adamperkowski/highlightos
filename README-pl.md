@@ -34,23 +34,19 @@ x86_64 System Operacyjny (kernel) zrobiony od zera w Assembly & Rust
  - [Rust toolchain](https://www.rust-lang.org/tools/install)
 
 **Kroki:**
- 1. Zainstaluj toolchain nightly:
+ 1. Upewnij się że `rustup` jest zainstalowany:
 ```bash
-rustup toolchain install nightly
+rustup --version
 ```
- 2. Zainstaluj potrzebne komponenty:
-```bash
-rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && rustup component add llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu && cargo install bootimage
-```
- 3. Stwórz lokalną kopię repozytorium:
+ 2. Stwórz lokalną kopię repozytorium:
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 4. Użyj `cd` do folderu `kernel/` :
+ 3. Użyj `cd` do folderu `kernel/`:
 ```bash
 cd kernel
 ```
- 5. Zbuduj bootowalny plik binarny :
+ 4. Zbuduj bootowalny plik binarny:
 ```bash
 cargo bootimage --release
 ```
@@ -66,7 +62,7 @@ cargo bootimage --release
 ```bash
 git clone git@github.com:adamperkowski/highlightos.git && cd highlightos
 ```
- 2. Użyj `cd` do folderu `asm/` :
+ 2. Użyj `cd` do folderu `asm/`:
 ```bash
 cd asm
 ```
