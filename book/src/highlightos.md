@@ -15,7 +15,7 @@ Keep in mind that this website is still a WIP.
 
 ## Copyright
 ```
-Copyright © 2024 Adam Perkowski
+Copyright © 2025 Adam Perkowski
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

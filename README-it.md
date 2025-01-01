@@ -132,4 +132,4 @@ Per scoprire di più, ti invitiamo a consultare la [wiki](https://github.com/ada
 *Traduzione in italiano a cura di/Italian translation by: [>franzageek<](https://github.com/franzageek)*<br>
 
 ### Copyright
-[Copyright &copy; 2024 Adam Perkowski](/README.md#copyright)
+[Copyright &copy; 2025 Adam Perkowski](/README.md#copyright)

@@ -131,7 +131,7 @@ To gain further information on HighlightOS, we invite you to visit the [wiki](ht
 
 ### Copyright
 ```
-Copyright © 2024 Adam Perkowski
+Copyright © 2025 Adam Perkowski
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

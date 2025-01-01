@@ -1,4 +1,4 @@
-; Copyright 2024 Adam Perkowski
+; Copyright 2025 Adam Perkowski
 ; Smol help from <franzageek>
 
 org 0x7c00
@@ -126,7 +126,7 @@ cls:
 
   ret                 ;return
 
-boot_msg: db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2024", 13, 10, " Adam Perkowski", 0
+boot_msg: db 13, 10, "HighlightOS v0.0.1", 13, 10, 10, " Copyright (C) 2025", 13, 10, " Adam Perkowski", 0
 nl: db 13, 10, 10, "hls <", 0
 buffer: times 255 db 0
 

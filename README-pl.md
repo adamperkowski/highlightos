@@ -132,4 +132,4 @@ Po więcej informacji na temat HighlightOS, zapraszamy na nasze [wiki](https://g
 *Polskie tłumaczenie: [Sebaguardian](https://github.com/Sebaguardian)*
 
 ### Copyright
-[Copyright &copy; 2024 Adam Perkowski](/README.md#copyright)
+[Copyright &copy; 2025 Adam Perkowski](/README.md#copyright)
