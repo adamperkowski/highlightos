@@ -10,7 +10,7 @@ cname = "os.adamperkowski.dev"
 default-theme = "highlight"
 preferred-dark-theme = "highlight"
 git-repository-url = "https://github.com/adamperkowski/highlightos"
-edit-url-template = "https://github.com/adamperkowski/highlightos/edit/master/book/{path}"
+edit-url-template = "https://github.com/adamperkowski/highlightos/edit/main/book/{path}"
 additional-css = ["./theme/custom.css"]
 
 [output.html.search]
