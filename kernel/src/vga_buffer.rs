@@ -232,6 +232,9 @@ impl Writer {
         self.column_position += 1;
         self.update_cursor();
     }
+    pub fn get_column_position(&mut self) -> usize {
+        self.column_position
+    }
 }
 
 impl fmt::Write for Writer {
