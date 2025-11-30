@@ -85,6 +85,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
         for arg in _args {
             if let Some(color) = STR_COLORS.iter().find(|&col| col.name == arg.replace("\n", "")) {
                 new_colors.push(color.color);
+
             } else {
                 WRITER
                     .lock()
@@ -93,6 +94,7 @@ fn chcolor(_args: Vec<&str>) -> i32 {
             }
         }
         WRITER.lock().change_color(new_colors[0], new_colors[1]);
+        WRITER.lock().clear_screen();
         0
     } else {
         WRITER.lock().print_colored(
@@ -111,6 +113,104 @@ pub fn cmd_hist(_args: Vec<&str>) -> i32 {
     }
 
     0
+}
+
+// Command to shutdown the system (now public)
+pub fn shutdown_command(_args: Vec<&str>) -> i32 {
+    println!("Shutting down system...");
+    
+    // Legacy shutdown methods
+    unsafe {
+        // ACPI method (PM1a port)
+        let mut port: x86_64::instructions::port::Port<u16> = x86_64::instructions::port::Port::new(0x604);
+        port.write(0x2000);
+        
+        // QEMU method
+        let mut port: x86_64::instructions::port::Port<u16> = x86_64::instructions::port::Port::new(0x604);
+        port.write(0x2000);
+        
+        // Bochs method
+        let mut port: x86_64::instructions::port::Port<u16> = x86_64::instructions::port::Port::new(0xB004);
+        port.write(0x2000);
+        
+        // VirtualBox method
+        let mut port: x86_64::instructions::port::Port<u16> = x86_64::instructions::port::Port::new(0x4004);
+        port.write(0x3400);
+    }
+    
+    println!("Could not shutdown system via hardware.");
+    println!("On real systems, this would power off the machine.");
+    0
+}
+
+// Command to reboot the system (now public)
+pub fn reboot_command(_args: Vec<&str>) -> i32 {
+    println!("Rebooting system...");
+    
+    // Reboot method via keyboard controller
+    unsafe {
+        use x86_64::instructions::port::Port;
+        
+        let mut port: Port<u8> = Port::new(0x64);
+        // Wait for buffer to be empty
+        for _ in 0..10000 {
+            if port.read() & 0x2 == 0 {
+                break;
+            }
+        }
+        port.write(0xFE);
+    }
+    
+    // Small delay
+    for _ in 0..1000000 {
+        x86_64::instructions::nop();
+    }
+    
+    println!("Could not reboot system via hardware.");
+    println!("On real systems, this would restart the machine.");
+    0
+}
+
+// Command to show current time
+pub fn time_command(_args: Vec<&str>) -> i32 {
+    unsafe {
+        if let Some(rtc) = &mut crate::RTC_CONTROLLER {
+            let datetime = rtc.read_datetime();
+            println!("Current time: {}", datetime.format_time());
+            0
+        } else {
+            println!("Error: RTC not initialized");
+            2
+        }
+    }
+}
+
+// Command to show current date
+pub fn date_command(_args: Vec<&str>) -> i32 {
+    unsafe {
+        if let Some(rtc) = &mut crate::RTC_CONTROLLER {
+            let datetime = rtc.read_datetime();
+            println!("Current date: {}", datetime.format_date());
+            0
+        } else {
+            println!("Error: RTC not initialized");
+            2
+        }
+    }
+}
+
+// Command to show full date and time
+pub fn datetime_command(_args: Vec<&str>) -> i32 {
+    unsafe {
+        if let Some(rtc) = &mut crate::RTC_CONTROLLER {
+            let datetime = rtc.read_datetime();
+            println!("Date and time: {}", datetime.format_full());
+            0
+        } else {
+            println!("Error: RTC not initialized");
+            2
+        }
+    }
 }
 
 #[cfg(debug_assertions)]
@@ -150,12 +250,6 @@ pub const COMMAND_LIST: &[Command] = &[
         doc: "display the documentation of selected command",
         fun: document,
     },
-    // Command {
-    //     name: "reinit",
-    //     args: "",
-    //     doc: "re-initialize the kernel",
-    //     fun: crate::init_kernel,
-    // },
     Command {
         name: "chcolor",
         args: "[fg] [bg]",
@@ -167,6 +261,44 @@ pub const COMMAND_LIST: &[Command] = &[
         args: "",
         doc: "display command history",
         fun: cmd_hist,
+    },
+    // Power management commands
+    Command {
+        name: "shutdown",
+        args: "",
+        doc: "shutdown the system",
+        fun: shutdown_command,
+    },
+    Command {
+        name: "reboot",
+        args: "",
+        doc: "reboot the system",
+        fun: reboot_command,
+    },
+    Command {
+        name: "poweroff",
+        args: "",
+        doc: "shutdown the system (alias for shutdown)",
+        fun: shutdown_command,
+    },
+    // RTC commands
+    Command {
+        name: "time",
+        args: "",
+        doc: "show current time",
+        fun: time_command,
+    },
+    Command {
+        name: "date",
+        args: "",
+        doc: "show current date",
+        fun: date_command,
+    },
+    Command {
+        name: "datetime",
+        args: "",
+        doc: "show full date and time",
+        fun: datetime_command,
     },
     #[cfg(debug_assertions)]
     Command {

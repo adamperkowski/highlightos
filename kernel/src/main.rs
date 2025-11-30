@@ -19,12 +19,101 @@ use hlkernel::{
 mod cmd;
 use cmd::COMMAND_LIST;
 
+// Add RTC module
+mod rtc;
+
+// Global variables
+static mut ACPI_CONTROLLER: Option<AcpiController> = None;
+static mut RTC_CONTROLLER: Option<rtc::Rtc> = None;
+
 entry_point!(kernel_main);
 
 struct RtrType {
     code: &'static i32,
     info: &'static str,
     color: Color,
+}
+
+// Simple structure for ACPI
+struct AcpiController;
+
+impl AcpiController {
+    pub unsafe fn new() -> Self {
+        Self
+    }
+    
+    pub fn shutdown(&mut self) {
+        // Call the public shutdown function
+        cmd::shutdown_command(vec![]);
+    }
+    
+    pub fn reboot(&mut self) {
+        // Call the public reboot function
+        cmd::reboot_command(vec![]);
+    }
+}
+
+pub fn started_colors() {
+    WRITER.lock().print_colored(
+        format!("\naA"),
+        Color::Blue,
+        Color::Blue,
+    );
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Pink,
+        Color::Pink,
+    );
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Red,
+        Color::Red,
+    );
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Green,
+        Color::Green,
+    );
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Yellow,
+        Color::Yellow,
+    );
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::LightBlue,
+        Color::LightBlue,
+    );
+
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Magenta,
+        Color::Magenta,
+    );
+
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Cyan,
+        Color::Cyan,
+    );
+
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Brown,
+        Color::Brown,
+    );
+
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Blue,
+        Color::Blue,
+    );
+
+    WRITER.lock().print_colored(
+        format!("aA"),
+        Color::Blue,
+        Color::Blue,
+    );
 }
 
 pub fn init_kernel(boot_info: &'static BootInfo) {
@@ -43,21 +132,36 @@ pub fn init_kernel(boot_info: &'static BootInfo) {
 
     hlkernel::init();
 
+    // Initialize ACPI controller
+    unsafe {
+        ACPI_CONTROLLER = Some(AcpiController::new());
+    }
+
+    // Initialize RTC
+    unsafe {
+        RTC_CONTROLLER = Some(rtc::Rtc::new());
+    }
+
     #[cfg(debug_assertions)]
     WRITER.lock().print_colored(
-        format!("\nHighlightOS v{} DEBUG", env!("CARGO_PKG_VERSION")),
+        format!("\nHighlightOS v{} *DEBUG*", env!("CARGO_PKG_VERSION")),
         Color::Black,
         Color::Yellow,
     );
 
     #[cfg(not(debug_assertions))]
     WRITER.lock().print_colored(
-        format!("\nHighlightOS v{}", env!("CARGO_PKG_VERSION")),
+        format!("\n                 HighlightOS v{}", env!("CARGO_PKG_VERSION")),
         Color::Black,
         Color::Yellow,
     );
+    WRITER.lock().print_colored(
+        format!("\n Documentation: https://os.adamperkowski.dev"),
+        Color::Cyan,
+        Color::Black
+    );
 
-    print!("\n\nhls < ");
+    print!("\n\nhls > ");
 }
 
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
@@ -86,9 +190,9 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                         if let Some(return_code) = RTR_LIST.iter().find(|&rtr_t| rtr_t.code == &rtr) {
                             println!("\n > {}", req_com);
                             WRITER.lock().print_colored(
-                                format!("{} : {}\n\n", rtr, return_code.info),
+                                format!("{}:{}\n\n", rtr, return_code.info),
                                 return_code.color,
-                                Color::Black, // Color::None ??
+                                Color::Black,
                             );
                         } else {
                             println!("\n > {}\nreturned : {}\n", req_com, rtr);
@@ -96,7 +200,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                     }
                 } else {
                     WRITER.lock().print_colored(
-                        format!("\n > {}\ncommand not found\n\n", input),
+                        format!("\n > hls: command not found: {}\n", input),
                         Color::LightRed,
                         Color::Black,
                     );
@@ -112,7 +216,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
                 }
             }
 
-            print!("hls < ");
+            print!("hls > ");
         }
     }
 }
